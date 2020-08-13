@@ -1,0 +1,21 @@
+{
+  "env": {
+    "browser": true,
+    "es2020": true
+  },
+  "extends": ["airbnb-base"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 11,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "no-console": [
+      "warn",
+      {
+        "allow": ["oldInfo", "info", "oldWarn", "warn", "oldError", "error"]
+      }
+    ]
+  }
+}
