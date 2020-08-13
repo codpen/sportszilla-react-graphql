@@ -1,6 +1,8 @@
 import React from 'react';
 import logo from '../../Images/logo.svg';
 import './Main.scss';
+import Board from '../Board/Board';
+import Footer from '../Footer/Footer';
 
 function Main() {
   return (
@@ -19,6 +21,14 @@ function Main() {
           Learn React
         </a>
       </header>
+
+      <main>
+        <Board />
+      </main>
+
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }
