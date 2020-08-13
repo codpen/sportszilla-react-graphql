@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/noiffion/SportsZilla/issues"
   },
-  "homepage": "https://github.com/noiffion/SportsZilla#readme"
+  "homepage": "https://github.com/noiffion/SportsZilla#readme",
+  "devDependencies": {
+    "typescript": "^3.9.7"
+  }
 }
