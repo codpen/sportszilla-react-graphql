@@ -15,5 +15,5 @@ app.use('*', cors());
 server.applyMiddleware({ app, path: '/graphql' });
 
 app.listen({ port: 8000 }, () => {
-  console.log('Apollo Server on http://localhost:8000/graphql');
+  console.info('Apollo Server on http://localhost:8000/graphql');
 });
