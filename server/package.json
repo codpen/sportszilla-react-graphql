@@ -6,7 +6,8 @@
   "scripts": {
     "start": "./node_modules/.bin/nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint . --ext .ts"
+    "lint": "eslint . --ext .ts",
+    "pretty": "./node_modules/.bin/prettier --write './**/*.{ts,json,md}'"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "graphql-import-node": "0.0.4",
     "graphql-tools": "^6.0.18",
     "nodemon": "^2.0.4",
+    "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
     "ts-node-dev": "^1.0.0-pre.57",
     "typescript": "^3.9.7"
