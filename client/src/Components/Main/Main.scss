@@ -1,0 +1,27 @@
+.Main {
+  text-align: center;
+}
+
+.Main-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .Main-logo {
+    animation: Main-logo-spin infinite 20s linear;
+  }
+}
+
+.Main-link {
+  color: #61dafb;
+}
+
+@keyframes Main-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
