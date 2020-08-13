@@ -4,6 +4,7 @@
   "description": "TS-Express-GraphQL",
   "main": "src/server.ts",
   "scripts": {
+    "start": "./node_modules/.bin/nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
