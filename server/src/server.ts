@@ -7,13 +7,13 @@ import { BookResolver } from './resolvers/BookResolver';
 dotenv.config();
 const { PORT } = process.env;
 
-async function main() {
+async function startServer() {
   const schema = await buildSchema({
-    resolvers: [BookResolver], // add this
+    resolvers: [BookResolver],
   });
   const server = new ApolloServer({ schema });
   server.listen(PORT)
     .then(() => console.info(`Server has started on port: ${PORT}!`));
 }
 
-main();
+startServer();
