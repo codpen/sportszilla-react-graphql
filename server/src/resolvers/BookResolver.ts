@@ -3,7 +3,7 @@ import { Resolver, Query } from 'type-graphql';
 @Resolver()
 export class BookResolver {
   @Query(() => String)
-  hello() {
-    return 'world';
+  hello(blabla: boolean) {
+    return blabla ? 'yes' : 'no';
   }
 }
