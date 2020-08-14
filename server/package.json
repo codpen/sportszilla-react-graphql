@@ -40,7 +40,10 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "apollo-server": "^2.16.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.0.0-rc.3"
   }
 }
