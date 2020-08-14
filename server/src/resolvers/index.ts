@@ -1,6 +1,6 @@
 import { IResolvers } from 'graphql-tools';
 
-let links = [
+const links = [
   {
     id: 'link-0',
     url: 'www.howtographql.com',
@@ -20,7 +20,6 @@ const resolvers: IResolvers = {
         url: args.url,
       };
       links.push(link);
-      console.log(links);
       return link;
     },
   },
