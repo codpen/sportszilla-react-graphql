@@ -16,6 +16,7 @@
       {
         "allow": ["oldInfo", "info", "oldWarn", "warn", "oldError", "error"]
       }
-    ]
+    ],
+    "no-plusplus": "off"
   }
 }

@@ -1,19 +1,16 @@
-import express from 'express';
-import { ApolloServer } from 'apollo-server-express';
-import cors from 'cors';
-import schema from './schema';
+import 'reflect-metadata';
+import { ApolloServer } from 'apollo-server';
+import { buildSchema } from 'type-graphql';
 
-const app = express();
+import { BookResolver } from './resolvers/BookResolver';
 
-const server = new ApolloServer({
-  schema,
-  playground: true,
-});
+async function main() {
+  const schema = await buildSchema({
+    resolvers: [BookResolver], // add this
+  });
+  const server = new ApolloServer({ schema });
+  await server.listen(4000);
+  console.info('Server has started!');
+}
 
-app.use('*', cors());
-
-server.applyMiddleware({ app, path: '/graphql' });
-
-app.listen({ port: 8000 }, () => {
-  console.info('Apollo Server on http://localhost:8000/graphql');
-});
+main();
