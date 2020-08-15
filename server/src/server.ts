@@ -8,6 +8,12 @@ import { BookResolver } from './resolvers/BookResolver';
 import User from './models/user.model';
 
 dotenv.config();
+
+/**
+* test read a dota .env file
+* read the file and return the value
+*/
+
 const {
   PORT, DB_NAME, DB_PSWD, DB_PORT,
 } = process.env;
@@ -26,8 +32,10 @@ async function startServer() {
   const schema = await buildSchema({
     resolvers: [BookResolver],
   });
-  const server = new ApolloServer({ schema });
-  server.listen(PORT)
+
+  const apolloServer = new ApolloServer({ schema });
+
+  apolloServer.listen(PORT)
     .then(() => {
       // CREATE TABLE IF NOT EXISTS
       User.sync({ force: false }).then(() => {
@@ -40,5 +48,9 @@ async function startServer() {
       console.info(`Server has started on port: ${PORT}!`);
     });
 }
-
+/**
+ * testing startServer
+ * create db_url try to create instance of class Sequelize withcreated db_url.
+ * 
+ */
 startServer();

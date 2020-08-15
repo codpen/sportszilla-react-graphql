@@ -4,6 +4,7 @@
   "description": "TS-Express-GraphQL",
   "main": "src/server.ts",
   "scripts": {
+    "_comment1": "start: nodemon --exec ts-node src/server.ts",
     "start": "./node_modules/.bin/nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
@@ -35,6 +36,7 @@
     "eslint": "^7.6.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
+    "jest": "^26.4.0",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5",
     "ts-node": "^8.10.2",
