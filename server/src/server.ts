@@ -5,7 +5,6 @@ import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
 import BookResolver from './resolvers/UserResolver';
-import User from './models/user.model';
 
 dotenv.config();
 
@@ -36,17 +35,7 @@ async function startServer() {
   const apolloServer = new ApolloServer({ schema });
 
   apolloServer.listen(PORT)
-    .then(() => {
-      // CREATE TABLE IF NOT EXISTS
-      User.sync({ force: false }).then(() => {
-        User.create({ firstName: 'X', lastName: 'Y', birthday: new Date() });
-      });
-      User
-        .findOne()
-        .then((user) => console.log(user));
-
-      console.info(`Server has started on port: ${PORT}!`);
-    });
+    .then(() => console.info(`Server has started on port: ${PORT}!`));
 }
 /**
  * testing startServer
