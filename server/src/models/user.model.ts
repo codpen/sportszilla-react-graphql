@@ -6,16 +6,16 @@ import { ObjectType, Field, ID } from 'type-graphql';
 @Table
 @ObjectType()
 export default class User extends Model<User> {
-  @Field(() => String)
   @Column
+  @Field(() => String)
   firstName: string;
 
-  @Field(() => String)
   @Column
+  @Field(() => String)
   lastName: string;
 
-  @Field(() => Date)
   @Column
+  @Field(() => Date)
   birthday: Date;
 
   /*

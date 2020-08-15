@@ -4,7 +4,7 @@ import { buildSchema } from 'type-graphql';
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
-import BookResolver from './resolvers/UserResolver';
+import UserResolver from './resolvers/UserResolver';
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ async function startServer() {
   }
 
   const schema = await buildSchema({
-    resolvers: [BookResolver],
+    resolvers: [UserResolver],
   });
 
   const apolloServer = new ApolloServer({ schema });
