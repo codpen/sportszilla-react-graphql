@@ -1,15 +1,20 @@
 import {
   Table, Column, Model, HasMany,
 } from 'sequelize-typescript';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @Table
+@ObjectType()
 export default class User extends Model<User> {
+  @Field(() => String)
   @Column
   firstName: string;
 
+  @Field(() => String)
   @Column
   lastName: string;
 
+  @Field(() => Date)
   @Column
   birthday: Date;
 

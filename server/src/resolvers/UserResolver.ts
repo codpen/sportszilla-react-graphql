@@ -2,7 +2,15 @@ import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import * as bcrypt from 'bcryptjs'
 import User from '../models/user.model'
 
+@Resolver()
+export default class UserResolver {
+  @Query(() => User)
+  getOneUser(@Arg('id') id: string) {
+    return User.findOne({ where: { id } })
+  }
+}
 
+/*
 @Resolver()
 export default class RegisterResolver {
   @Query(() => String)
@@ -29,3 +37,4 @@ export default class RegisterResolver {
     return user;
   }
 }
+*/
