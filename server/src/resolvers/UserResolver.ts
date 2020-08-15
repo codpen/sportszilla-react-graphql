@@ -1,6 +1,8 @@
+/* eslint-disable */
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import User from '../models/user.model';
-import UserDataInput from '../inputs/userData.input';
+import NewUser from '../inputs/NewUser.input';
+import UpdateUser from '../inputs/UpdateUser.input';
 
 @Resolver()
 export default class UserResolver {
@@ -14,43 +16,34 @@ export default class UserResolver {
   }
 
   @Mutation(() => User)
-  async newUser(@Arg('userData') userData: UserDataInput) {
+  async newUser(@Arg('userData') userData: NewUser) {
     try {
-      console.log(userData);
-      const user = await User.create(userData);
-      return user;
+      return User.create(userData);
     } catch (err) {
       console.error(err);
     }
+  }
 
+  @Mutation(() => User)
+  async updateUser(@Arg('id') id: number, @Arg('userData') userData: UpdateUser) {
+    try {
+      const user = await User.findOne({ where: { 'id': id } });
+      if (!user) throw new Error('User not found!');
+      return user.update(userData);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  @Mutation(() => Boolean)
+  async deleteUser(@Arg('id') id: number) {
+    try {
+      const user = await User.findOne({ where: { 'id': id } });
+      if (!user) throw new Error('User not found!');
+      await user.destroy();
+      return true;
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
-
-/*
-@Resolver()
-export default class RegisterResolver {
-  @Query(() => String)
-  async hello() {
-    return 'hello there';
-  }
-
-  @Mutation(() => String)
-  async register(
-    @Arg("firstName") firstName: string,
-    @Arg("lastName") lastName: string,
-    @Arg("email") email: string,
-    @Arg("password") password: string,
-  ): Promise <User> {
-    const hashedPassword = bcrypt.hash(password, 12);
-
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      password,
-    })
-
-    return user;
-  }
-}
-*/

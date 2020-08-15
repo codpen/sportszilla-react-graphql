@@ -15,6 +15,14 @@ export default class User extends Model<User> {
   lastName: string;
 
   @Column
+  @Field(() => String)
+  email: string;
+
+  @Column
+  @Field(() => String)
+  password: string;
+
+  @Column
   @Field(() => Date)
   birthday: Date;
 
