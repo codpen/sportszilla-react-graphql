@@ -4,7 +4,7 @@ import { buildSchema } from 'type-graphql';
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
-import BookResolver from './resolvers/BookResolver';
+import BookResolver from './resolvers/UserResolver';
 import User from './models/user.model';
 
 dotenv.config();

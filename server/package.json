@@ -4,7 +4,6 @@
   "description": "TS-Express-GraphQL",
   "main": "src/server.ts",
   "scripts": {
-    "_comment1": "start: nodemon --exec ts-node src/server.ts",
     "start": "./node_modules/.bin/nodemon",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
@@ -44,6 +43,7 @@
     "typescript": "^3.9.7"
   },
   "dependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "apollo-server": "^2.16.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
