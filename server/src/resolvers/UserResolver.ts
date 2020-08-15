@@ -13,7 +13,7 @@ export default class RegisterResolver{
     @Arg("lastName") lastName: string,
     @Arg("email") email: string,
     @Arg("password") password: string;
-  ){
+  ): Promise <User> {
     const hashedPassword = bcrypt.hash(password, 12);
     
     const user = User.create({
@@ -21,6 +21,8 @@ export default class RegisterResolver{
       lastName,
       email,
       password,
-    })
+    }).save();
+
+    return user;
   }
 }
