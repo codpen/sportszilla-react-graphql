@@ -4,7 +4,7 @@ import { buildSchema } from 'type-graphql';
 import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
-import { BookResolver } from './resolvers/BookResolver';
+import BookResolver from './resolvers/BookResolver';
 import User from './models/user.model';
 
 dotenv.config();
@@ -51,6 +51,13 @@ async function startServer() {
 /**
  * testing startServer
  * create db_url try to create instance of class Sequelize withcreated db_url.
- * 
+ * create instance of sequelize with db_url
+ * authenticate
+ * addModels
+ * create Schema
+ * run (server) instance of ApolloServer with schema
+ * server listen on port
+ * if no teable create a table
+ * run findone in database
  */
 startServer();
