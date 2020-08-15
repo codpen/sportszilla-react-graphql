@@ -1,5 +1,6 @@
 /* eslint-disable */
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
+import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
@@ -18,6 +19,9 @@ export default class UserResolver {
   @Mutation(() => User)
   async newUser(@Arg('userData') userData: NewUser) {
     try {
+      const { password } = userData;
+      const pswdHash = await bcrypt.hash(password, 10);
+      userData.password = pswdHash;
       return User.create(userData);
     } catch (err) {
       console.error(err);
@@ -29,6 +33,11 @@ export default class UserResolver {
     try {
       const user = await User.findOne({ where: { 'id': id } });
       if (!user) throw new Error('User not found!');
+      if (userData.password) {
+        const { password } = userData;
+        const pswdHash = await bcrypt.hash(password, 10);
+        userData.password = pswdHash;
+      }
       return user.update(userData);
     } catch (err) {
       console.error(err);
