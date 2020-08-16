@@ -8,24 +8,28 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import Profile from '../Profile/Profile';
+import Data from '../../mockData/data.json';
 
 interface PropTypes {
   boolProp: boolean;
 }
+
 function Main({ boolProp }: PropTypes): ReactElement {
-  const [numberProp, setNumberProp] = useState<number>(10);
-  const [stringProp, setStringProp] = useState<string>('text');
+  const [users, setUsers] = useState<object[]>([Data.users]);
+  const [events, setEvents] = useState<object[]>([Data.events]);
+  const [sport, setSport] = useState<object[]>([Data.sports]);
 
   return (
     <div className="Main">
       <header>
+        {console.log(users)}
         <Navbar />
       </header>
 
       <main>
         <Switch>
           <Route exact path="/board/">
-            <Board numberProp={numberProp} stringProp={stringProp} />
+            <Board />
           </Route>
           <Route path="/user/profile/">
             <Profile />

@@ -92,23 +92,23 @@
   ],
   "sports": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Tennis"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Football"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Basketball"
     },
     {
-      "id": "4",
+      "id": 4,
       "name": "Cycling"
     },
     {
-      "id": "5",
+      "id": 5,
       "name": "Badminton"
     }
   ]

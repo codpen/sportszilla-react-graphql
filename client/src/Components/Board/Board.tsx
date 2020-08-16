@@ -1,15 +1,10 @@
 import React from 'react';
 import styles from './Board.module.scss';
+import SportList from '../SportList/SportList';
 
-interface PropTypes {
-  numberProp: number;
-  stringProp: string;
-}
-const Board: React.FC<PropTypes> = ({ numberProp, stringProp }) => (
+const Board: React.FC = () => (
   <div className={styles.Board} data-testid="Board">
-    Board Component
-    <h1>{stringProp}</h1>
-    <h2>{numberProp}</h2>
+    <SportList />
   </div>
 );
 
