@@ -17,3 +17,16 @@ export default class NewUser {
   @Field()
   birthday: Date;
 }
+/**
+ * suggestions for the table-
+ * @Field
+ * userName: string,
+ * @Field
+ * interests: sting,
+ * @Field
+ * age: number,
+ * @Field
+ * location {'not sure if a sttring or {lat: string/number
+ *                                      lng: string/number}},
+ * 
+ */
