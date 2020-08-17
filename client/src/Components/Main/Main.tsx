@@ -22,8 +22,9 @@ function Main({ boolProp }: PropTypes): ReactElement {
   return (
     <div className="Main">
       <header>
-        {console.log(users)}
-        <Navbar />
+        <div className="NavbarContainer">
+          <Navbar />
+        </div>
       </header>
 
       <main>

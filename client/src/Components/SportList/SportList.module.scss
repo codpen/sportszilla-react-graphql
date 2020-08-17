@@ -1,5 +1,10 @@
+@import '../../Style/colors';
+
 .SportList {
   margin-top: 2rem;
   display: flex;
   justify-content: center;
+  background-color: $whiteBg;
+  flex-wrap: no-wrap;
+  width: 100%;
 }

@@ -11,7 +11,6 @@ const Navbar: React.FC = () => {
         <img className={styles.NavbarLeft_logo_img} src={logo} alt="logo" />
         <p className={styles.NavbarLeft_logo_name}>sportzilla</p>
       </Link>
-
       <div className={styles.NavbarRight}>
         <div>
           <Link className={styles.LoginLink} to="/login">
