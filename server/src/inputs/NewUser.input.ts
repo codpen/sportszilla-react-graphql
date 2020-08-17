@@ -12,7 +12,7 @@ export default class NewUser {
   email: string;
 
   @Field()
-  password: string;
+  passW: string;
 
   @Field()
   birthday: Date;
@@ -20,13 +20,8 @@ export default class NewUser {
 /**
  * suggestions for the table-
  * @Field
- * userName: string,
- * @Field
  * interests: sting,
- * @Field
- * age: number,
  * @Field
  * location {'not sure if a sttring or {lat: string/number
  *                                      lng: string/number}},
- * 
  */
