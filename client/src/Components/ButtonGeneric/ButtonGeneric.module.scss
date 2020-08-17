@@ -7,27 +7,35 @@
 
 .ButtonGeneric {
   margin: 1rem 1rem;
+  padding: 0.5rem;
   height: 2rem;
   width: auto;
   color: #f4f6ff;
   background-color: #cea820;
   font-family: 'Roboto', sans-serif;
   border: none;
-  letter-spacing: 2px;
+  letter-spacing: 0.2rem;
   text-transform: uppercase;
   font-size: 0.7rem;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 0.7rem;
+  box-shadow: 0rem 0.8rem 1.5rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.2rem;
   cursor: pointer;
   outline: none;
 }
 
 .ButtonGeneric:hover {
   background-color: #f3c623;
-  box-shadow: 0px 10px 12.5px #c09f27;
+  box-shadow: 0rem 1rem 1.25rem #c09f27;
   color: #10375c;
-  transform: translateY(-4px);
+  transform: translateY(-0.4rem);
+}
+
+button {
+  border: none;
+  background-color: rgba(0, 0, 0, 0);
+  outline: none;
+  cursor: pointer;
 }

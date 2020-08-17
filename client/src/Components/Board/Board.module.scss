@@ -1,1 +1,12 @@
-.Board {}
+.Board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(244, 246, 255, 0.9);
+  box-shadow: 2rem 2rem 2rem rgba(0, 0, 0, 0.7);
+  border-radius: 0.5rem;
+  margin-top: 15vh;
+  margin-left: 52vw;
+  max-width: 30rem;
+  max-height: 35rem;
+}

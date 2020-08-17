@@ -12,9 +12,9 @@ const SportList: React.FC = () => {
 
   const list = sport.map((sp) => {
     return (
-      <div>
+      <button>
         <Sport sport={sp} />
-      </div>
+      </button>
     );
   });
 

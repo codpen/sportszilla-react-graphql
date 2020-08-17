@@ -7,17 +7,19 @@ import logo from '../../Images/DinoLogo.svg';
 const Navbar: React.FC = () => {
   return (
     <div className={styles.Navbar} data-testid="Navbar">
-      <div className={styles.NavbarLeft}>
-        <Link to="/"></Link>
+      <Link className={styles.NavbarLeft} to="/">
         <img className={styles.NavbarLeft_logo_img} src={logo} alt="logo" />
         <p className={styles.NavbarLeft_logo_name}>sportzilla</p>
-      </div>
+      </Link>
+
       <div className={styles.NavbarRight}>
         <div>
-          <ButtonGeneric buttonText="register" buttonLink="/register" />
+          <Link className={styles.LoginLink} to="/login">
+            login
+          </Link>
         </div>
         <div>
-          <ButtonGeneric buttonText="login" buttonLink="/login" />
+          <ButtonGeneric buttonText="register" buttonLink="/register" />
         </div>
       </div>
     </div>

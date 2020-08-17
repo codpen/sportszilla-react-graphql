@@ -42,7 +42,6 @@ function Main({ boolProp }: PropTypes): ReactElement {
           </Route>
           <Redirect from="/" to="/board/" />
         </Switch>
-        <img src={logo} className="Main-logo" alt="logo" />
       </main>
 
       <footer>
