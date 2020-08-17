@@ -1,6 +1,5 @@
 import React, { useState, ReactElement } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
-import logo from '../../Images/logo.svg';
 import './Main.scss';
 import Navbar from '../Navbar/Navbar';
 import Board from '../Board/Board';
@@ -8,6 +7,7 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import Profile from '../Profile/Profile';
+
 import Data from '../../mockData/data.json';
 
 interface PropTypes {
@@ -43,10 +43,6 @@ function Main({ boolProp }: PropTypes): ReactElement {
           <Redirect from="/" to="/board/" />
         </Switch>
       </main>
-
-      <footer>
-        <Footer />
-      </footer>
     </div>
   );
 }
