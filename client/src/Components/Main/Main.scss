@@ -1,27 +1,147 @@
+html,
+body,
+#root,
+.App {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-image: url('../../Images/tennis.jpg');
+  background-size: cover; /* <------ */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: right;
+}
+
+header {
+  height: 8%;
+}
+
 .Main {
-  text-align: center;
+  width: 100%;
+  height: 100%;
 }
 
-.Main-logo {
-  height: 40vmin;
-  pointer-events: none;
+main {
+  background-image: url('../../Images/tennis.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .Main-logo {
-    animation: Main-logo-spin infinite 20s linear;
+.left {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+.right {
+  background-color: red;
+  width: 30%;
+  height: 100%;
+  border-top-left-radius: 100px 50%;
+  border-bottom-left-radius: 100px 50%;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+}
+
+.iconContainer {
+  margin-top: 30px;
+  height: 80px;
+  width: 100%;
+  background-color: rgba(250, 250, 250, 0.062);
+}
+
+.tableContainer {
+  margin-top: 50px;
+  width: 80%;
+}
+
+table.timecard {
+  border-collapse: collapse;
+  border: 1px solid #fff; /*for older IE*/
+  border-style: hidden;
+  color: #fff;
+  width: 80%;
+}
+
+table.timecard caption {
+  background-color: rgba(123, 145, 172, 0.062);
+  font-size: x-large;
+  font-weight: bold;
+  letter-spacing: 0.3em;
+  margin-left: -20px;
+}
+
+table.timecard thead th {
+  padding: 8px;
+  background-color: #fde9d9;
+  font-size: large;
+}
+
+table.timecard thead th#thRegular,
+table.timecard thead th#thOvertime,
+table.timecard thead th#thTotal {
+  width: 20%;
+}
+
+table.timecard th,
+table.timecard td {
+  padding: 3px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(123, 145, 172, 0.062);
+}
+
+table.timecard td {
+  text-align: right;
+}
+
+table.timecard tbody th {
+  text-align: left;
+  font-weight: normal;
+}
+
+table.timecard tr.even {
+  background-color: rgba(250, 250, 250, 0.062);
+}
+
+@media only screen and (max-width: 500px) {
+  main {
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
-}
-
-.Main-link {
-  color: #61dafb;
-}
-
-@keyframes Main-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .left {
+    height: 60%;
+    width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+  .right {
+    height: 40%;
+    width: 150%;
+    align-self: center;
+    border-top-right-radius: 100%;
+    border-top-left-radius: 300%;
+    border-bottom-left-radius: 0;
+  }
+  table.timecard {
+    margin: auto;
+    width: 80%;
+    border-collapse: collapse;
+    border: 1px solid #fff; /*for older IE*/
+    border-style: hidden;
+    color: #fff;
+  }
+
+  table.timecard caption {
+    font-size: x-large;
+    font-weight: bold;
+    white-space: nowrap;
   }
 }

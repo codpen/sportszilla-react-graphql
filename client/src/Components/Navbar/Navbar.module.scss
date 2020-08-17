@@ -1,1 +1,12 @@
-.Navbar {}
+.Navbar {
+  background-color: rgba(250, 250, 250, 0.062);
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  font-size: 30px;
+  color: white;
+  justify-content: space-between;
+  padding-left: 50px;
+  padding-right: 50px;
+  align-items: center;
+}

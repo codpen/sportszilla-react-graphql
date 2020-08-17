@@ -3,7 +3,8 @@ import styles from './Navbar.module.scss';
 
 const Navbar: React.FC = () => (
   <div className={styles.Navbar} data-testid="Navbar">
-    Navbar Component
+    <div>SportZilla</div>
+    <div>Login</div>
   </div>
 );
 
