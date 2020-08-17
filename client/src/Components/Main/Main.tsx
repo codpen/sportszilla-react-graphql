@@ -1,6 +1,6 @@
 import React, { useState, ReactElement } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
-import Apollo from '../Apollo/Apollo';
+import Apollo from '../ApolloClient/Apollo';
 import logo from '../../Images/logo.svg';
 import './Main.scss';
 import Navbar from '../Navbar/Navbar';
@@ -23,9 +23,9 @@ function Main({ boolProp }: PropTypes): ReactElement {
         <Navbar />
       </header>
 
-      <div>
+      <section>
         <Apollo />
-      </div>
+      </section>
 
       <main>
         <Switch>
