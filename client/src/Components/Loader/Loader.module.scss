@@ -11,13 +11,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-
-  .dots {
-    border: 10px solid rgba(0, 0, 0, 0.1);
-    border-top: 10px solid #008B8B;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1.2s linear infinite;
-  }
+  font-size: 60px;
+  color: steelblue;
 }

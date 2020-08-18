@@ -45,8 +45,8 @@ const Read: React.FC = () => {
     variables: { id: 1 },
   });
 
-  if (loading) return <Spinner boxHeight={400} />;
-  if (error) return <p>Oopsie: {error.message}</p>;
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <Loader boxHeight={400} />;//<p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
 
   return (
