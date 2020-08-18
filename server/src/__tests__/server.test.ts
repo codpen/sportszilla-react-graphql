@@ -31,9 +31,8 @@ describe('read .env file', () => {
 });
 
 describe('test function startServer', () => {
+  const DB_URL = 'test';
     test('if function startServer has DB_URL', async () => {
-    let result = await startServer();
-    console.log('Result', result);
-    expect(result).toBeDefined()}
-    )
+    expect(startServer()).toHaveProperty(DB_URL)
+    });
 })

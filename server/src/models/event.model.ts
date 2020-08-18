@@ -1,8 +1,8 @@
 import {
   Table, Column, Model, HasMany,
 } from 'sequelize-typescript';
-import { ObjectType, Field, ID } from 'type-graphql';
-import User from './user.model';
+import { ObjectType, Field } from 'type-graphql';
+// import User from './user.model';
 
 @Table
 @ObjectType()
@@ -21,7 +21,7 @@ export default class Event extends Model<Event> {
 
   @Column
   @Field(() => String)
-  date: string;
+  date: Date;
 
   @Column
   @Field(() => Boolean)

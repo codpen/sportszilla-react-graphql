@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import UserResolver from './resolvers/UserResolver';
 import EventResolver from './resolvers/EventResolver'
+import sportResolver from './resolvers/sportResolver';
 
 dotenv.config();
 
@@ -19,14 +20,14 @@ async function startServer() {
   try {
     await sequelize.authenticate();
     sequelize.addModels([path.join(__dirname, '/models/**/*.model.ts')]);
-    // sequelize.sync();
+    sequelize.sync({ force: true });
     console.info('Connected to Postgres.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
 
   const schema = await buildSchema({
-    resolvers: [UserResolver, EventResolver],
+    resolvers: [UserResolver, EventResolver, sportResolver],
     validate: false,
   });
 

@@ -1,5 +1,5 @@
 import { InputType, Field } from 'type-graphql';
-// import User from '../models/user.model'; 
+// import User from '../models/user.model';
 
 @InputType()
 export default class NewSportEvent {
@@ -13,7 +13,7 @@ export default class NewSportEvent {
   time: string;
 
   @Field()
-  date: string;
+  date: Date;
 
   @Field()
   indoor: boolean;
@@ -21,14 +21,14 @@ export default class NewSportEvent {
   @Field()
   availableSpots: number;
 
-//   @Field({ nullable: true })
-//   createdAt: string;
+  //   @Field({ nullable: true })
+  //   createdAt: string;
 
-//   @Field({ nullable: true })
-//   updatedAt: string;
+  //   @Field({ nullable: true })
+  //   updatedAt: string;
 
-//   @Field()
-//   playersAssigned: [User];
+  //   @Field()
+  //   playersAssigned: [User];
 
 //   @Field()
 //   location: {

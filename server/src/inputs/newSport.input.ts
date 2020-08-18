@@ -1,9 +1,9 @@
-import { InputType, Field } from "type-graphql";
+import { InputType, Field } from 'type-graphql';
 
 @InputType()
-export default class newSport {
+export default class NewSport {
   @Field()
-  sportEventName: String;
+  sportName: String;
 
   @Field()
   indoor: Boolean;

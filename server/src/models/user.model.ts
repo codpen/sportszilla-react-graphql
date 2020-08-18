@@ -2,6 +2,7 @@ import {
   Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, PrimaryKey, AutoIncrement, HasMany,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
+import Sport from './sport.model';
 
 @Table
 @ObjectType()
@@ -50,7 +51,14 @@ export default class User extends Model<User> {
   @Field(() => Date, { nullable: true })
   deletionDate: Date;
 
+  // @Column
+  // @Field(() => )
+  // favariteSports: Sport[];
+
+
+  /** query da tabala de usuarios  */
   /**
+  
    * create @Column @Field(() => [Sport])
    * favSports: Sportr []
    */
