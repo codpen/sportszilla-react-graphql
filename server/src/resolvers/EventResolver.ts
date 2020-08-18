@@ -6,13 +6,21 @@ import UpdateEvent from '../inputs/UpdateEvent.input';
 @Resolver()
 export default class EventResolver {
   @Query(() => Event)
-  async getOneEvent(@Arg('sportEventName') sportEventName: string) {
+  async getOneEvent(@Arg('ID') id: number ) {
     try {
-      return Event.findOne({ where: { sportEventName: sportEventName } });
+      return Event.findOne({ where: { 'ID': id } });  
     } catch (err) {
       console.error(err);
     }
   }
+
+  // @Query(() => Event)
+  // async getAllEvents(){
+  //   try {
+  //    return Event.findAll()  
+  //   } catch (error) {
+  //     console.error(error)
+  // }
 
   @Mutation(() => Event)
   async newEvent(@Arg('eventData') eventData: NewSportEvent) {
@@ -21,6 +29,17 @@ export default class EventResolver {
       return result;
     } catch (err) {
       console.error(err);
+    }
+  } 
+
+  @Mutation(() => Event)
+  async updateEvent(@Arg('ID') id: number, @Arg('eventData') eventData: UpdateEvent) {
+    try {
+     let event = await Event.findOne({ where: { 'ID': id } });
+      if (event !== null) {
+      return event.update(eventData)}
+    } catch (error) {
+      console.error(error)
     }
   }
 

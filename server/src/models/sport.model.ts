@@ -36,8 +36,4 @@ export default class Sport extends Model<Sport> {
   @UpdatedAt
   @Field(() => Date)
   updatedOn: Date;
-
-  @DeletedAt
-  @Field(() => Date, { nullable: true })
-  deletionDate: Date;
 }
