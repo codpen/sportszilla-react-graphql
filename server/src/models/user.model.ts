@@ -15,7 +15,7 @@ export default class User extends Model<User> {
   lastName: string;
 
   @Column
-  @Field(() => String)
+  @Field(() => String) // set unique to true
   email: string;
 
   @Column
@@ -25,6 +25,17 @@ export default class User extends Model<User> {
   @Column
   @Field(() => Date)
   birthday: Date;
+
+  /**
+ * suggestions for the table
+ * @Field()
+ * userName: string,
+ * @Field()
+ * interests: sting,
+ * @Field()
+ * location {'not sure if a sttring or {lat: string/number
+ *                                      lng: string/number}},
+ */
 
   /*
   @HasMany(() => Event)

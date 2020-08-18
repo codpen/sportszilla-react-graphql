@@ -1,35 +1,39 @@
 // import {startServer} from '../server'
+import server from '../server';
+// import { testEnvironment } from '../../jest.config';
+import startServer from '../server';
+
 const dotenv = require('dotenv');
-// import server from './server'
 
 // console.log(startServer);
 describe('read .env file', () => {
-const result = dotenv.config();
+  const result = dotenv.config();
+  if (result.error) {
+    throw result.error;
+  }
+  console.log(result.parsed);
+  dotenv.config({ path: '../env' });
+  test('GREET should be defined', () => expect(process.env.GREET).toBeDefined());
 
-if (result.error) {
-  throw result.error
-}
-console.log(result.parsed);
-dotenv.config({ path: '../env' });
-test('GREET should be defined', () => 
-expect(process.env.GREET).toBeDefined());
-// PORT=8000
-// DB_NAME=zoigrzyc
-// DB_PSWD=FuYdgIwbIKKx82NF4-9uk_aHze5zCaTq
-// DB_PORT=5432
-
-test('should have a PORT', () => {
+  test('should have a PORT', () => {
     expect(process.env.PORT).toBeDefined();
-});
-test('should have a DB_NAME', () => {
+  });
+  test('should have a DB_NAME', () => {
     expect(process.env.DB_NAME).toBeDefined();
-});
-test('should have a DB_PSWD', () => {
+  });
+  test('should have a DB_PSWD', () => {
     expect(process.env.DB_PSWD).toBeDefined();
-});
-test('should have a DB_PORT', () => {
+  });
+  test('should have a DB_PORT', () => {
     expect(process.env.DB_PORT).toBeDefined();
+  });
+  test('Greet should return a string', () => expect(process.env.GREET).toBe('Hello Dev'));
 });
-test('Greet should return a string', () =>
-    expect(process.env.GREET).toBe("Hello Dev"));
-});
+
+describe('test function startServer', () => {
+    test('if function startServer has DB_URL', async () => {
+    let result = await startServer();
+    console.log('Result', result);
+    expect(result).toBeDefined()}
+    )
+})

@@ -16,4 +16,13 @@ export default class UpdateUser {
 
   @Field({ nullable: true })
   birthday?: Date;
+  /**
+   * @Field({ nullable: true })
+   * username?: string;
+   * @Field({ nullable: true })
+   * interests?: string;
+   * @Field({ nullable: true })
+   * location {'not sure if a sttring or {lat: string/number
+ *                                      lng: string/number}},
+   */
 }

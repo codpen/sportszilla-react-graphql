@@ -5,13 +5,9 @@ import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
 import UserResolver from './resolvers/UserResolver';
+import EventResolver from './resolvers/EventResolver'
 
 dotenv.config();
-
-/**
-* test read a dota .env file
-* read the file and return the value
-*/
 
 const {
   PORT, DB_NAME, DB_PSWD, DB_PORT,
@@ -23,13 +19,14 @@ async function startServer() {
   try {
     await sequelize.authenticate();
     sequelize.addModels([path.join(__dirname, '/models/**/*.model.ts')]);
+    sequelize.sync({ force: true });
     console.info('Connected to Postgres.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
 
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [UserResolver, EventResolver],
     validate: false,
   });
 
@@ -51,3 +48,4 @@ async function startServer() {
  * run findone in database
  */
 startServer();
+export default startServer;

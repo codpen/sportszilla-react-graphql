@@ -10,7 +10,9 @@ export default class UserResolver {
   @Query(() => User)
   async getOneUser(@Arg('id') id: number) {
     try {
-      return User.findOne({ where: { 'id': id } })
+      let result = await User.findOne({ where: { 'id': id } })
+      console.log('RESULT', result)
+      return result
     } catch (err) {
       console.error(err);
     }

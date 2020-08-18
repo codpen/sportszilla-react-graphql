@@ -19,13 +19,11 @@ export default class NewUser {
 }
 /**
  * suggestions for the table-
- * @Field
+ * @Field()
  * userName: string,
- * @Field
+ * @Field()
  * interests: sting,
- * @Field
- * age: number,
- * @Field
+ * @Field()
  * location {'not sure if a sttring or {lat: string/number
  *                                      lng: string/number}},
  * 
