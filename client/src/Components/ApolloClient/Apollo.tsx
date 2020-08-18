@@ -23,7 +23,6 @@ const GET_ALL_USERS = gql`
 `;
 
 const Apollo: React.FC = () => {
-
   interface Response {
     getAllUsers: UserData[];
   }
@@ -32,7 +31,6 @@ const Apollo: React.FC = () => {
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
-
 
   return (
     <div className={styles.Apollo} data-testid="Apollo">

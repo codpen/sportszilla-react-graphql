@@ -26,12 +26,12 @@ function Main({ boolProp }: PropTypes): ReactElement {
         <Navbar />
       </header>
 
-      <section>
-        <Apollo />
-      </section>
       <div className="left">
         <main>
           <Switch>
+            <Route exact path="/apollo/">
+              <Apollo />
+            </Route>
             <Route exact path="/board/">
               <Board />
             </Route>

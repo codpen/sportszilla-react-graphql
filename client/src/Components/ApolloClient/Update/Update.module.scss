@@ -1,1 +1,17 @@
-.Update {}
+.Update {
+  margin-top: 6vh;
+  border: 1px dashed purple;
+
+  .userForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 3vh;
+  }
+
+  .userInput {
+    margin-top: 3vh;
+    width: 40%;
+  }
+}
