@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import styles from './Create.module.scss';
 import { useMutation, gql } from '@apollo/client';
+import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import Spinner from '../../Spinner/Spinner';
+import styles from './Create.module.scss';
 
 interface UserData {
   ID?: number;
@@ -53,6 +54,23 @@ const Create: React.FC = () => {
   return (
     <div className={styles.Create} data-testid="Create">
       <h2 style={{color: 'green'}}>Apollo Create</h2>
+      <form>
+        <Field>
+          <Label>Plant</Label>
+          <Input validation="success" />
+          <Message validation="success">A cactus is a beautiful plant</Message>
+        </Field>
+        <Field>
+          <Label>Plant</Label>
+          <Input validation="warning" />
+          <Message validation="warning">A cactus has thorns</Message>
+        </Field>
+        <Field>
+          <Label>Plant</Label>
+          <Input validation="error" />
+          <Message validation="error">A cactus belongs in the desert</Message>
+        </Field>
+      </form>
     </div>
   )
 };
