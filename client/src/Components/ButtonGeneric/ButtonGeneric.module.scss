@@ -3,39 +3,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  button {
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+    cursor: pointer;
+  }
 }
 
 .ButtonGeneric {
-  margin: 1rem 1rem;
-  padding: 0.5rem;
-  height: 2rem;
+  margin: 2.7rem 1rem;
+  padding: 1rem;
+  height: 3.3rem;
   width: auto;
-  color: #f4f6ff;
-  background-color: #cea820;
-  font-family: 'Roboto', sans-serif;
+  color: #000000;
+  background-color: #ffffff;
   border: none;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.3rem;
   text-transform: uppercase;
-  font-size: 0.7rem;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0rem 0.8rem 1.5rem rgba(0, 0, 0, 0.1);
-  border-radius: 0.2rem;
+  box-shadow: 0rem 0.8rem 1.5rem rgba(0, 0, 0, 0.2);
+  border-radius: 2rem;
   cursor: pointer;
   outline: none;
 }
 
 .ButtonGeneric:hover {
-  background-color: #f3c623;
-  box-shadow: 0rem 1rem 1.25rem #c09f27;
-  color: #10375c;
+  background-color: #ffffff;
+  box-shadow: 0rem 1rem 1.25rem rgba(0, 0, 0, 0.8);
+  color: #58cc62;
   transform: translateY(-0.4rem);
-}
-
-button {
-  border: none;
-  background-color: rgba(0, 0, 0, 0);
-  outline: none;
-  cursor: pointer;
 }

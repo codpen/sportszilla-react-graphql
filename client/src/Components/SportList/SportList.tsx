@@ -19,8 +19,10 @@ const SportList: React.FC = () => {
   });
 
   return (
-    <div className={styles.SportList} data-testid="SportList">
-      {list}
+    <div className={styles.sportlistContainer}>
+      <div className={styles.SportList} data-testid="SportList">
+        {list}
+      </div>
     </div>
   );
 };

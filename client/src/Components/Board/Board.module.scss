@@ -3,9 +3,19 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-}
+  align-items: center;
 
-.mapContainer {
-  height: 50vh;
-  width: 100%;
+  .Board_Title {
+    font-size: 1.2rem;
+
+    mix-blend-mode: difference;
+    text-shadow: 3px 0px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(0, 0, 0, 0.8),
+      0px 4px 7px rgba(0, 0, 0, 0.8);
+
+    h1 {
+      margin-top: 5rem;
+      color: white;
+      font-weight: 600;
+    }
+  }
 }

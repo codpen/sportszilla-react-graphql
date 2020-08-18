@@ -1,14 +1,18 @@
 .Map {
-  height: 100%;
+  height: 100px;
   width: 100%;
+  border-top: solid white 2px;
+  border-radius: 0% 100% 0% 0% / 0% 35% 0% 0%;
+  z-index: 1;
 }
 
 .googlemap {
-  height: 100%;
-  width: 100%;
+  height: 100px;
+  width: 100px;
 }
 
-.containerStyle  {
-  height: 100%;
-  width: 100%;
-};
+.containerStyle {
+  height: 100px;
+  width: 100px;
+  border-radius: 0% 100% 0% 0% / 0% 35% 0% 0%;
+}

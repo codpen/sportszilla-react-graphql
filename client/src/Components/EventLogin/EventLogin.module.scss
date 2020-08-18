@@ -1,10 +1,13 @@
+@import '../../Style/colors';
+
 .Container {
   background-color: rgba(16, 55, 92, 0.9);
   color: #f4f6ff;
   margin: 0.7rem;
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7);
-  text-shadow: 3px 4px 7px rgba(0, 0, 0, 0.7);
+
   font-size: 0.8rem;
+  border-radius: 8px;
 }
 
 .EventTitle {

@@ -1,25 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
-import logo from '../../Images/DinoLogo.svg';
+import logo from '../../Images/godzilla.svg';
+import logoBall from '../../Images/filled-circle.svg';
+import hamburger from '../../Images/open-menu.svg';
 
 const Navbar: React.FC = () => {
   return (
     <div className={styles.Navbar} data-testid="Navbar">
-      <Link className={styles.NavbarLeft} to="/">
-        <img className={styles.NavbarLeft_logo_img} src={logo} alt="logo" />
-        <p className={styles.NavbarLeft_logo_name}>sportzilla</p>
-      </Link>
+      <div className={styles.logoContainer}>
+        <Link className={styles.NavbarLeft} to="/">
+          <img className={styles.NavbarLeft_logo_img} src={logo} alt="logo" />
+          <img className={styles.NavbarLeft_logo_ball} src={logoBall} alt="logoBall" />
+        </Link>
+      </div>
       <div className={styles.NavbarRight}>
-        <div>
-          <Link className={styles.LoginLink} to="/login">
-            login
-          </Link>
-        </div>
-        <div>
-          <ButtonGeneric buttonText="register" buttonLink="/register" />
-        </div>
+        <img src={hamburger} alt="hamburger" />
       </div>
     </div>
   );
