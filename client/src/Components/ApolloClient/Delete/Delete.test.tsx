@@ -6,9 +6,9 @@ import Delete from './Delete';
 describe('<Delete />', () => {
   test('it should mount', () => {
     render(<Delete />);
-    
-    const delete = screen.getByTestId('Delete');
 
-    expect(delete).toBeInTheDocument();
+    const del = screen.getByTestId('Delete');
+
+    expect(del).toBeInTheDocument();
   });
 });

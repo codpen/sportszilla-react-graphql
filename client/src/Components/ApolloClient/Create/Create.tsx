@@ -19,9 +19,6 @@ interface UserData {
   deletionDate?: Date | undefined;
   __typeName?: string;
 }
-interface SavedUser {
-
-}
 
 const NEW_USER = gql`
   mutation NewUser($userData: NewUser!) {
@@ -58,7 +55,7 @@ const Create: React.FC = () => {
     const { name, value } = event.target;
     setUserData((prevUserData) => ({
       ...prevUserData,
-      [name]: value
+      [name]: value,
     }));
   };
   interface HandleDate {
@@ -77,7 +74,7 @@ const Create: React.FC = () => {
   const verifyForm: VerifyForm = () => {
     const isNoNulls = Object.values(userData).every((value) => value !== '' && value !== undefined);
     return isNoNulls;
-  }
+  };
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     // TODO: pop up notification here if form is incorrect
