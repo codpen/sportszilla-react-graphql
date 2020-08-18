@@ -12,8 +12,10 @@ const containerStyle = {
 
 const mapOptions = {
   disableDefaultUI: true,
-  //styles: mapStyle,
+  styles: require('./mapStyle.json'),
 };
+
+//const mapStyles = require('./mapStyle.json');
 
 const Map: React.FC = () => {
   return (
