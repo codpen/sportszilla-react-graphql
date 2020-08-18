@@ -7,7 +7,7 @@ import EventList from '../EventList/EventList';
 const Board: React.FC = () => (
   <div className={styles.Board} data-testid="Board">
     <div className={styles.Board_Title}>
-      <h1>Find Your Next Teammates.</h1>
+      <h1>Find Your Next Teammates</h1>
     </div>
     <div>
       <ButtonGeneric buttonText="Join Now" buttonLink="#" />

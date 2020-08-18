@@ -7,8 +7,8 @@ import Footer from '../Footer/Footer';
 import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import Profile from '../Profile/Profile';
-
 import Data from '../../mockData/data.json';
+import Map from '../Map/Map';
 
 interface PropTypes {
   boolProp: boolean;
@@ -25,23 +25,30 @@ function Main({ boolProp }: PropTypes): ReactElement {
         <Navbar />
       </header>
 
-      <main>
-        <Switch>
-          <Route exact path="/board/">
-            <Board />
-          </Route>
-          <Route path="/user/profile/">
-            <Profile />
-          </Route>
-          <Route path="/user/login/">
-            <Login />
-          </Route>
-          <Route path="/user/signUp/">
-            <SignUp />
-          </Route>
-          <Redirect from="/" to="/board/" />
-        </Switch>
-      </main>
+      <div className="left">
+        <main>
+          <Switch>
+            <Route exact path="/board/">
+              <Board />
+            </Route>
+            <Route path="/user/profile/">
+              <Profile />
+            </Route>
+            <Route path="/user/login/">
+              <Login />
+            </Route>
+            <Route path="/user/signUp/">
+              <SignUp />
+            </Route>
+            <Redirect from="/" to="/board/" />
+          </Switch>
+        </main>
+      </div>
+      <div className="right">
+        <div className="mapContainer">
+          <Map />
+        </div>
+      </div>
     </div>
   );
 }
