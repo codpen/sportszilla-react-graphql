@@ -6,7 +6,7 @@ import Board from './Board';
 describe('<Board />', () => {
   test('it should mount', () => {
     render(<Board />);
-    
+
     const board = screen.getByTestId('Board');
 
     expect(board).toBeInTheDocument();

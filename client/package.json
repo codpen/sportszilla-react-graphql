@@ -12,6 +12,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@zendeskgarden/react-buttons": "^8.19.0",
+    "@zendeskgarden/react-datepickers": "^8.19.0",
     "@zendeskgarden/react-forms": "^8.19.0",
     "@zendeskgarden/react-theming": "^8.19.0",
     "graphql": "^15.3.0",

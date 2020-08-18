@@ -6,7 +6,7 @@ import Spinner from './Spinner';
 describe('<Spinner />', () => {
   test('it should mount', () => {
     render(<Spinner />);
-    
+
     const spinner = screen.getByTestId('Spinner');
 
     expect(spinner).toBeInTheDocument();

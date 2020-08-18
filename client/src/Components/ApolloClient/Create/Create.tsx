@@ -1,6 +1,7 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import { Datepicker } from '@zendeskgarden/react-datepickers';
 import { Button } from '@zendeskgarden/react-buttons';
 import Spinner from '../../Spinner/Spinner';
 import styles from './Create.module.scss';
@@ -12,20 +13,21 @@ interface UserData {
   userName: string;
   email: string;
   passW: string;
-  birthday?: Date | null;
+  birthday?: Date | undefined;
   creationDate?: Date;
   updatedOn?: Date;
-  deletionDate?: Date | null;
+  deletionDate?: Date | undefined;
   __typeName?: string;
 }
 
 const NEW_USER = gql`
-  mutation NewUser ($userData: UserData!) {
-    newUser (userData: $userData) {
-        ID
-      }
+  mutation NewUser($userData: UserData!) {
+    newUser(userData: $userData) {
+      ID
+    }
   }
-`
+`;
+
 const Create: React.FC = () => {
   const [userData, setUserData] = useState<UserData>({
     firstName: '',
@@ -40,60 +42,110 @@ const Create: React.FC = () => {
     { savedUser: UserData },
     { newUser: UserData }
   >(NEW_USER, {
-    variables: { newUser: userData }
+    variables: { newUser: userData },
   });
 
   interface FormMethod<E> {
     (event: E): void;
   }
   const handleChange: FormMethod<ChangeEvent<HTMLInputElement>> = (event) => {
-    console.log(event)
     const { name, value } = event.target;
-    console.log('hey: ', name, value);
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: value
+    }));
   };
+  interface HandleDate {
+    (date: Date): void;
+  }
+  const handleDate: HandleDate = (date) => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      birthday: date,
+    }));
+  };
+  interface VerifyForm {
+    (): boolean;
+  }
+  // TODO: write FE verification
+  const verifyForm: VerifyForm = () => {
+    if (true) return true;
+  }
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
+    // TODO: pop up notification here if form is incorrect
+    if (!verifyForm()) return null;
+    console.log(userData);
   };
 
-  if (loading) return <Spinner boxHeight={400}/>;
+  if (loading) return <Spinner boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
   return (
     <div className={styles.Create} data-testid="Create">
-      <h2 style={{color: 'purple'}}>Apollo Create</h2>
+      <h2 style={{ color: 'purple' }}>Apollo Create</h2>
       {data && data.savedUser ? <p>Saved!</p> : null}
       <form className={styles.userForm} onSubmit={handleSubmit}>
         <Field className={styles.userInput}>
           <Label>First Name</Label>
-          <Input name="firstName" value={userData.firstName} validation={undefined} onChange={(event) => handleChange(event)}/>
+          <Input
+            name="firstName"
+            value={userData.firstName}
+            validation={undefined}
+            onChange={(event) => handleChange(event)}
+          />
         </Field>
         <Field className={styles.userInput}>
           <Label>Last Name</Label>
-          <Input name="lastName" value={userData.lastName} validation={undefined} onChange={(event) => handleChange(event)} />
+          <Input
+            name="lastName"
+            value={userData.lastName}
+            validation={undefined}
+            onChange={(event) => handleChange(event)}
+          />
         </Field>
         <Field className={styles.userInput}>
           <Label>Username</Label>
-          <Input name="userName" value={userData.userName} validation="warning" onChange={(event) => handleChange(event)} />
+          <Input
+            name="userName"
+            value={userData.userName}
+            validation="warning"
+            onChange={(event) => handleChange(event)}
+          />
           <Message validation="warning">Too short username</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Email</Label>
-          <Input name="email" value={userData.email} type="email" validation="success" onChange={(event) => handleChange(event)} />
+          <Input
+            name="email"
+            value={userData.email}
+            type="email"
+            validation="success"
+            onChange={(event) => handleChange(event)}
+          />
           <Message validation="success">Correct email</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Password</Label>
-          <Input name="password" value={userData.passW} type="password" validation="error" onChange={(event) => handleChange(event)} />
+          <Input
+            name="passW"
+            value={userData.passW}
+            type="password"
+            validation="error"
+            onChange={(event) => handleChange(event)}
+          />
           <Message validation="error">Incorrect password</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Birthday</Label>
-          <Input name="birthday" type="datetime-local" value={String(userData.birthday)} validation={undefined} onChange={(event) => handleChange(event)} />
+          <Datepicker value={userData.birthday} onChange={handleDate}>
+            <Input name="birthday" />
+          </Datepicker>
         </Field>
         <Button type="submit">Submit</Button>
       </form>
     </div>
-  )
+  );
 };
 
 export default Create;

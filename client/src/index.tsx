@@ -13,7 +13,7 @@ const link = createHttpLink({
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link
+  link,
 });
 
 ReactDOM.render(

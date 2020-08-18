@@ -6,7 +6,7 @@ import Create from './Create';
 describe('<Create />', () => {
   test('it should mount', () => {
     render(<Create />);
-    
+
     const create = screen.getByTestId('Create');
 
     expect(create).toBeInTheDocument();

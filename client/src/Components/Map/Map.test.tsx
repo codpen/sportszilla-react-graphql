@@ -6,7 +6,7 @@ import Map from './Map';
 describe('<Map />', () => {
   test('it should mount', () => {
     render(<Map />);
-    
+
     const map = screen.getByTestId('Map');
 
     expect(map).toBeInTheDocument();

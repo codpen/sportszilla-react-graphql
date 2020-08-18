@@ -6,7 +6,7 @@ import Login from './Login';
 describe('<Login />', () => {
   test('it should mount', () => {
     render(<Login />);
-    
+
     const login = screen.getByTestId('Login');
 
     expect(login).toBeInTheDocument();

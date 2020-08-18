@@ -6,7 +6,7 @@ import Apollo from './Apollo';
 describe('<Apollo />', () => {
   test('it should mount', () => {
     render(<Apollo />);
-    
+
     const apollo = screen.getByTestId('Apollo');
 
     expect(apollo).toBeInTheDocument();
