@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import Spinner from '../../Spinner/Spinner';
@@ -47,6 +47,14 @@ const Create: React.FC = () => {
     }}
   });
 
+  interface FormMethod<E> {
+    (event: E): void;
+  }
+  const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
+    event.preventDefault();
+    console.log(event.target);
+  }
+
   if (loading) return <Spinner boxHeight={400}/>;
   if (error) return <p>Oopsie: {error.message}</p>;
 
@@ -54,7 +62,7 @@ const Create: React.FC = () => {
     <div className={styles.Create} data-testid="Create">
       <h2 style={{color: 'purple'}}>Apollo Create</h2>
       {data && data.savedUser ? <p>Saved!</p> : null}
-      <form className={styles.userForm}>
+      <form className={styles.userForm} onSubmit={handleSubmit}>
         <Field className={styles.userInput}>
           <Label>First Name</Label>
           <Input validation={undefined} />
