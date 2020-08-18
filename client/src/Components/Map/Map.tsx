@@ -3,7 +3,6 @@ import styles from './Map.module.scss';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 
 import pinIcon from './footbal_icon.png';
-import mapStyle from './mapStyle.json';
 
 const containerStyle = {
   width: '100%',
