@@ -45,7 +45,7 @@ const Apollo: React.FC = () => {
     { variables: { id: 1 } }
   );
 
-  if (loading) return <Spinner />;
+  if (loading) return <Spinner boxHeight={400}/>;
   if (error) return <p>Oopsie: {error}</p>;
   if (!data) return <p>User not found</p>;
 
