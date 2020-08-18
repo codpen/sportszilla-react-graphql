@@ -10,13 +10,7 @@ export default class UserResolver {
   @Query(() => User)
   async getOneUser(@Arg('ID') id: number) {
     try {
-<<<<<<< HEAD
-      let result = await User.findOne({ where: { 'id': id } })
-      console.log('RESULT', result)
-      return result
-=======
       return User.findOne({ where: { 'ID': id } })
->>>>>>> 7985d5e0552675594913609ff105fd6ca26a9b6d
     } catch (err) {
       console.error(err);
     }
