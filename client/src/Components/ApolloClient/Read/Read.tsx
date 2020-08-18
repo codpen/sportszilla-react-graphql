@@ -35,7 +35,6 @@ const GET_ONE_USER = gql`
   }
 `;
 
-
 const Apollo: React.FC = () => {
   interface Response {
     getOneUser: UserData;
@@ -52,16 +51,16 @@ const Apollo: React.FC = () => {
         <p>Loading ...</p>
       ) : (data && data.getOneUser &&
         <div>
-            <p>{ data.getOneUser.ID }</p>
-            <p>{ data.getOneUser.firstName }</p>
-            <p>{ data.getOneUser.lastName }</p>
-            <p>{ data.getOneUser.userName }</p>
-            <p>{ data.getOneUser.email }</p>
-            <p>{ data.getOneUser.passW }</p>
-            <p>{ data.getOneUser.birthday }</p>
-            <p>{ data.getOneUser.creationDate }</p>
-            <p>{ data.getOneUser.updatedOn }</p>
-            <p>{ data.getOneUser.deletionDate }</p>
+          <p>{ data.getOneUser.ID }</p>
+          <p>{ data.getOneUser.firstName }</p>
+          <p>{ data.getOneUser.lastName }</p>
+          <p>{ data.getOneUser.userName }</p>
+          <p>{ data.getOneUser.email }</p>
+          <p>{ data.getOneUser.passW }</p>
+          <p>{ data.getOneUser.birthday }</p>
+          <p>{ data.getOneUser.creationDate }</p>
+          <p>{ data.getOneUser.updatedOn }</p>
+          <p>{ data.getOneUser.deletionDate }</p>
         </div>
       )}
     </div>

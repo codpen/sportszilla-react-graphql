@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Create.module.scss';
 import { useMutation, gql } from '@apollo/client';
 
@@ -9,13 +9,14 @@ const NEW_USER = gql`
       }
   }
 `
-
-const [saveRocket, { error, data }] = useMutation<
+/*
+const [, { error, data }] = useMutation<
   { saveRocket: RocketInventory },
   { rocket: NewRocketDetails }
->(SAVE_ROCKET, {
+>(NEW_USER, {
   variables: { rocket: { model, year: +year, stock: +stock } }
 });
+ */
 
 const Create: React.FC = () => (
   <div className={styles.Create} data-testid="Create">
