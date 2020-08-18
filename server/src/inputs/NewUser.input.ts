@@ -9,6 +9,9 @@ export default class NewUser {
   lastName: string;
 
   @Field()
+  userName: string;
+
+  @Field()
   email: string;
 
   @Field()

@@ -16,9 +16,7 @@ interface UserData {
   deletionDate: Date | null;
   __typeName: string;
 }
-interface GetOneUserArgs {
-  id: number;
-}
+
 const GET_ONE_USER = gql`
   query GetOneUser($id: Float!) {
     getOneUser(ID: $id) {
@@ -40,7 +38,10 @@ const Read: React.FC = () => {
   interface Response {
     getOneUser: UserData;
   }
-  const { loading, data, error } = useQuery<Response, GetOneUserArgs>(GET_ONE_USER, {
+  interface Arguments {
+    id: number;
+  }
+  const { loading, data, error } = useQuery<Response, Arguments>(GET_ONE_USER, {
     variables: { id: 1 },
   });
 

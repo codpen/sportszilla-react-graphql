@@ -19,9 +19,12 @@ interface UserData {
   deletionDate?: Date | undefined;
   __typeName?: string;
 }
+interface SavedUser {
+
+}
 
 const NEW_USER = gql`
-  mutation NewUser($userData: UserData!) {
+  mutation NewUser($userData: NewUser!) {
     newUser(userData: $userData) {
       ID
     }
@@ -38,11 +41,14 @@ const Create: React.FC = () => {
     birthday: new Date(),
   });
 
-  const [savedUser, { loading, error, data }] = useMutation<
-    { savedUser: UserData },
-    { newUser: UserData }
-  >(NEW_USER, {
-    variables: { newUser: userData },
+  interface Response {
+    userData: UserData;
+  }
+  interface Arguments {
+    userData: UserData;
+  }
+  const [createUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER, {
+    variables: { userData },
   });
 
   interface FormMethod<E> {
@@ -67,15 +73,17 @@ const Create: React.FC = () => {
   interface VerifyForm {
     (): boolean;
   }
-  // TODO: write FE verification
+  // TODO: write complete FE verification
   const verifyForm: VerifyForm = () => {
-    if (true) return true;
+    const isNoNulls = Object.values(userData).every((value) => value !== '' && value !== undefined);
+    return isNoNulls;
   }
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     // TODO: pop up notification here if form is incorrect
     if (!verifyForm()) return null;
     console.log(userData);
+    createUser();
   };
 
   if (loading) return <Spinner boxHeight={400} />;
