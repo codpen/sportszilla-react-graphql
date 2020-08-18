@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Read.module.scss';
+import Spinner from '../../Spinner/Spinner';
 import { useQuery, gql } from '@apollo/client';
 
 interface UserData {
@@ -39,17 +40,19 @@ const Apollo: React.FC = () => {
   interface Response {
     getOneUser: UserData;
   }
-  const { loading, data } = useQuery<Response, GetOneUserArgs>(
+  const { loading, data, error } = useQuery<Response, GetOneUserArgs>(
     GET_ONE_USER,
     { variables: { id: 1 } }
   );
 
+  if (loading) return <Spinner />;
+  if (error) return <p>Oopsie: {error}</p>;
+  if (!data) return <p>User not found</p>;
+
   return (
     <div className={styles.Apollo} data-testid="Apollo">
       <h2 style={{color: 'blue'}}>Apollo Read</h2>
-      {loading ? (
-        <p>Loading ...</p>
-      ) : (data && data.getOneUser &&
+      {data && data.getOneUser &&
         <div>
           <p>{ data.getOneUser.ID }</p>
           <p>{ data.getOneUser.firstName }</p>
@@ -62,7 +65,7 @@ const Apollo: React.FC = () => {
           <p>{ data.getOneUser.updatedOn }</p>
           <p>{ data.getOneUser.deletionDate }</p>
         </div>
-      )}
+      }
     </div>
   )
 };
