@@ -1,11 +1,17 @@
 import {
-  Table, Column, Model, HasMany,
+  Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, PrimaryKey, AutoIncrement, HasMany,
 } from 'sequelize-typescript';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { ObjectType, Field, Int } from 'type-graphql';
 
 @Table
 @ObjectType()
 export default class User extends Model<User> {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
+  @Field(() => Int)
+  readonly ID: number;
+
   @Column
   @Field(() => String)
   firstName: string;
@@ -15,27 +21,34 @@ export default class User extends Model<User> {
   lastName: string;
 
   @Column
-  @Field(() => String) // set unique to true
+
+  @Field(() => String, { nullable: true })
+  userName: string;
+
+  @Column
+  @Field(() => String)
+
   email: string;
 
   @Column
   @Field(() => String)
-  password: string;
+  passW: string;
 
   @Column
-  @Field(() => Date)
+  @Field(() => Date, { nullable: true })
   birthday: Date;
 
-  /**
- * suggestions for the table
- * @Field()
- * userName: string,
- * @Field()
- * interests: sting,
- * @Field()
- * location {'not sure if a sttring or {lat: string/number
- *                                      lng: string/number}},
- */
+  @CreatedAt
+  @Field(() => Date)
+  creationDate: Date;
+
+  @UpdatedAt
+  @Field(() => Date)
+  updatedOn: Date;
+
+  @DeletedAt
+  @Field(() => Date, { nullable: true })
+  deletionDate: Date;
 
   /*
   @HasMany(() => Event)

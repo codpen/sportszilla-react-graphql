@@ -9,10 +9,13 @@ export default class UpdateUser {
   lastName?: string;
 
   @Field({ nullable: true })
+  userName?: string;
+
+  @Field({ nullable: true })
   email?: string;
 
   @Field({ nullable: true })
-  password?: string;
+  passW?: string;
 
   @Field({ nullable: true })
   birthday?: Date;
