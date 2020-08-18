@@ -4,17 +4,17 @@ import Spinner from '../../Spinner/Spinner';
 import { useQuery, gql } from '@apollo/client';
 
 interface UserData {
-  ID?: number;
-  firstName?: string;
-  lastName?: string | null;
-  userName?: string | null;
-  email?: string;
-  passW?: string;
-  birthday?: Date;
-  creationDate?: Date;
-  updatedOn?: Date;
-  deletionDate?: Date | null;
-  __typeName?: string;
+  ID: number;
+  firstName: string;
+  lastName: string | null;
+  userName: string | null;
+  email: string;
+  passW: string;
+  birthday: Date;
+  creationDate: Date;
+  updatedOn: Date;
+  deletionDate: Date | null;
+  __typeName: string;
 }
 interface GetOneUserArgs {
   id: number;
@@ -46,7 +46,7 @@ const Apollo: React.FC = () => {
   );
 
   if (loading) return <Spinner boxHeight={400}/>;
-  if (error) return <p>Oopsie: {error}</p>;
+  if (error) return <p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
 
   return (
