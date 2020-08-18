@@ -26,6 +26,6 @@ export default class UpdateUser {
    * interests?: string;
    * @Field({ nullable: true })
    * location {'not sure if a sttring or {lat: string/number
- *                                      lng: string/number}},
+   *                                      lng: string/number}},
    */
 }

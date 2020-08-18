@@ -30,11 +30,11 @@ export default class NewSportEvent {
   //   @Field()
   //   playersAssigned: [User];
 
-//   @Field()
-//   location: {
-//       lat: number,
-//       lng: number,
-//       address: string,
-//       venue: string,
-//   };
+  //   @Field()
+  //   location: {
+  //       lat: number,
+  //       lng: number,
+  //       address: string,
+  //       venue: string,
+  //   };
 }

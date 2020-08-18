@@ -5,14 +5,12 @@ import { Sequelize } from 'sequelize-typescript';
 import dotenv from 'dotenv';
 import path from 'path';
 import UserResolver from './resolvers/UserResolver';
-import EventResolver from './resolvers/EventResolver'
+import EventResolver from './resolvers/EventResolver';
 import sportResolver from './resolvers/sportResolver';
 
 dotenv.config();
 
-const {
-  PORT, DB_NAME, DB_PSWD, DB_PORT,
-} = process.env;
+const { PORT, DB_NAME, DB_PSWD, DB_PORT } = process.env;
 
 async function startServer() {
   const DB_URL = `postgres://${DB_NAME}:${DB_PSWD}@packy.db.elephantsql.com:${DB_PORT}/${DB_NAME}`;
@@ -33,8 +31,7 @@ async function startServer() {
 
   const apolloServer = new ApolloServer({ schema });
 
-  apolloServer.listen(PORT)
-    .then(() => console.info(`Server has started on port: ${PORT}!`));
+  apolloServer.listen(PORT).then(() => console.info(`Server has started on port: ${PORT}!`));
 }
 /**
  * testing startServer

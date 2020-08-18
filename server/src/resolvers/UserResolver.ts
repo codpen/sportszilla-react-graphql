@@ -10,7 +10,7 @@ export default class UserResolver {
   @Query(() => User)
   async getOneUser(@Arg('ID') id: number) {
     try {
-      return User.findOne({ where: { 'ID': id } })
+      return User.findOne({ where: { ID: id } });
     } catch (err) {
       console.error(err);
     }
@@ -31,7 +31,7 @@ export default class UserResolver {
   @Mutation(() => User)
   async updateUser(@Arg('ID') id: number, @Arg('userData') userData: UpdateUser) {
     try {
-      const user = await User.findOne({ where: { 'ID': id } });
+      const user = await User.findOne({ where: { ID: id } });
       if (!user) throw new Error('User not found!');
       if (userData.passW) {
         const { passW } = userData;
@@ -47,7 +47,7 @@ export default class UserResolver {
   @Mutation(() => User)
   async deleteUser(@Arg('ID') id: number) {
     try {
-      const user = await User.findOne({ where: { 'ID': id } });
+      const user = await User.findOne({ where: { ID: id } });
       if (!user) throw new Error('User not found!');
       return user.destroy();
     } catch (err) {

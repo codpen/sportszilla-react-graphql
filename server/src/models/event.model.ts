@@ -1,6 +1,4 @@
-import {
-  Table, Column, Model, HasMany,
-} from 'sequelize-typescript';
+import { Table, Column, Model, HasMany } from 'sequelize-typescript';
 import { ObjectType, Field } from 'type-graphql';
 // import User from './user.model';
 

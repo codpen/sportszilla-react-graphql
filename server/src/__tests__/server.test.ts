@@ -32,7 +32,7 @@ describe('read .env file', () => {
 
 describe('test function startServer', () => {
   const DB_URL = 'test';
-    test('if function startServer has DB_URL', async () => {
-    expect(startServer()).toHaveProperty(DB_URL)
-    });
-})
+  test('if function startServer has DB_URL', async () => {
+    expect(startServer()).toHaveProperty(DB_URL);
+  });
+});

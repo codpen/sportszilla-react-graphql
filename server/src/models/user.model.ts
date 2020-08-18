@@ -1,5 +1,13 @@
 import {
-  Table, Column, Model, CreatedAt, UpdatedAt, DeletedAt, PrimaryKey, AutoIncrement, HasMany,
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  PrimaryKey,
+  AutoIncrement,
+  HasMany,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
@@ -22,13 +30,11 @@ export default class User extends Model<User> {
   lastName: string;
 
   @Column
-
   @Field(() => String, { nullable: true })
   userName: string;
 
   @Column
   @Field(() => String)
-
   email: string;
 
   @Column
@@ -54,7 +60,6 @@ export default class User extends Model<User> {
   // @Column
   // @Field(() => )
   // favariteSports: Sport[];
-
 
   /** query da tabala de usuarios  */
   /**
