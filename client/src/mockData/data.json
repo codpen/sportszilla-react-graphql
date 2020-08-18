@@ -1,0 +1,115 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "first_name": "John",
+      "last_name": "Doe",
+      "date_birth": "1.1.1970",
+      "sport_interest": [3, 1, 2],
+      "Location": { "latitude": 42.2573471, "longitude": 3.1169697, "accuracy": 30 },
+      "gender": "Male"
+    },
+    {
+      "id": 2,
+      "first_name": "Philip",
+      "last_name": "Johnson",
+      "date_birth": "1.1.1960",
+      "sport_interest": [5, 2],
+      "Location": { "latitude": 40.25, "longitude": 3.0, "accuracy": 30 },
+      "gender": "Male"
+    },
+    {
+      "id": 3,
+      "first_name": "Patty ",
+      "last_name": "Furniture",
+      "date_birth": "1.1.1940",
+      "sport_interest": [1, 2],
+      "Location": { "latitude": 50.2573471, "longitude": 4.1169697, "accuracy": 30 },
+      "gender": "Female"
+    },
+    {
+      "id": 4,
+      "first_name": "Olive ",
+      "last_name": "Yew",
+      "date_birth": "1.1.1990",
+      "sport_interest": [5, 1],
+      "Location": { "latitude": 42.2573471, "longitude": 3.1169697, "accuracy": 30 },
+      "gender": "Male"
+    },
+    {
+      "id": 5,
+      "first_name": "Aida ",
+      "last_name": "Bugg",
+      "date_birth": "1.1.1995",
+      "sport_interest": [4, 2],
+      "Location": { "latitude": 39.25, "longitude": 3.0, "accuracy": 30 },
+      "gender": "Female"
+    }
+  ],
+  "events": [
+    {
+      "id": 101,
+      "sport_id": 2,
+      "location": { "latitude": 38.2573471, "longitude": 3.1169697, "accuracy": 30 },
+      "date": "1.1.2021",
+      "description": "We need 4 players for this weekend",
+      "organizer": 5,
+      "filter": { "target_gender": "mixed", "target_level": "intermediate" },
+      "time_start": "10:40 am",
+      "time_end": "01:00 pm",
+      "registered_participants": [5, 4, 3],
+      "max_participants": 10,
+      "min_participants": 5
+    },
+    {
+      "id": 102,
+      "sport_id": 1,
+      "location": { "latitude": 38.0, "longitude": 3.1169697, "accuracy": 30 },
+      "date": "1.2.2021",
+      "description": "We need 2 players for this weekend",
+      "organizer": 3,
+      "filter": { "target_gender": "male", "target_level": "beginner" },
+      "time_start": "11:00 am",
+      "time_end": "04:00 pm",
+      "registered_participants": [5, 2, 3],
+      "max_participants": 10,
+      "min_participants": 5
+    },
+    {
+      "id": 103,
+      "sport_id": 3,
+      "location": { "latitude": 37.2573471, "longitude": 4.1169697, "accuracy": 30 },
+      "date": "1.1.2021",
+      "description": "Just for fun",
+      "organizer": 1,
+      "filter": { "target_gender": "mixed", "target_level": "any" },
+      "time_start": "11:40 am",
+      "time_end": "01:00 pm",
+      "registered_participants": [1, 2, 3],
+      "max_participants": 8,
+      "min_participants": 6
+    }
+  ],
+  "sports": [
+    {
+      "id": 1,
+      "name": "Tennis"
+    },
+    {
+      "id": 2,
+      "name": "Football"
+    },
+    {
+      "id": 3,
+      "name": "Basketball"
+    },
+    {
+      "id": 4,
+      "name": "Cycling"
+    },
+    {
+      "id": 5,
+      "name": "Badminton"
+    }
+  ]
+}

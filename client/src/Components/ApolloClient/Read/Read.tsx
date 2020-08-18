@@ -33,8 +33,14 @@ const GET_ONE_USER = gql`
     }
   }
 `;
-
-const Read: React.FC = () => {
+interface UserDetails {
+  ID: number;
+  email: string;
+}
+interface Users {
+  users: UserDetails[]
+}
+const Read: React.FC<Users> = ({ users }) => {
   interface Response {
     getOneUser: UserData;
   }
@@ -46,8 +52,9 @@ const Read: React.FC = () => {
   });
 
   if (loading) return <Loader boxHeight={400} />;
-  if (error) return <Loader boxHeight={400} />;//<p>Oopsie: {error.message}</p>;
+  if (error) return <p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
+  console.log(users)
 
   return (
     <div className={styles.Read} data-testid="Read">

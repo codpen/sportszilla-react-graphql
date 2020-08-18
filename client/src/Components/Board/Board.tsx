@@ -1,15 +1,17 @@
 import React from 'react';
 import styles from './Board.module.scss';
+import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
+import SportList from '../SportList/SportList';
+import EventList from '../EventList/EventList';
 
-interface PropTypes {
-  numberProp: number;
-  stringProp: string;
-}
-const Board: React.FC<PropTypes> = ({ numberProp, stringProp }) => (
+const Board: React.FC = () => (
   <div className={styles.Board} data-testid="Board">
-    Board Component
-    <h1>{stringProp}</h1>
-    <h2>{numberProp}</h2>
+    <div className={styles.Board_Title}>
+      <h1>Find Your Next Teammates</h1>
+    </div>
+    <div>
+      <ButtonGeneric buttonText="Join Now" buttonLink="#" />
+    </div>
   </div>
 );
 
