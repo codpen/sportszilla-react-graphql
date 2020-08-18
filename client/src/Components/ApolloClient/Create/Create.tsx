@@ -49,11 +49,11 @@ const Create: React.FC = () => {
 
   if (loading) return <Spinner boxHeight={400}/>;
   if (error) return <p>Oopsie: {error.message}</p>;
-  if (!data) return <p>User not found</p>;
 
   return (
     <div className={styles.Create} data-testid="Create">
       <h2 style={{color: 'green'}}>Apollo Create</h2>
+      {data && data.savedUser ? <p>Saved!</p> : null}
       <form>
         <Field>
           <Label>Plant</Label>
