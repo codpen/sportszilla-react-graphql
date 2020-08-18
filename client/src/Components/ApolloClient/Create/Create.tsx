@@ -54,21 +54,33 @@ const Create: React.FC = () => {
     <div className={styles.Create} data-testid="Create">
       <h2 style={{color: 'purple'}}>Apollo Create</h2>
       {data && data.savedUser ? <p>Saved!</p> : null}
-      <form>
-        <Field>
-          <Label>Plant</Label>
-          <Input validation="success" />
-          <Message validation="success">A cactus is a beautiful plant</Message>
+      <form className={styles.userForm}>
+        <Field className={styles.userInput}>
+          <Label>First Name</Label>
+          <Input validation={undefined} />
         </Field>
-        <Field>
-          <Label>Plant</Label>
+        <Field className={styles.userInput}>
+          <Label>Last Name</Label>
+          <Input validation={undefined} />
+        </Field>
+        <Field className={styles.userInput}>
+          <Label>Username</Label>
           <Input validation="warning" />
-          <Message validation="warning">A cactus has thorns</Message>
+          <Message validation="warning">Too short username</Message>
         </Field>
-        <Field>
-          <Label>Plant</Label>
+        <Field className={styles.userInput}>
+          <Label>Email</Label>
+          <Input validation="success" />
+          <Message validation="success">Correct email</Message>
+        </Field>
+        <Field className={styles.userInput}>
+          <Label>Password</Label>
           <Input validation="error" />
-          <Message validation="error">A cactus belongs in the desert</Message>
+          <Message validation="error">Incorrect password</Message>
+        </Field>
+        <Field className={styles.userInput}>
+          <Label>Birthday</Label>
+          <Input validation={undefined} />
         </Field>
       </form>
     </div>
