@@ -32,11 +32,20 @@ const Apollo: React.FC = () => {
   if (error) return <p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
 
+
+  let allUsers;
+  if (data && data.getAllUsers) {
+    allUsers = data.getAllUsers.map((user) => (
+      <span key={user.ID}> | {user.email} | </span>
+    ));
+  }
+
   return (
     <div className={styles.Apollo} data-testid="Apollo">
       <h2 style={{ color: 'blue' }}>Apollo All users</h2>
       {data && data.getAllUsers && (
         <>
+          {allUsers}
           <Read users={data.getAllUsers} />
           <Create />
           <Update />
