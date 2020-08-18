@@ -79,7 +79,6 @@ const Create: React.FC = () => {
     event.preventDefault();
     // TODO: pop up notification here if form is incorrect
     if (!verifyForm()) return null;
-    console.log(userData);
     createUser();
   };
 

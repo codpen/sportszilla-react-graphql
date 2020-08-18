@@ -34,7 +34,7 @@ const Apollo: React.FC = () => {
 
   return (
     <div className={styles.Apollo} data-testid="Apollo">
-      <h2 style={{ color: 'blue' }}>Apollo Allusersfetch</h2>
+      <h2 style={{ color: 'blue' }}>Apollo All users</h2>
       {data && data.getAllUsers && (
         <>
           <Read users={data.getAllUsers} />
