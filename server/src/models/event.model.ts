@@ -1,10 +1,26 @@
-import { Table, Column, Model, HasMany } from 'sequelize-typescript';
-import { ObjectType, Field } from 'type-graphql';
+import {
+  Table,
+  Column,
+  Model,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+  PrimaryKey,
+  AutoIncrement,
+  HasMany,
+} from 'sequelize-typescript';
+import { ObjectType, Field, Int } from 'type-graphql';
 // import User from './user.model';
 
 @Table
 @ObjectType()
 export default class Event extends Model<Event> {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
+  @Field(() => Int)
+  readonly ID: number;
+
   @Column
   @Field(() => String)
   sportEventName: string;
@@ -28,6 +44,18 @@ export default class Event extends Model<Event> {
   @Column
   @Field(() => Number)
   availableSpots: number;
+
+  @CreatedAt
+  @Field(() => Date)
+  creationDate: Date;
+
+  @UpdatedAt
+  @Field(() => Date)
+  updatedOn: Date;
+
+  @DeletedAt
+  @Field(() => Date, { nullable: true })
+  deletionDate: Date;
 
   // @Column
   // @Field({ nullable: true })
