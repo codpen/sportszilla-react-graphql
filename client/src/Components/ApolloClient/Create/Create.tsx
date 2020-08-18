@@ -52,7 +52,7 @@ const Create: React.FC = () => {
 
   return (
     <div className={styles.Create} data-testid="Create">
-      <h2 style={{color: 'green'}}>Apollo Create</h2>
+      <h2 style={{color: 'purple'}}>Apollo Create</h2>
       {data && data.savedUser ? <p>Saved!</p> : null}
       <form>
         <Field>
