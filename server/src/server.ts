@@ -18,11 +18,7 @@ async function startServer() {
   try {
     await sequelize.authenticate();
     sequelize.addModels([path.join(__dirname, '/models/**/*.model.ts')]);
-<<<<<<< HEAD
     // sequelize.sync();
-=======
-    //sequelize.sync({ force: true });
->>>>>>> 05f10719f7a7047d25d483030855bfd57314f6ba
     console.info('Connected to Postgres.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
