@@ -50,6 +50,11 @@ export default class User extends Model<User> {
   @Field(() => Date, { nullable: true })
   deletionDate: Date;
 
+  /**
+   * create @Column @Field(() => [Sport])
+   * favSports: Sportr []
+   */
+
   /*
   @HasMany(() => Event)
   events: Event[];
