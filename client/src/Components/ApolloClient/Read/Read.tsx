@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Read.module.scss';
-import Spinner from '../../Spinner/Spinner';
+import Loader from '../../Loader/Loader';
 import { useQuery, gql } from '@apollo/client';
 
 interface UserData {

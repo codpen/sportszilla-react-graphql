@@ -7,12 +7,12 @@
   }
 }
 
-.Spinner {
+.Loader {
   display: flex;
   justify-content: center;
   align-items: center;
 
-  .spin {
+  .dots {
     border: 10px solid rgba(0, 0, 0, 0.1);
     border-top: 10px solid #008B8B;
     border-radius: 50%;

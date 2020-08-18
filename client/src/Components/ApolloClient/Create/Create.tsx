@@ -3,7 +3,7 @@ import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
 import { Button } from '@zendeskgarden/react-buttons';
-import Spinner from '../../Spinner/Spinner';
+import Loader from '../../Loader/Loader';
 import styles from './Create.module.scss';
 
 interface UserData {
@@ -83,13 +83,13 @@ const Create: React.FC = () => {
     createUser();
   };
 
-  if (loading) return <Spinner boxHeight={400} />;
+  if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
   return (
     <div className={styles.Create} data-testid="Create">
       <h2 style={{ color: 'purple' }}>Apollo Create</h2>
-      {data && data.savedUser ? <p>Saved!</p> : null}
+      {data && data.userData ? <p>Saved!</p> : null}
       <form className={styles.userForm} onSubmit={handleSubmit}>
         <Field className={styles.userInput}>
           <Label>First Name</Label>

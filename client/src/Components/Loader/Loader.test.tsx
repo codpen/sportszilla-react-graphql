@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import Spinner from './Spinner';
+import Loader from './Loader';
 
-describe('<Spinner />', () => {
+describe('<Loader />', () => {
   test('it should mount', () => {
-    render(<Spinner />);
+    render(<Loader />);
 
-    const spinner = screen.getByTestId('Spinner');
+    const spinner = screen.getByTestId('Loader');
 
     expect(spinner).toBeInTheDocument();
   });
