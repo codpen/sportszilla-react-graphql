@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { ThemeProvider } from '@zendeskgarden/react-theming';
 import './index.css';
 import Main from './Components/Main/Main';
 import * as serviceWorker from './Service/serviceWorker';
@@ -17,11 +18,13 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <ApolloProvider client={client}>
-        <Main boolProp={false} />
-      </ApolloProvider>
-    </Router>
+    <ThemeProvider>
+      <Router>
+        <ApolloProvider client={client}>
+          <Main boolProp={false} />
+        </ApolloProvider>
+      </Router>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
