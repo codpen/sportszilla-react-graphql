@@ -23,10 +23,8 @@ function Main({ boolProp }: PropTypes): ReactElement {
   return (
     <div className="Main">
       <header>
-        <img src={logo} className="Main-logo" alt="logo" height={80} width={80} />
         <Navbar />
       </header>
-
 
       <section>
         <Apollo />
