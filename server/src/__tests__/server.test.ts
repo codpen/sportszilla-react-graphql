@@ -1,8 +1,3 @@
-// import {startServer} from '../server'
-import server from '../server';
-// import { testEnvironment } from '../../jest.config';
-import startServer from '../server';
-
 const dotenv = require('dotenv');
 
 // console.log(startServer);
@@ -28,11 +23,4 @@ describe('read .env file', () => {
     expect(process.env.DB_PORT).toBeDefined();
   });
   test('Greet should return a string', () => expect(process.env.GREET).toBe('Hello Dev'));
-});
-
-describe('test function startServer', () => {
-  const DB_URL = 'test';
-  test('if function startServer has DB_URL', async () => {
-    expect(startServer()).toHaveProperty(DB_URL);
-  });
 });
