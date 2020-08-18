@@ -4,17 +4,17 @@ import Spinner from '../../Spinner/Spinner';
 import { useQuery, gql } from '@apollo/client';
 
 interface UserData {
-  ID?: number;
-  firstName?: string;
-  lastName?: string | null;
-  userName?: string | null;
-  email?: string;
-  passW?: string;
-  birthday?: Date;
-  creationDate?: Date;
-  updatedOn?: Date;
-  deletionDate?: Date | null;
-  __typeName?: string;
+  ID: number;
+  firstName: string;
+  lastName: string | null;
+  userName: string | null;
+  email: string;
+  passW: string;
+  birthday: Date;
+  creationDate: Date;
+  updatedOn: Date;
+  deletionDate: Date | null;
+  __typeName: string;
 }
 interface GetOneUserArgs {
   id: number;
@@ -46,7 +46,7 @@ const Apollo: React.FC = () => {
   );
 
   if (loading) return <Spinner boxHeight={400}/>;
-  if (error) return <p>Oopsie: {error}</p>;
+  if (error) return <p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
 
   return (
@@ -54,16 +54,17 @@ const Apollo: React.FC = () => {
       <h2 style={{color: 'blue'}}>Apollo Read</h2>
       {data && data.getOneUser &&
         <div>
-          <p>{ data.getOneUser.ID }</p>
-          <p>{ data.getOneUser.firstName }</p>
-          <p>{ data.getOneUser.lastName }</p>
-          <p>{ data.getOneUser.userName }</p>
-          <p>{ data.getOneUser.email }</p>
-          <p>{ data.getOneUser.passW }</p>
-          <p>{ data.getOneUser.birthday }</p>
-          <p>{ data.getOneUser.creationDate }</p>
-          <p>{ data.getOneUser.updatedOn }</p>
-          <p>{ data.getOneUser.deletionDate }</p>
+          <h4>User data:</h4>
+          <p>ID: { data.getOneUser.ID }</p>
+          <p>First name: { data.getOneUser.firstName }</p>
+          <p>Last name: { data.getOneUser.lastName }</p>
+          <p>User name: { data.getOneUser.userName }</p>
+          <p>email: { data.getOneUser.email }</p>
+          <p>password: { data.getOneUser.passW }</p>
+          <p>birthday: { data.getOneUser.birthday }</p>
+          <p>creationDate: { data.getOneUser.creationDate }</p>
+          <p>updatedOn: { data.getOneUser.updatedOn }</p>
+          <p>deletionDate: { data.getOneUser.deletionDate }</p>
         </div>
       }
     </div>
