@@ -36,7 +36,7 @@ const GET_ONE_USER = gql`
   }
 `;
 
-const Apollo: React.FC = () => {
+const Read: React.FC = () => {
   interface Response {
     getOneUser: UserData;
   }
@@ -50,7 +50,7 @@ const Apollo: React.FC = () => {
   if (!data) return <p>User not found</p>;
 
   return (
-    <div className={styles.Apollo} data-testid="Apollo">
+    <div className={styles.Read} data-testid="Read">
       <h2 style={{color: 'blue'}}>Apollo Read</h2>
       {data && data.getOneUser &&
         <div>
@@ -71,4 +71,4 @@ const Apollo: React.FC = () => {
   )
 };
 
-export default Apollo;
+export default Read;

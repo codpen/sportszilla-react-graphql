@@ -1,17 +1,18 @@
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import { Button } from '@zendeskgarden/react-buttons';
 import Spinner from '../../Spinner/Spinner';
 import styles from './Create.module.scss';
 
 interface UserData {
   ID?: number;
   firstName: string;
-  lastName?: string | null;
-  userName?: string | null;
+  lastName: string;
+  userName: string;
   email: string;
   passW: string;
-  birthday?: Date;
+  birthday?: Date | null;
   creationDate?: Date;
   updatedOn?: Date;
   deletionDate?: Date | null;
@@ -26,34 +27,33 @@ const NEW_USER = gql`
   }
 `
 const Create: React.FC = () => {
-  const [firstName, setFirstName] = useState<string>('');
-  const [lastName, setLastName] = useState<string>('');
-  const [userName, setUserName] = useState<string>('');
-  const [email, setEmail] = useState<string>('');
-  const [passW, setPassW] = useState<string>('');
-  const [birthday, setBirthday] = useState<Date>(new Date());
+  const [userData, setUserData] = useState<UserData>({
+    firstName: '',
+    lastName: '',
+    userName: '',
+    email: '',
+    passW: '',
+    birthday: new Date(),
+  });
 
   const [savedUser, { loading, error, data }] = useMutation<
     { savedUser: UserData },
     { newUser: UserData }
   >(NEW_USER, {
-    variables: { newUser: {
-      firstName,
-      lastName,
-      userName,
-      email,
-      passW,
-      birthday,
-    }}
+    variables: { newUser: userData }
   });
 
   interface FormMethod<E> {
     (event: E): void;
   }
+  const handleChange: FormMethod<ChangeEvent<HTMLInputElement>> = (event) => {
+    console.log(event)
+    const { name, value } = event.target;
+    console.log('hey: ', name, value);
+  };
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
-    console.log(event.target);
-  }
+  };
 
   if (loading) return <Spinner boxHeight={400}/>;
   if (error) return <p>Oopsie: {error.message}</p>;
@@ -65,31 +65,32 @@ const Create: React.FC = () => {
       <form className={styles.userForm} onSubmit={handleSubmit}>
         <Field className={styles.userInput}>
           <Label>First Name</Label>
-          <Input validation={undefined} />
+          <Input name="firstName" value={userData.firstName} validation={undefined} onChange={(event) => handleChange(event)}/>
         </Field>
         <Field className={styles.userInput}>
           <Label>Last Name</Label>
-          <Input validation={undefined} />
+          <Input name="lastName" value={userData.lastName} validation={undefined} onChange={(event) => handleChange(event)} />
         </Field>
         <Field className={styles.userInput}>
           <Label>Username</Label>
-          <Input validation="warning" />
+          <Input name="userName" value={userData.userName} validation="warning" onChange={(event) => handleChange(event)} />
           <Message validation="warning">Too short username</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Email</Label>
-          <Input validation="success" />
+          <Input name="email" value={userData.email} type="email" validation="success" onChange={(event) => handleChange(event)} />
           <Message validation="success">Correct email</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Password</Label>
-          <Input validation="error" />
+          <Input name="password" value={userData.passW} type="password" validation="error" onChange={(event) => handleChange(event)} />
           <Message validation="error">Incorrect password</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Birthday</Label>
-          <Input validation={undefined} />
+          <Input name="birthday" type="datetime-local" value={String(userData.birthday)} validation={undefined} onChange={(event) => handleChange(event)} />
         </Field>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   )
