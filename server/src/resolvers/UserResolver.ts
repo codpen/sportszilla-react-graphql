@@ -7,6 +7,15 @@ import UpdateUser from '../inputs/UpdateUser.input';
 
 @Resolver()
 export default class UserResolver {
+  @Query(() => [User])
+  async getAllUsers() {
+    try {
+      return User.findAll();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   @Query(() => User)
   async getOneUser(@Arg('ID') id: number) {
     try {
