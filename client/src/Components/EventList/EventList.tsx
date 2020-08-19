@@ -38,7 +38,7 @@ const EventList: React.FC = () => {
     );
   });
 
-  const arrow = require('../../Images/FormIcons/down-arrow.svg');
+  const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
 
   return (
     <div className={styles.Container}>
@@ -50,7 +50,7 @@ const EventList: React.FC = () => {
         <div className={styles.Button}>
           <button>
             <p>Map View</p>
-            <img src={arrow} alt="down-arrow" />
+            <img src={arrowIcon} alt="down-arrow" />
           </button>
         </div>
       </div>
