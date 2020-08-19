@@ -10,6 +10,7 @@ const Board: React.FC = () => (
       <h1>Find Your Next Teammates</h1>
     </div>
     <div>
+      <ButtonGeneric buttonText="Find Events" buttonLink="#" />
       <ButtonGeneric buttonText="Join Now" buttonLink="#" />
     </div>
   </div>

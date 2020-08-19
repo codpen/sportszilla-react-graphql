@@ -9,6 +9,34 @@ html {
   height: 100%;
   width: 100%;
   overflow-x: hidden;
+  animation: slide infinite;
+  animation-duration: 20s;
+  @keyframes slide {
+    0% {
+      background: url('../../Images/BackgroundImages/Basketball.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    33% {
+      background: url('../../Images/BackgroundImages/Football.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+    67% {
+      background: url('../../Images/BackgroundImages/Tennis.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
 }
 
 .Main {

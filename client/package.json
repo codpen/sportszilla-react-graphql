@@ -13,6 +13,7 @@
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
     "@types/react-map-gl": "^5.2.7",
+    "@types/react-scroll": "^1.5.5",
     "@zendeskgarden/react-buttons": "^8.19.0",
     "@zendeskgarden/react-datepickers": "^8.19.0",
     "@zendeskgarden/react-forms": "^8.19.0",
@@ -28,6 +29,7 @@
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-scroll": "^1.8.1",
     "styled-components": "^5.1.1",
     "typescript": "~3.7.2"
   },

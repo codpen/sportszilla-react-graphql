@@ -42,17 +42,19 @@ const EventList: React.FC = () => {
 
   return (
     <div className={styles.Container}>
-      <SearchBar />
-      <div className={styles.EventList} data-testid="EventList">
-        {list}
+      <div className={styles.Container1}>
+        <SearchBar />
+        <div className={styles.EventList} data-testid="EventList">
+          {list}
+        </div>
+        <div className={styles.Button}>
+          <button>
+            <p>Map View</p>
+            <img src={arrow} alt="down-arrow" />
+          </button>
+        </div>
       </div>
-      <div>
-        <button>
-          <p>Map View</p>
-          <img src={arrow} alt="down-arrow" />
-        </button>
-      </div>
-      <div>
+      <div className={styles.Map}>
         <Map />
       </div>
     </div>

@@ -9,11 +9,13 @@ img {
 }
 .Navbar {
   width: 100%;
-  height: 100%;
+  height: 10vh;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 10000;
+  position: fixed;
 }
 
 .NavbarLeft_logo_img {
