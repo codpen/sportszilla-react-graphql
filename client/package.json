@@ -17,7 +17,7 @@
     "@zendeskgarden/react-dropdowns": "^8.19.0",
     "@zendeskgarden/react-grid": "^8.19.0",
     "@zendeskgarden/react-theming": "^8.19.0",
-    "bootstrap": "^4.5.2",
+    "@zendeskgarden/svg-icons": "^6.22.0",
     "dotenv": "^8.2.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
@@ -26,6 +26,7 @@
     "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "styled-components": "^5.1.1",
     "typescript": "~3.7.2"
   },
   "scripts": {

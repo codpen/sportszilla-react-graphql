@@ -18,7 +18,6 @@ const Navbar: React.FC = () => {
       </div>
       <div className={styles.NavbarRight}>
         <DropMenu />
-        {/* <img src={hamburger} alt="hamburger" /> */}
       </div>
     </div>
   );
