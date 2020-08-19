@@ -20,32 +20,41 @@ interface UserData {
   __typeName?: string;
 }
 
-const NEW_USER = gql`
-  mutation NewUser($userData: NewUser!) {
-    newUser(userData: $userData) {
-      ID
+const UPDATE_USER = gql`
+  mutation UpdateUser($id: Float!, $userData: UpdateUser!) {
+    updateUser(ID: $id, userData: $userData) {
+      firstName
+      lastName
+      userName
+      email
+      passW
+      birthday
     }
   }
 `;
 
-const Update: React.FC = () => {
+interface PropTypes {
+  selectedUser: UserData;
+}
+const Update: React.FC<PropTypes> = ({ selectedUser }) => {
   const [userData, setUserData] = useState<UserData>({
-    firstName: '',
-    lastName: '',
-    userName: '',
-    email: '',
-    passW: '',
-    birthday: new Date(),
+    firstName: selectedUser.firstName,
+    lastName: selectedUser.lastName,
+    userName: selectedUser.userName,
+    email: selectedUser.email,
+    passW: selectedUser.passW,
+    birthday: selectedUser.birthday,
   });
 
   interface Response {
     userData: UserData;
   }
   interface Arguments {
+    id: number | undefined;
     userData: UserData;
   }
-  const [updateUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER, {
-    variables: { userData },
+  const [updateUser, { loading, error, data }] = useMutation<Response, Arguments>(UPDATE_USER, {
+    variables: { id: selectedUser.ID, userData },
   });
 
   interface FormMethod<E> {
@@ -70,16 +79,15 @@ const Update: React.FC = () => {
   interface VerifyForm {
     (): boolean;
   }
-  // TODO: write complete FE verification
+  // TODO: correct this
   const verifyForm: VerifyForm = () => {
     const isNoNulls = Object.values(userData).every((value) => value !== '' && value !== undefined);
-    return isNoNulls;
+    return true;
   };
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     // TODO: pop up notification here if form is incorrect
     if (!verifyForm()) return null;
-    console.log(userData);
     updateUser();
   };
 
@@ -98,6 +106,7 @@ const Update: React.FC = () => {
             value={userData.firstName}
             validation={undefined}
             onChange={(event) => handleChange(event)}
+            placeholder={selectedUser.firstName}
           />
         </Field>
         <Field className={styles.userInput}>
@@ -107,6 +116,7 @@ const Update: React.FC = () => {
             value={userData.lastName}
             validation={undefined}
             onChange={(event) => handleChange(event)}
+            placeholder={selectedUser.lastName}
           />
         </Field>
         <Field className={styles.userInput}>
@@ -116,6 +126,7 @@ const Update: React.FC = () => {
             value={userData.userName}
             validation="warning"
             onChange={(event) => handleChange(event)}
+            placeholder={selectedUser.userName}
           />
           <Message validation="warning">Too short username</Message>
         </Field>
@@ -127,6 +138,7 @@ const Update: React.FC = () => {
             type="email"
             validation="success"
             onChange={(event) => handleChange(event)}
+            placeholder={selectedUser.email}
           />
           <Message validation="success">Correct email</Message>
         </Field>
@@ -138,13 +150,14 @@ const Update: React.FC = () => {
             type="password"
             validation="error"
             onChange={(event) => handleChange(event)}
+            placeholder={selectedUser.passW}
           />
           <Message validation="error">Incorrect password</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Birthday</Label>
-          <Datepicker value={userData.birthday} onChange={handleDate}>
-            <Input name="birthday" />
+          <Datepicker value={userData.birthday} onChange={handleDate} >
+            <Input name="birthday" placeholder={String(selectedUser.birthday)} />
           </Datepicker>
         </Field>
         <Button type="submit">Submit</Button>

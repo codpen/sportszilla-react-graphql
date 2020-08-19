@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, Dispatch, SetStateAction  } from 'react';
 import { useLazyQuery, gql } from '@apollo/client';
 import styles from './Read.module.scss';
 import Loader from '../../Loader/Loader';
 
 interface UserData {
-  ID: number;
+  ID?: number;
   firstName: string;
   lastName: string;
   userName: string;
   email: string;
   passW: string;
-  birthday: Date;
-  creationDate: Date;
-  updatedOn: Date;
-  deletionDate: Date | null;
-  __typeName: string;
+  birthday?: Date | undefined;
+  creationDate?: Date;
+  updatedOn?: Date;
+  deletionDate?: Date | undefined;
+  __typeName?: string;
 }
 
 const GET_ONE_USER = gql`
@@ -38,10 +38,11 @@ interface UserDetails {
   ID: number;
   email: string;
 }
-interface Users {
+interface PropTypes {
   users: UserDetails[]
+  setSelectedUser: Dispatch<SetStateAction<UserData>>
 }
-const Read: React.FC<Users> = ({ users }) => {
+const Read: React.FC<PropTypes> = ({ users, setSelectedUser }) => {
   interface Response {
     getOneUser: UserData;
   }
@@ -54,6 +55,7 @@ const Read: React.FC<Users> = ({ users }) => {
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
+  if (data && data.getOneUser) setSelectedUser(data.getOneUser);
 
   const options = users.map((user) => (
     <option key={`${user.ID}_${user.email}`} value={user.ID}>{user.email}</option>
@@ -82,9 +84,9 @@ const Read: React.FC<Users> = ({ users }) => {
           <p>User name: {data.getOneUser.userName}</p>
           <p>email: {data.getOneUser.email}</p>
           <p>password: {data.getOneUser.passW}</p>
-          <p>birthday: {data.getOneUser.birthday.toLocaleString()}</p>
-          <p>creationDate: {data.getOneUser.creationDate.toLocaleString()}</p>
-          <p>updatedOn: {data.getOneUser.updatedOn.toLocaleString()}</p>
+          <p>birthday: {data.getOneUser.birthday?.toLocaleString()}</p>
+          <p>creationDate: {data.getOneUser.creationDate?.toLocaleString()}</p>
+          <p>updatedOn: {data.getOneUser.updatedOn?.toLocaleString()}</p>
           <p>deletionDate: {data.getOneUser.deletionDate?.toLocaleString()}</p>
         </div>
       )}
