@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './SearchBar.module.scss';
 import { Field, Label, Input } from '@zendeskgarden/react-forms';
+import FilterButton from '../FilterButton/FilterButton';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
 
 const SearchBar: React.FC = () => {
@@ -21,7 +22,9 @@ const SearchBar: React.FC = () => {
         >
           <Input />
         </Datepicker>
-        <Field></Field>
+        <Field>
+          <FilterButton />
+        </Field>
       </Field>
     </div>
   );
