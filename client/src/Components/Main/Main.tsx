@@ -10,6 +10,7 @@ import SignUp from '../SignUp/SignUp';
 import Profile from '../Profile/Profile';
 import Data from '../../mockData/data.json';
 import Map from '../Map/Map';
+import EventList from '../EventList/EventList';
 
 interface PropTypes {
   boolProp: boolean;
@@ -36,7 +37,7 @@ function Main({ boolProp }: PropTypes): ReactElement {
               <Board />
             </Route>
             <Route path="/user/profile/">
-              <Profile />
+              <EventList />
             </Route>
             <Route path="/user/login/">
               <Login />
