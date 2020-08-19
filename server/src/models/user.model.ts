@@ -9,9 +9,11 @@ import {
   AutoIncrement,
   HasMany,
   DataType,
+  BelongsToMany,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
+import FavSports from './favSports.model'
 
 @Table
 @ObjectType()
@@ -46,9 +48,9 @@ export default class User extends Model<User> {
   @Field(() => Date, { nullable: true })
   birthday: Date;
 
-  @Column(DataType.ARRAY(DataType.UUID))
-  @Field(() => Sport, { nullable: true })
-  favSports: User[];
+  @BelongsToMany(() => User, () => FavSports)
+  @Field(() => Sport)
+  favSports: Sport[];
 
   @CreatedAt
   @Field(() => Date)

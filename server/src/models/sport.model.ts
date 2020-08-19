@@ -1,5 +1,7 @@
-import { Table, Column, Model, HasMany, AutoIncrement, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
+import { Table, Column, Model, HasMany, AutoIncrement, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt, BelongsToMany } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
+import FavSports from './favSports.model';
+import User from './user.model';
 
 @Table
 @ObjectType()
@@ -14,9 +16,10 @@ export default class Sport extends Model<Sport> {
   @Field(() => String)
   sportName: string;
 
-  // @Column
-  // @Field(() => [User])
-  // favoriteByUsers: User[];
+  @BelongsToMany(() => User, () => FavSports)
+  @Field(() => User)
+  favedBy: User[];
+
   @Column
   @Field(() => Boolean)
   indoor: Boolean;

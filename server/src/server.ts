@@ -7,7 +7,7 @@ import path from 'path';
 import UserResolver from './resolvers/UserResolver';
 import EventResolver from './resolvers/EventResolver';
 import sportResolver from './resolvers/sportResolver';
-import favSportResolver from './resolvers/favSports';
+import favSportResolver from './resolvers/favSportsResolver';
 
 dotenv.config();
 

@@ -3,6 +3,7 @@ import {
 } from 'type-graphql';
 // import Sport from '../models/sport.model'
 import User from '../models/user.model'
+import FavSports from '../models/favSports.model';
 
 @Resolver()
 export default class favSportResolver {
@@ -13,5 +14,9 @@ export default class favSportResolver {
     } catch (err) {
       console.error(err);
     }
-  }
+	}
+	
+	// @Mutation(() => FavSports)
+	// async newFavSport()
+
 }
