@@ -3,6 +3,7 @@ import styles from './EventList.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
 import SearchBar from '../SearchBar/SearchBar';
+import Map from '../Map/Map';
 
 const EventList: React.FC = () => {
   type Event = {
@@ -37,13 +38,24 @@ const EventList: React.FC = () => {
     );
   });
 
+  const arrow = require('../../Images/FormIcons/down-arrow.svg');
+
   return (
-    <>
+    <div className={styles.Container}>
       <SearchBar />
       <div className={styles.EventList} data-testid="EventList">
         {list}
       </div>
-    </>
+      <div>
+        <button>
+          <p>Map View</p>
+          <img src={arrow} alt="down-arrow" />
+        </button>
+      </div>
+      <div>
+        <Map />
+      </div>
+    </div>
   );
 };
 

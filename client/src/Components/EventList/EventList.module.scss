@@ -1,6 +1,21 @@
 .EventList {
-  margin-top: 2rem;
+  margin-top: 0rem;
   margin-bottom: 2rem;
   overflow: scroll;
   max-height: 30rem;
+}
+
+button {
+  background-color: rgba(255, 235, 205, 0);
+  border: none;
+  outline: none;
+  p {
+    color: white;
+    font-size: 1rem;
+    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+  img {
+    height: 2rem;
+  }
 }
