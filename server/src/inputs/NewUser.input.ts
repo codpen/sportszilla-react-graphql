@@ -19,6 +19,10 @@ export default class NewUser {
 
   @Field()
   birthday: Date;
+
+  @Field()
+  
+
 }
 /**
  * suggestions for the table-

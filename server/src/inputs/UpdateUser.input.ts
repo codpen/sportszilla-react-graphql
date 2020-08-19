@@ -1,4 +1,5 @@
 import { InputType, Field } from 'type-graphql';
+import NewFavSport from './newFavSport.input';
 
 @InputType()
 export default class UpdateUser {
@@ -19,6 +20,9 @@ export default class UpdateUser {
 
   @Field({ nullable: true })
   birthday?: Date;
+
+  @Field({ nullable: true })
+  favSport?: NewFavSport [];
   /**
    * @Field({ nullable: true })
    * username?: string;
