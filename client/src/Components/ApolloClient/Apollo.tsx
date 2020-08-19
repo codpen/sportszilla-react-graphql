@@ -39,15 +39,6 @@ const GET_ALL_USERS = gql`
 `;
 
 const Apollo: React.FC = () => {
-  /*
-  const [users, setUsers] = useState<UserData[]>([{
-    firstName: '',
-    lastName: '',
-    userName: '',
-    email: '',
-    passW: '',
-  }])
-  */
   interface Response {
     getAllUsers: UserData[];
   }
