@@ -4,6 +4,7 @@ import styles from './Board.module.scss';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import SportList from '../SportList/SportList';
 import EventList from '../EventList/EventList';
+import Map from '../Map/Map';
 
 const Board: React.FC = () => (
   <div className={styles.Board} data-testid="Board">
@@ -12,6 +13,11 @@ const Board: React.FC = () => (
     </div>
     <div>
       <ButtonGeneric buttonText="Join Now" buttonLink="#" />
+    </div>
+    <div className={styles.container}>
+      <div className={styles.mapContainer}>
+        <Map />
+      </div>
     </div>
   </div>
 );
