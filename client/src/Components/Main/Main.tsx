@@ -31,7 +31,7 @@ function Main({ boolProp }: PropTypes): ReactElement {
             <Route exact path="/apollo/">
               <Apollo />
             </Route>
-            <Route exact path="/board/">
+            <Route exact path="/intro/">
               <Board />
             </Route>
             <Route path="/user/profile/">
@@ -43,7 +43,7 @@ function Main({ boolProp }: PropTypes): ReactElement {
             <Route path="/user/signUp/">
               <SignUp />
             </Route>
-            <Redirect from="/" to="/board/" />
+            <Redirect from="/" to="/intro/" />
           </Switch>
         </main>
       </div>
