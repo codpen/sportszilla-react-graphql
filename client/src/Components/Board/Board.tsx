@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Board.module.scss';
+
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import SportList from '../SportList/SportList';
 import EventList from '../EventList/EventList';

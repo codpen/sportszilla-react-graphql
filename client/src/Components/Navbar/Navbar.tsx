@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../Images/godzilla.svg';
 import logoBall from '../../Images/filled-circle.svg';
 import hamburger from '../../Images/open-menu.svg';
+import DropMenu from '../DropMenu/DropMenu';
 
 const Navbar: React.FC = () => {
   return (
@@ -16,7 +17,7 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className={styles.NavbarRight}>
-        <img src={hamburger} alt="hamburger" />
+        <DropMenu />
       </div>
     </div>
   );
