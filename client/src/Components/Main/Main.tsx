@@ -5,16 +5,15 @@ import './Main.scss';
 import Navbar from '../Navbar/Navbar';
 import Board from '../Board/Board';
 import Footer from '../Footer/Footer';
-import Login from '../Login/Login';
-import SignUp from '../SignUp/SignUp';
-import Profile from '../Profile/Profile';
+import Login from '../User/Login/Login';
+import SignUp from '../User/SignUp/SignUp';
+import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Map from '../Map/Map';
 
 interface PropTypes {
   boolProp: boolean;
 }
-
 function Main({ boolProp }: PropTypes): ReactElement {
   const [users, setUsers] = useState<object[]>([Data.users]);
   const [events, setEvents] = useState<object[]>([Data.events]);
