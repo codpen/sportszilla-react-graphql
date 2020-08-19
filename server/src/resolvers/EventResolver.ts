@@ -1,7 +1,5 @@
 /* eslint-disable */
-import {
-  Resolver, Query, Mutation, Arg,
-} from 'type-graphql';
+import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Event from '../models/event.model';
 import NewSportEvent from '../inputs/NewSportEvent.input';
 import UpdateEvent from '../inputs/UpdateEvent.input';
@@ -47,10 +45,10 @@ export default class EventResolver {
     }
   }
 
-    @Mutation(() => Boolean)
+  @Mutation(() => Boolean)
   async deleteEvent(@Arg('ID') id: number) {
     try {
-      const event = await Event.findOne({ where: { 'ID': id } });
+      const event = await Event.findOne({ where: { ID: id } });
       if (!event) throw new Error('Event not found!');
       await event.destroy();
       return true;

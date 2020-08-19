@@ -1,4 +1,14 @@
-import { Table, Column, Model, HasMany, AutoIncrement, PrimaryKey, CreatedAt, UpdatedAt, DeletedAt } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  HasMany,
+  AutoIncrement,
+  PrimaryKey,
+  CreatedAt,
+  UpdatedAt,
+  DeletedAt,
+} from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 
 @Table
