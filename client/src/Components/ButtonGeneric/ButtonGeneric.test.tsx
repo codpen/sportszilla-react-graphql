@@ -6,7 +6,7 @@ import ButtonGeneric from './ButtonGeneric';
 describe('<ButtonGeneric />', () => {
   test('it should mount', () => {
     render(<ButtonGeneric />);
-    
+
     const buttonGeneric = screen.getByTestId('ButtonGeneric');
 
     expect(buttonGeneric).toBeInTheDocument();

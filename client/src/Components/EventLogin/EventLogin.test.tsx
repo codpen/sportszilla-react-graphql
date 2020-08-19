@@ -6,7 +6,7 @@ import EventLogin from './EventLogin';
 describe('<EventLogin />', () => {
   test('it should mount', () => {
     render(<EventLogin />);
-    
+
     const eventLogin = screen.getByTestId('EventLogin');
 
     expect(eventLogin).toBeInTheDocument();

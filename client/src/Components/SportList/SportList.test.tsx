@@ -6,7 +6,7 @@ import SportList from './SportList';
 describe('<SportList />', () => {
   test('it should mount', () => {
     render(<SportList />);
-    
+
     const sportList = screen.getByTestId('SportList');
 
     expect(sportList).toBeInTheDocument();

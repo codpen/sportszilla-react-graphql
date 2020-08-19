@@ -47,7 +47,7 @@ const Apollo: React.FC = () => {
 
   interface LoadUsers {
     (): void;
-  };
+  }
   const loadUsers: LoadUsers = () => {
     refetch();
   };
@@ -57,18 +57,18 @@ const Apollo: React.FC = () => {
   if (!data) return <p>User not found</p>;
 
   let userIDs: JSX.Element[] | null = null;
-  let users: UserData[] = [{
-    firstName: '',
-    lastName: '',
-    userName: '',
-    email: '',
-    passW: '',
-  }];
+  let users: UserData[] = [
+    {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      passW: '',
+    },
+  ];
   if (data && data.getAllUsers) {
-    users = (data.getAllUsers);
-    userIDs = data.getAllUsers.map((user) => (
-      <span key={user.ID}> | {user.email} | </span>
-    ));
+    users = data.getAllUsers;
+    userIDs = data.getAllUsers.map((user) => <span key={user.ID}> | {user.email} | </span>);
   }
 
   return (
@@ -80,11 +80,11 @@ const Apollo: React.FC = () => {
           <Create />
           <Read users={users} />
           <Update users={users} loadUsers={loadUsers} />
-          <Delete users={users} loadUsers={loadUsers}/>
+          <Delete users={users} loadUsers={loadUsers} />
         </>
       )}
     </div>
-  )
+  );
 };
 
 export default Apollo;

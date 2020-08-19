@@ -28,9 +28,9 @@ const DELETE_USER = gql`
 `;
 interface LoadUsers {
   (): void;
-};
+}
 interface PropTypes {
-  users: UserData[]
+  users: UserData[];
   loadUsers: LoadUsers;
 }
 const Delete: React.FC<PropTypes> = ({ users, loadUsers }) => {
@@ -66,7 +66,9 @@ const Delete: React.FC<PropTypes> = ({ users, loadUsers }) => {
   if (error) return <p>Oopsie: {error.message}</p>;
 
   const options = users.map((user) => (
-    <option key={`${user.ID}_${user.email}`} value={user.ID}>{user.email}</option>
+    <option key={`${user.ID}_${user.email}`} value={user.ID}>
+      {user.email}
+    </option>
   ));
 
   return (
@@ -76,16 +78,19 @@ const Delete: React.FC<PropTypes> = ({ users, loadUsers }) => {
         value={selectedID}
         onChange={(event) => {
           const ID = Number(event.target.value);
-          setSelectedID(ID)
+          setSelectedID(ID);
           const user = users.find((user) => user.ID === ID);
           user && setSelectedUser(user);
         }}
       >
-      <option hidden disabled value={0}> -- Select a user -- </option>
+        <option hidden disabled value={0}>
+          {' '}
+          -- Select a user --{' '}
+        </option>
         {options}
       </select>
       {selectedUser && (
-        <form  onSubmit={handleSubmit} >
+        <form onSubmit={handleSubmit}>
           <h4>User data:</h4>
           <p>ID: {selectedUser.ID}</p>
           <p>Username: {selectedUser.userName}</p>

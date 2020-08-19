@@ -35,13 +35,12 @@ const UPDATE_USER = gql`
 `;
 interface LoadUsers {
   (): void;
-};
+}
 interface PropTypes {
-  users: UserData[]
+  users: UserData[];
   loadUsers: LoadUsers;
 }
 const Update: React.FC<PropTypes> = ({ users, loadUsers }) => {
-
   const [selectedID, setSelectedID] = useState<number>(0);
   const [selectedUser, setSelectedUser] = useState<UserData>({
     firstName: '',
@@ -85,14 +84,16 @@ const Update: React.FC<PropTypes> = ({ users, loadUsers }) => {
   }
   // TODO: correct this
   const verifyForm: VerifyForm = () => {
-    const isNoNulls = Object.values(selectedUser).every((value) => value !== '' && value !== undefined);
+    const isNoNulls = Object.values(selectedUser).every(
+      (value) => value !== '' && value !== undefined
+    );
     return true;
   };
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     // TODO: pop up notification here if form is incorrect
     if (!verifyForm()) return null;
-    updateUser({ variables: { id: selectedID, userData: selectedUser }});
+    updateUser({ variables: { id: selectedID, userData: selectedUser } });
     loadUsers();
   };
   interface MakePlaceHolder {
@@ -110,18 +111,20 @@ const Update: React.FC<PropTypes> = ({ users, loadUsers }) => {
   if (error) return <p>Oopsie: {error.message}</p>;
 
   const options = users.map((user) => (
-    <option key={`${user.ID}_${user.email}`} value={user.ID}>{user.email}</option>
+    <option key={`${user.ID}_${user.email}`} value={user.ID}>
+      {user.email}
+    </option>
   ));
 
   return (
     <div className={styles.Update} data-testid="Update">
       <h2 style={{ color: 'Teal' }}>Apollo Update</h2>
       {data && data.userData ? <p>Saved!</p> : null}
-      <select
-        value={selectedID}
-        onChange={(event) => setSelectedID(Number(event.target.value))}
-      >
-        <option hidden disabled value={0}> -- Select a user -- </option>
+      <select value={selectedID} onChange={(event) => setSelectedID(Number(event.target.value))}>
+        <option hidden disabled value={0}>
+          {' '}
+          -- Select a user --{' '}
+        </option>
         {options}
       </select>
       <form className={styles.userForm} onSubmit={handleSubmit}>
@@ -181,7 +184,7 @@ const Update: React.FC<PropTypes> = ({ users, loadUsers }) => {
         </Field>
         <Field className={styles.userInput}>
           <Label>Birthday</Label>
-          <Datepicker value={selectedUser.birthday} onChange={handleDate} >
+          <Datepicker value={selectedUser.birthday} onChange={handleDate}>
             <Input name="birthday" placeholder={makePlaceholder('birthday')} />
           </Datepicker>
         </Field>

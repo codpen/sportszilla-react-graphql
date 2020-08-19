@@ -36,7 +36,7 @@ const GET_ONE_USER = gql`
 `;
 
 interface PropTypes {
-  users: UserData[]
+  users: UserData[];
 }
 const Read: React.FC<PropTypes> = ({ users }) => {
   interface Response {
@@ -45,14 +45,16 @@ const Read: React.FC<PropTypes> = ({ users }) => {
   interface Arguments {
     id: number;
   }
-  const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER)
+  const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER);
   const [selectedID, setSelectedID] = useState<number>(0);
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
   const options = users.map((user) => (
-    <option key={`${user.ID}_${user.email}`} value={user.ID}>{user.email}</option>
+    <option key={`${user.ID}_${user.email}`} value={user.ID}>
+      {user.email}
+    </option>
   ));
 
   return (
@@ -62,12 +64,15 @@ const Read: React.FC<PropTypes> = ({ users }) => {
         value={selectedID}
         onChange={(event) => {
           const ID = Number(event.target.value);
-          setSelectedID(ID)
-          getOneUser({ variables: {id: ID}})
+          setSelectedID(ID);
+          getOneUser({ variables: { id: ID } });
         }}
       >
-      <option hidden disabled value={0}> -- Select a user -- </option>
-      {options}
+        <option hidden disabled value={0}>
+          {' '}
+          -- Select a user --{' '}
+        </option>
+        {options}
       </select>
       {data && data.getOneUser && (
         <div>

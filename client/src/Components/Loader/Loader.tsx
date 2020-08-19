@@ -7,7 +7,7 @@ interface PropTypes {
 }
 
 const Loader: React.FC<PropTypes> = ({ boxHeight }) => (
-  <div style={{ height: `${boxHeight}px`}} className={styles.Loader}>
+  <div style={{ height: `${boxHeight}px` }} className={styles.Loader}>
     <Dots />
   </div>
 );

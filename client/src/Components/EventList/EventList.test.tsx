@@ -6,7 +6,7 @@ import EventList from './EventList';
 describe('<EventList />', () => {
   test('it should mount', () => {
     render(<EventList />);
-    
+
     const eventList = screen.getByTestId('EventList');
 
     expect(eventList).toBeInTheDocument();

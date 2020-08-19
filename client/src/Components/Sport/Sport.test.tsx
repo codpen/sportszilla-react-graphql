@@ -6,7 +6,7 @@ import Sport from './Sport';
 describe('<Sport />', () => {
   test('it should mount', () => {
     render(<Sport />);
-    
+
     const sport = screen.getByTestId('Sport');
 
     expect(sport).toBeInTheDocument();
