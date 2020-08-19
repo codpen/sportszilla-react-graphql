@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction  } from 'react';
+import React, { useState } from 'react';
 import { useLazyQuery, gql } from '@apollo/client';
 import styles from './Read.module.scss';
 import Loader from '../../Loader/Loader';
@@ -34,15 +34,10 @@ const GET_ONE_USER = gql`
   }
 `;
 
-interface UserDetails {
-  ID: number;
-  email: string;
-}
 interface PropTypes {
-  users: UserDetails[]
-  setSelectedUser: Dispatch<SetStateAction<UserData>>
+  users: UserData[]
 }
-const Read: React.FC<PropTypes> = ({ users, setSelectedUser }) => {
+const Read: React.FC<PropTypes> = ({ users }) => {
   interface Response {
     getOneUser: UserData;
   }
@@ -50,12 +45,10 @@ const Read: React.FC<PropTypes> = ({ users, setSelectedUser }) => {
     id: number;
   }
   const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER)
-
   const [selectedID, setSelectedID] = useState<number>(0);
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
-  if (data && data.getOneUser) setSelectedUser(data.getOneUser);
 
   const options = users.map((user) => (
     <option key={`${user.ID}_${user.email}`} value={user.ID}>{user.email}</option>
@@ -72,7 +65,7 @@ const Read: React.FC<PropTypes> = ({ users, setSelectedUser }) => {
           getOneUser({ variables: {id: ID}})
         }}
       >
-      <option hidden disabled value={0}> -- Select an option -- </option>
+      <option hidden disabled value={0}> -- Select a user -- </option>
       {options}
       </select>
       {data && data.getOneUser && (
