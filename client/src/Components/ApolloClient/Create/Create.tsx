@@ -7,6 +7,7 @@ import Loader from '../../Loader/Loader';
 import styles from './Create.module.scss';
 
 interface UserData {
+  [index: string]: number | string | Date | undefined;
   ID?: number;
   firstName: string;
   lastName: string;

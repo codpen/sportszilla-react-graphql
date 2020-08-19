@@ -4,6 +4,7 @@ import styles from './Read.module.scss';
 import Loader from '../../Loader/Loader';
 
 interface UserData {
+  [index: string]: number | string | Date | undefined;
   ID?: number;
   firstName: string;
   lastName: string;

@@ -8,6 +8,7 @@ import Update from './Update/Update';
 import Delete from './Delete/Delete';
 
 interface UserData {
+  [index: string]: number | string | Date | undefined;
   ID?: number;
   firstName: string;
   lastName: string;

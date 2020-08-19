@@ -5,6 +5,7 @@ import styles from './Delete.module.scss';
 import Loader from '../../Loader/Loader';
 
 interface UserData {
+  [index: string]: number | string | Date | undefined;
   ID?: number;
   firstName: string;
   lastName: string;
@@ -81,7 +82,7 @@ const Delete: React.FC<PropTypes> = ({ users, loadUsers }) => {
         }}
       >
       <option hidden disabled value={0}> -- Select a user -- </option>
-      {options}
+        {options}
       </select>
       {selectedUser && (
         <form  onSubmit={handleSubmit} >

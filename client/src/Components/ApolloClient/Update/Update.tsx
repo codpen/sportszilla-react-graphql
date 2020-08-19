@@ -7,6 +7,7 @@ import Loader from '../../Loader/Loader';
 import styles from './Update.module.scss';
 
 interface UserData {
+  [index: string]: number | string | Date | undefined;
   ID?: number;
   firstName: string;
   lastName: string;
@@ -32,37 +33,40 @@ const UPDATE_USER = gql`
     }
   }
 `;
-
+interface LoadUsers {
+  (): void;
+};
 interface PropTypes {
-  selectedUser: UserData;
+  users: UserData[]
+  loadUsers: LoadUsers;
 }
-const Update: React.FC<PropTypes> = ({ selectedUser }) => {
-  const [userData, setUserData] = useState<UserData>({
-    firstName: selectedUser.firstName,
-    lastName: selectedUser.lastName,
-    userName: selectedUser.userName,
-    email: selectedUser.email,
-    passW: selectedUser.passW,
-    birthday: selectedUser.birthday,
+const Update: React.FC<PropTypes> = ({ users, loadUsers }) => {
+
+  const [selectedID, setSelectedID] = useState<number>(0);
+  const [selectedUser, setSelectedUser] = useState<UserData>({
+    firstName: '',
+    lastName: '',
+    userName: '',
+    email: '',
+    passW: '',
+    birthday: new Date(),
   });
 
   interface Response {
     userData: UserData;
   }
   interface Arguments {
-    id: number | undefined;
+    id: number;
     userData: UserData;
   }
-  const [updateUser, { loading, error, data }] = useMutation<Response, Arguments>(UPDATE_USER, {
-    variables: { id: selectedUser.ID, userData },
-  });
+  const [updateUser, { loading, error, data }] = useMutation<Response, Arguments>(UPDATE_USER);
 
   interface FormMethod<E> {
     (event: E): void;
   }
   const handleChange: FormMethod<ChangeEvent<HTMLInputElement>> = (event) => {
     const { name, value } = event.target;
-    setUserData((prevUserData) => ({
+    setSelectedUser((prevUserData) => ({
       ...prevUserData,
       [name]: value,
     }));
@@ -71,7 +75,7 @@ const Update: React.FC<PropTypes> = ({ selectedUser }) => {
     (date: Date): void;
   }
   const handleDate: HandleDate = (date) => {
-    setUserData((prevUserData) => ({
+    setSelectedUser((prevUserData) => ({
       ...prevUserData,
       birthday: date,
     }));
@@ -81,52 +85,74 @@ const Update: React.FC<PropTypes> = ({ selectedUser }) => {
   }
   // TODO: correct this
   const verifyForm: VerifyForm = () => {
-    const isNoNulls = Object.values(userData).every((value) => value !== '' && value !== undefined);
+    const isNoNulls = Object.values(selectedUser).every((value) => value !== '' && value !== undefined);
     return true;
   };
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     // TODO: pop up notification here if form is incorrect
     if (!verifyForm()) return null;
-    updateUser();
+    updateUser({ variables: { id: selectedID, userData: selectedUser }});
+    loadUsers();
+  };
+  interface MakePlaceHolder {
+    (property: string): string;
+  }
+  const makePlaceholder = (property: string) => {
+    if (selectedID !== 0) {
+      const user = users.find((user) => user.ID === selectedID);
+      return user && String(user[property]);
+    }
+    return '';
   };
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
+  const options = users.map((user) => (
+    <option key={`${user.ID}_${user.email}`} value={user.ID}>{user.email}</option>
+  ));
+
   return (
     <div className={styles.Update} data-testid="Update">
       <h2 style={{ color: 'Teal' }}>Apollo Update</h2>
       {data && data.userData ? <p>Saved!</p> : null}
+      <select
+        value={selectedID}
+        onChange={(event) => setSelectedID(Number(event.target.value))}
+      >
+        <option hidden disabled value={0}> -- Select a user -- </option>
+        {options}
+      </select>
       <form className={styles.userForm} onSubmit={handleSubmit}>
         <Field className={styles.userInput}>
           <Label>First Name</Label>
           <Input
             name="firstName"
-            value={userData.firstName}
+            value={selectedUser.firstName}
             validation={undefined}
             onChange={(event) => handleChange(event)}
-            placeholder={selectedUser.firstName}
+            placeholder={makePlaceholder('firstName')}
           />
         </Field>
         <Field className={styles.userInput}>
           <Label>Last Name</Label>
           <Input
             name="lastName"
-            value={userData.lastName}
+            value={selectedUser.lastName}
             validation={undefined}
             onChange={(event) => handleChange(event)}
-            placeholder={selectedUser.lastName}
+            placeholder={makePlaceholder('lastName')}
           />
         </Field>
         <Field className={styles.userInput}>
           <Label>Username</Label>
           <Input
             name="userName"
-            value={userData.userName}
+            value={selectedUser.userName}
             validation="warning"
             onChange={(event) => handleChange(event)}
-            placeholder={selectedUser.userName}
+            placeholder={makePlaceholder('userName')}
           />
           <Message validation="warning">Too short username</Message>
         </Field>
@@ -134,11 +160,11 @@ const Update: React.FC<PropTypes> = ({ selectedUser }) => {
           <Label>Email</Label>
           <Input
             name="email"
-            value={userData.email}
+            value={selectedUser.email}
             type="email"
             validation="success"
             onChange={(event) => handleChange(event)}
-            placeholder={selectedUser.email}
+            placeholder={makePlaceholder('email')}
           />
           <Message validation="success">Correct email</Message>
         </Field>
@@ -146,18 +172,17 @@ const Update: React.FC<PropTypes> = ({ selectedUser }) => {
           <Label>Password</Label>
           <Input
             name="passW"
-            value={userData.passW}
+            value={selectedUser.passW}
             type="password"
             validation="error"
             onChange={(event) => handleChange(event)}
-            placeholder={selectedUser.passW}
           />
           <Message validation="error">Incorrect password</Message>
         </Field>
         <Field className={styles.userInput}>
           <Label>Birthday</Label>
-          <Datepicker value={userData.birthday} onChange={handleDate} >
-            <Input name="birthday" placeholder={String(selectedUser.birthday)} />
+          <Datepicker value={selectedUser.birthday} onChange={handleDate} >
+            <Input name="birthday" placeholder={makePlaceholder('birthday')} />
           </Datepicker>
         </Field>
         <Button type="submit">Submit</Button>
