@@ -10,7 +10,7 @@ export default class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     try {
-      return User.findAll();
+      return User.findAll({ order: [['ID', 'ASC']] });
     } catch (err) {
       console.error(err);
     }
