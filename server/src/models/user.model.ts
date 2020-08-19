@@ -8,6 +8,7 @@ import {
   PrimaryKey,
   AutoIncrement,
   HasMany,
+  DataType,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
@@ -44,6 +45,10 @@ export default class User extends Model<User> {
   @Column
   @Field(() => Date, { nullable: true })
   birthday: Date;
+
+  @Column(DataType.ARRAY(DataType.UUID))
+  @Field(() => Sport, { nullable: true })
+  favSports: User[];
 
   @CreatedAt
   @Field(() => Date)

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Sport from '../models/sport.model';
 import NewSport from '../inputs/newSport.input';
