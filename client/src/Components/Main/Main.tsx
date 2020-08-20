@@ -47,11 +47,6 @@ function Main({ boolProp }: PropTypes): ReactElement {
           </Switch>
         </main>
       </div>
-      <div className="right">
-        <div className="mapContainer">
-          <Map />
-        </div>
-      </div>
     </div>
   );
 }
