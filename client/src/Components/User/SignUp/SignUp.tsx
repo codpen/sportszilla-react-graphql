@@ -1,5 +1,6 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import { Datepicker } from '@zendeskgarden/react-datepickers';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
@@ -32,7 +33,6 @@ interface ValidStatuses {
   userName: VALIDATION | undefined;
   email: VALIDATION | undefined;
   passW: VALIDATION | undefined;
-  birthday: VALIDATION | undefined;
 }
 interface ValidMsgs {
   [index: string]: string;
@@ -41,7 +41,6 @@ interface ValidMsgs {
   userName: string;
   email: string;
   passW: string;
-  birthday: string;
 }
 
 const SignUp: React.FC = () => {
@@ -61,7 +60,6 @@ const SignUp: React.FC = () => {
     userName: undefined,
     email: undefined,
     passW: undefined,
-    birthday: undefined,
   }
   const [validStatuses, setValidStatuses] = useState<ValidStatuses>(initialSts);
 
@@ -71,7 +69,6 @@ const SignUp: React.FC = () => {
     userName: '',
     email: '',
     passW: '',
-    birthday: '',
   }
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
 
@@ -89,20 +86,17 @@ const SignUp: React.FC = () => {
       case 'passW':
         const passWRgx = /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/;
         return passWRgx.test(fieldValue);
-      case 'birthday':
-        if (fieldValue.length === 0) return true;
-        try {
-          const now = new Date();
-          const birthday = new Date(fieldValue);
-          if (now.getFullYear() - birthday.getFullYear() >= 120) {
-            throw new Error('Suspiciously old!');
-          }
-          return true;
-        } catch {
-          return false;
-        }
+      default:
+        return false;
     }
     return false;
+  };
+
+  const handleDate = (date: Date): void => {
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      birthday: date,
+    }));
   };
 
   interface FormMethod<E> {
@@ -139,7 +133,7 @@ const SignUp: React.FC = () => {
           isValids.push(true);
           return isValids;
         // not compulsory values (can be undefined, not just success):
-        } else if ((key === 'userName' || key === 'birthday') && validStatuses[key] === undefined) {
+        } else if (key === 'userName' && validStatuses[key] === undefined) {
           isValids.push(true);
           return isValids;
         } else {
@@ -163,7 +157,7 @@ const SignUp: React.FC = () => {
     <div className={styles.SignUp} data-testid="SignUp">
       <h2 className={styles.welcome}>Thank you for signing up with us.</h2>
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
-        <Field className={styles.emailField}>
+        <Field className={styles.Field}>
           <Label>Email</Label>
           <Input
             name="email"
@@ -174,7 +168,7 @@ const SignUp: React.FC = () => {
           />
           <Message validation={validStatuses.email}>{validMsgs.email}&nbsp;</Message>
         </Field>
-        <Field className={styles.passWField}>
+        <Field className={styles.Field}>
           <Label>Password</Label>
           <Input
             name="passW"
@@ -185,6 +179,15 @@ const SignUp: React.FC = () => {
             onChange={handleChange}
           />
           <Message validation={validStatuses.passW}>{validMsgs.passW}&nbsp;</Message>
+        </Field>
+        <Field className={styles.Field}>
+          <Label>Birthday</Label>
+          <Datepicker value={userData.birthday} onChange={handleDate}>
+            <Input
+              name="birthday"
+              style={{ fontSize: '20px' }}
+            />
+          </Datepicker>
         </Field>
         <SButton type="submit">Sign up</SButton>
       </form>
