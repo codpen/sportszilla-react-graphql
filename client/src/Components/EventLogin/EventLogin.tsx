@@ -60,10 +60,10 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
       <div className={styles.Head}>
         <div className={styles.EventTitle}>
           <h2 className={styles.Title}>{event.description}</h2>
-          <p>
+          <div>
             <img src={require('../../Images/FormIcons/pin.svg')} alt="" />
-            {randomAddress}
-          </p>
+            <p>{randomAddress}</p>
+          </div>
         </div>
         <img src={require(`../../Images/SportIcons/${event.sport_name}.svg`)} alt="" />
       </div>
@@ -74,7 +74,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
             <p>
               <Moment format="D MMM">{randomDate}</Moment>
             </p>
-            <div className={styles.EventBox_Time}>
+            <div className={styles.EventBox_Left_Time}>
               <div>{event.time_start}</div>-<div>{event.time_end}</div>
             </div>
           </h4>
