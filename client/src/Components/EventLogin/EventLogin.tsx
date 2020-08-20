@@ -1,6 +1,8 @@
 import React from 'react';
 import styles from './EventLogin.module.scss';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
+import Moment from 'react-moment';
+import Faker from 'faker';
 
 type Event = {
   id: number;
@@ -29,6 +31,9 @@ interface PropTypes {
 }
 
 const EventLogin: React.FC<PropTypes> = ({ event }) => {
+  const randomDate = Faker.fake('{{date.future}}');
+  const randomName = Faker.fake('{{date.future}}');
+
   return (
     <div className={styles.Container}>
       <div className={styles.EventTitle}>
@@ -37,16 +42,15 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
       <div className={styles.EventLogin} data-testid="EventLogin">
         <div className={styles.EventBox}>
           <h4>
-            <p>{event.date}</p>
+            <p>
+              <Moment format="D MMM">{randomDate}</Moment>
+            </p>
             <span>
               {event.time_start} - {event.time_end}
             </span>
           </h4>
         </div>
         <div className={styles.EventBox}>
-          <h4>
-            Organizer:<span>{event.organizer}</span>
-          </h4>
           <h4>
             Participants:{' '}
             <span>
