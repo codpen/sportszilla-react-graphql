@@ -4,12 +4,9 @@ import Apollo from '../ApolloClient/Apollo';
 import './Main.scss';
 import Navbar from '../Navbar/Navbar';
 import Intro from '../Intro/Intro';
-import Footer from '../Footer/Footer';
 import Login from '../User/Login/Login';
-import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
-import Map from '../Map/Map';
 import Board from '../Board/Board';
 
 interface PropTypes {
@@ -27,23 +24,20 @@ function Main({ boolProp }: PropTypes): ReactElement {
       </header>
       <main>
         <Switch>
-          <Route exact path="/intro/">
+          <Route path="/intro/">
             <Intro />
           </Route>
-          <Route exact path="/board/">
+          <Route path="/board/">
             <Board />
           </Route>
-          <Route exact path="/apollo/">
+          <Route path="/apollo/">
             <Apollo />
           </Route>
-          <Route path="/user/profile/">
-            <Profile />
-          </Route>
-          <Route path="/user/login/">
+          <Route exact path="/user/login/">
             <Login />
           </Route>
-          <Route path="/user/signUp/">
-            <SignUp />
+          <Route exact path="/user/profile/">
+            <Profile />
           </Route>
           <Redirect from="/" to="/intro/" />
         </Switch>
