@@ -4,7 +4,11 @@ import { Item, Menu, Dropdown, Trigger, Field, Autocomplete } from '@zendeskgard
 import Data from '../../mockData/data.json';
 import Sport from '../Sport/Sport';
 
-const FilterButton: React.FC = () => {
+interface PropTypes {
+  filterBySport: any;
+}
+
+const FilterButton: React.FC<PropTypes> = ({ filterBySport }) => {
   const filterIcon = require('../../Images/FormIcons/filter.svg');
 
   type SportObj = {
@@ -25,7 +29,13 @@ const FilterButton: React.FC = () => {
   return (
     <div className={styles.FilterButton}>
       <img src={filterIcon} alt="filterIcon" />
-      <Dropdown selectedItem={selectedItem} onSelect={(value) => setSelectedItem(value)}>
+      <Dropdown
+        selectedItem={selectedItem}
+        onSelect={(e) => {
+          filterBySport(e);
+          setSelectedItem(e);
+        }}
+      >
         <Field className={styles.Field}>
           <Autocomplete>{selectedItem}</Autocomplete>
         </Field>
