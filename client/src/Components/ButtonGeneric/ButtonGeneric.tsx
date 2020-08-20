@@ -6,7 +6,6 @@ interface PropTypes {
   buttonText: string;
   buttonLink: string;
 }
-
 const ButtonGeneric: React.FC<PropTypes> = ({ buttonText, buttonLink }) => (
   <div className="wrap">
     <Link to={buttonLink}>
