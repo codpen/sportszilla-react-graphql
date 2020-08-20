@@ -28,7 +28,7 @@ function Main({ boolProp }: PropTypes): ReactElement {
       <div className="left">
         <main>
           <Switch>
-           <Route exact path="/intro/">
+            <Route exact path="/intro/">
               <Board />
             </Route>
             <Route exact path="/apollo/">

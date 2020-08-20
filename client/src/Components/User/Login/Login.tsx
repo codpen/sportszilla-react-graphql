@@ -24,7 +24,6 @@ const Login: React.FC = () => {
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
 
-
   const validateEmail = (email: string): boolean => {
     const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return mailRgx.test(email);
@@ -33,7 +32,7 @@ const Login: React.FC = () => {
   const validatePassW = (passW: string): boolean => {
     const passWRgx = /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/;
     return passWRgx.test(passW);
-  }
+  };
 
   interface FormMethod<E> {
     (event: E): void;
@@ -53,7 +52,7 @@ const Login: React.FC = () => {
         setMailValidMsg('Invalid email!');
       }
     } else if (name === 'passW') {
-        setPassW(value);
+      setPassW(value);
       if (validatePassW(value)) {
         setPassValid('success');
         setPassValidMsg('Correct password!');
@@ -64,7 +63,6 @@ const Login: React.FC = () => {
         setPassValid('warning');
         setPassValidMsg('Invalid password');
       }
-
     }
   };
 
@@ -80,7 +78,7 @@ const Login: React.FC = () => {
       setMailValid('error');
       setMailValidMsg('Please, give a correct email address!');
     }
-    return (passValid === 'success' && mailValid === 'success');
+    return passValid === 'success' && mailValid === 'success';
   };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
@@ -104,7 +102,7 @@ const Login: React.FC = () => {
           <Input
             name="email"
             value={email}
-            style={{fontSize: '20px'}}
+            style={{ fontSize: '20px' }}
             validation={mailValid}
             onChange={handleChange}
           />
@@ -116,7 +114,7 @@ const Login: React.FC = () => {
             name="passW"
             value={passW}
             type="password"
-            style={{fontSize: '20px'}}
+            style={{ fontSize: '20px' }}
             validation={passValid}
             onChange={handleChange}
           />
