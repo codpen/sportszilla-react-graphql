@@ -1,17 +1,17 @@
-.Board {
+.Intro {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
 }
 
-.Board_Title {
+.Intro_Title {
   font-size: 1.2rem;
   text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(0, 0, 0, 0.8),
     0px 4px 7px rgba(0, 0, 0, 0.8);
 }
 
-.Board_Title h1 {
+.Intro_Title h1 {
   margin-top: 5rem;
   color: white;
   font-weight: 600;

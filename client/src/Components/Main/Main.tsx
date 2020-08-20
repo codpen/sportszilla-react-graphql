@@ -3,13 +3,12 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import Apollo from '../ApolloClient/Apollo';
 import './Main.scss';
 import Navbar from '../Navbar/Navbar';
-import Board from '../Board/Board';
+import Intro from '../Intro/Intro';
 import Footer from '../Footer/Footer';
 import Login from '../User/Login/Login';
 import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
-import Map from '../Map/Map';
 
 interface PropTypes {
   boolProp: boolean;
@@ -27,7 +26,7 @@ function Main({ boolProp }: PropTypes): ReactElement {
       <main>
         <Switch>
           <Route exact path="/intro/">
-            <Board />
+            <Intro />
           </Route>
           <Route exact path="/apollo/">
             <Apollo />
