@@ -15,6 +15,8 @@
     "@types/react-dom": "^16.9.0",
     "@types/react-map-gl": "^5.2.7",
     "@types/react-scroll": "^1.5.5",
+    "@zendeskgarden/css-avatars": "^6.0.10",
+    "@zendeskgarden/react-avatars": "^8.20.0",
     "@zendeskgarden/react-buttons": "^8.19.0",
     "@zendeskgarden/react-datepickers": "^8.19.0",
     "@zendeskgarden/react-dropdowns": "^8.20.0",
