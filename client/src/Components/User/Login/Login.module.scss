@@ -1,1 +1,28 @@
-.Login {}
+.Login {
+  background-color: #f3e3d5;
+  width: 100vw;
+  height: 100vh;
+
+  .welcome {
+    padding-top: 3vh;
+    background-color: #f3e3d5;
+  }
+
+  .loginForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .emailField {
+    margin-top: 5vh;
+    width: 300px;
+  }
+
+  .passWField {
+    margin: 5vh 0;
+    width: 300px;
+  }
+}
