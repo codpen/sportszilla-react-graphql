@@ -9,11 +9,8 @@ import Login from '../Login/Login';
 import SignUp from '../SignUp/SignUp';
 import Profile from '../Profile/Profile';
 import Data from '../../mockData/data.json';
-<<<<<<< HEAD
 import Map from '../Map/Map';
 import EventList from '../EventList/EventList';
-=======
->>>>>>> 157134cd676bebe443c44a0f61e7225e33b9cdee
 
 interface PropTypes {
   boolProp: boolean;
@@ -29,7 +26,6 @@ function Main({ boolProp }: PropTypes): ReactElement {
       <header>
         <Navbar />
       </header>
-<<<<<<< HEAD
 
       <div className="left">
         <main>
@@ -53,25 +49,6 @@ function Main({ boolProp }: PropTypes): ReactElement {
           </Switch>
         </main>
       </div>
-=======
-      <main>
-        <Switch>
-          <Route exact path="/board/">
-            <Board />
-          </Route>
-          <Route path="/user/profile/">
-            <Profile />
-          </Route>
-          <Route path="/user/login/">
-            <Login />
-          </Route>
-          <Route path="/user/signUp/">
-            <SignUp />
-          </Route>
-          <Redirect from="/" to="/board/" />
-        </Switch>
-      </main>
->>>>>>> 157134cd676bebe443c44a0f61e7225e33b9cdee
     </div>
   );
 }
