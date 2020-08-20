@@ -125,28 +125,22 @@ const SignUp: React.FC = () => {
     }
   };
 
-  const verifyForm = (): boolean => {
-    const isValids = Object
+  const verifyForm = (): string[] => {
+    const notValids = Object
       .keys(validStatuses)
-      .reduce<boolean[]>((isValids: boolean[], key: string) => {
-        if (validStatuses[key] === 'success') {
-          isValids.push(true);
-          return isValids;
+      .reduce<string[]>((notValids: string[], key: string) => {
         // not compulsory values (can be undefined, not just success):
-        } else if (key === 'userName' && validStatuses[key] === undefined) {
-          isValids.push(true);
-          return isValids;
-        } else {
-          isValids.push(false);
-          return isValids;
-        }
+        const correct = ((validStatuses[key] === 'success') ||
+          (key === 'userName' && validStatuses[key] === undefined));
+        !correct && notValids.push(key);
+        return notValids
       }, []);
-   return isValids.every((isValid) => isValid);
+   return notValids;
   };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
-    if (!verifyForm()) return null;
+    const notValids = verifyForm();
 
     setUserData(initialUD);
     setValidStatuses(initialSts);
