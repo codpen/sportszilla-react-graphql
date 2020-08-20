@@ -41,24 +41,24 @@ const Login: React.FC = () => {
     const { name, value } = event.target;
     if (name === 'email') {
       setEmail(value);
-      if (validateEmail(value)) {
-        setMailValid('success');
-        setMailValidMsg('Correct email address!');
-      } else if (value.length === 0) {
+      if (value.length === 0) {
         setMailValid(undefined);
         setMailValidMsg(' ');
+      } else if (validateEmail(value)) {
+        setMailValid('success');
+        setMailValidMsg('OK');
       } else {
         setMailValid('warning');
         setMailValidMsg('Invalid email!');
       }
     } else if (name === 'passW') {
       setPassW(value);
-      if (validatePassW(value)) {
-        setPassValid('success');
-        setPassValidMsg('Correct password!');
-      } else if (value.length === 0) {
+      if (value.length === 0) {
         setPassValid(undefined);
         setPassValidMsg(' ');
+      } else if (validatePassW(value)) {
+        setPassValid('success');
+        setPassValidMsg('OK');
       } else {
         setPassValid('warning');
         setPassValidMsg('Invalid password');
@@ -66,10 +66,7 @@ const Login: React.FC = () => {
     }
   };
 
-  interface VerifyForm {
-    (): boolean;
-  }
-  const verifyForm: VerifyForm = () => {
+  const verifyForm = (): boolean => {
     if (passValid !== 'success') {
       setPassValid('error');
       setPassValidMsg('Please, give a correct password!');
@@ -120,7 +117,7 @@ const Login: React.FC = () => {
           />
           <Message validation={passValid}>{passValidMsg}&nbsp;</Message>
         </Field>
-        <SButton type="submit">Login</SButton>
+        <SButton type="submit">Log in</SButton>
       </form>
     </div>
   );
