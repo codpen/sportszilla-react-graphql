@@ -1,4 +1,6 @@
 import { InputType, Field } from 'type-graphql';
+import Sport from '../models/sport.model';
+import NewFavSport from './NewFavSport.input';
 
 @InputType()
 export default class NewUser {
@@ -19,6 +21,9 @@ export default class NewUser {
 
   @Field()
   birthday: Date;
+
+  // @Field(() => Sport)
+  // favSport: Sport [];
 }
 /**
  * suggestions for the table-

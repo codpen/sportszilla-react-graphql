@@ -22,5 +22,4 @@ describe('read .env file', () => {
   test('should have a DB_PORT', () => {
     expect(process.env.DB_PORT).toBeDefined();
   });
-  test('Greet should return a string', () => expect(process.env.GREET).toBe('Hello Dev'));
 });
