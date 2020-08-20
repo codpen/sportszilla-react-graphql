@@ -37,7 +37,7 @@ function Main({ boolProp }: PropTypes): ReactElement {
             <Join />
           </Route>
           <Route exact path="/user/profile/">
-            <Profile />
+            <Profile user={Data.users[0]} />
           </Route>
           <Redirect from="/" to="/intro/" />
         </Switch>
