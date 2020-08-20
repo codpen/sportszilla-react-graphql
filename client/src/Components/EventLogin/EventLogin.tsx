@@ -7,6 +7,7 @@ import Faker from 'faker';
 type Event = {
   id: number;
   sport_id: number;
+  sport_name: string;
   location: {
     latitude: number;
     longitude: number;
@@ -32,33 +33,62 @@ interface PropTypes {
 
 const EventLogin: React.FC<PropTypes> = ({ event }) => {
   const randomDate = Faker.fake('{{date.future}}');
-  const randomName = Faker.fake('{{date.future}}');
+  const randomAddress = Faker.fake(
+    '{{address.streetAddress}}, {{address.zipCode}} {{address.city}}'
+  );
+  const randomAvatar = Faker.fake('{{internet.avatar}}');
+  const randomList = [
+    <img
+      className={styles.EventBox_center_pic}
+      src={Faker.fake('{{internet.avatar}}')}
+      alt="profile_pic"
+    />,
+    <img
+      className={styles.EventBox_center_pic}
+      src={Faker.fake('{{internet.avatar}}')}
+      alt="profile_pic"
+    />,
+    <img
+      className={styles.EventBox_center_pic}
+      src={Faker.fake('{{internet.avatar}}')}
+      alt="profile_pic"
+    />,
+  ];
 
   return (
     <div className={styles.Container}>
-      <div className={styles.EventTitle}>
-        <h2 className={styles.Title}>{event.description}</h2>
+      <div className={styles.Head}>
+        <div className={styles.EventTitle}>
+          <h2 className={styles.Title}>{event.description}</h2>
+          <p>
+            <img src={require('../../Images/FormIcons/pin.svg')} alt="" />
+            {randomAddress}
+          </p>
+        </div>
+        <img src={require(`../../Images/SportIcons/${event.sport_name}.svg`)} alt="" />
       </div>
+
       <div className={styles.EventLogin} data-testid="EventLogin">
-        <div className={styles.EventBox}>
+        <div className={styles.EventBox_left}>
           <h4>
             <p>
               <Moment format="D MMM">{randomDate}</Moment>
             </p>
-            <span>
-              {event.time_start} - {event.time_end}
-            </span>
+            <div className={styles.EventBox_Time}>
+              <div>{event.time_start}</div>-<div>{event.time_end}</div>
+            </div>
           </h4>
         </div>
-        <div className={styles.EventBox}>
+        <div className={styles.EventBox_center}>
           <h4>
-            Participants:{' '}
             <span>
+              Participants: {''}
               {event.min_participants} / {event.max_participants}
             </span>
           </h4>
+          <div>{randomList}</div>
         </div>
-        <div className={styles.EventBox}>
+        <div className={styles.EventBox_right}>
           <ButtonGeneric buttonText={'join'} buttonLink={'/join'}></ButtonGeneric>
         </div>
       </div>

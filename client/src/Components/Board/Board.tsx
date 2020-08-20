@@ -9,6 +9,7 @@ const Board: React.FC = () => {
   type Event = {
     id: number;
     sport_id: number;
+    sport_name: string;
     location: {
       latitude: number;
       longitude: number;
