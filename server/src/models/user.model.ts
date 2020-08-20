@@ -11,11 +11,13 @@ import {
   DataType,
   BelongsToMany,
   HasOne,
+  Unique
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int, ID } from 'type-graphql';
 import Sport from './sport.model';
 import FavSports from './favSports.model'
 import sportResolver from '../resolvers/sportResolver';
+import { UniqueArgumentNamesRule, UniqueOperationTypesRule } from 'graphql';
 
 @Table
 @ObjectType()
@@ -34,6 +36,7 @@ export default class User extends Model<User> {
   @Field(() => String)
   lastName: string;
 
+  @Unique(true)
   @Column
   @Field(() => String, { nullable: true })
   userName: string;
