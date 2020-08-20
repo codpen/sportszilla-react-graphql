@@ -76,11 +76,11 @@ const SignUp: React.FC = () => {
   const validateField = (fieldName: string, fieldValue: string): boolean => {
     switch (fieldName) {
       case 'firstName':
-        return fieldName.length < 40 && fieldName.length > 2;
+        return fieldValue.length < 40 && fieldValue.length > 2;
       case 'lastName':
-        return fieldName.length < 60 && fieldName.length > 2;
+        return fieldValue.length < 60 && fieldValue.length > 2;
       case 'userName':
-        return fieldName.length < 40;
+        return fieldValue.length < 40;
       case 'email':
         const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return mailRgx.test(fieldValue);
@@ -113,6 +113,7 @@ const SignUp: React.FC = () => {
       setValidStatuses(updatedVals);
       setValidMsgs(updatedMsgs);
     } else if (validateField(name, value)) {
+      console.log(name, value);
       updatedVals[name] = 'success';
       updatedMsgs[name] = 'OK';
       setValidStatuses(updatedVals);
@@ -141,6 +142,13 @@ const SignUp: React.FC = () => {
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     const notValids = verifyForm();
+    if (notValids.length > 0) {
+      notValids.forEach((key) => {
+        setValidStatuses((validStatuses) => ({ ...validStatuses, [key]: 'error' }));
+        setValidMsgs((validMsgs) => ({ ...validMsgs, [key]: 'Please, give a correct value!' }));
+      });
+      return null;
+    }
 
     setUserData(initialUD);
     setValidStatuses(initialSts);
