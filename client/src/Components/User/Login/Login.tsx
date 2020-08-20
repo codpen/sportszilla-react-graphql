@@ -23,14 +23,13 @@ interface UserData {
 }
 
 const GET_ONE_USER = gql`
-  query GetOneUser($id: Float!) {
-    getOneUser(ID: $id) {
+  query GetOneUser($email: String!, $passW: String!) {
+    getOneUser(email: $email, passW: $passW) {
       ID
       firstName
       lastName
       userName
       email
-      passW
       birthday
       creationDate
       updatedOn
@@ -62,7 +61,8 @@ const Login: React.FC = () => {
     getOneUser: UserData;
   }
   interface Arguments {
-    id: number;
+    email: string;
+    passW: string;
   }
   const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER);
 
@@ -124,6 +124,8 @@ const Login: React.FC = () => {
     event.preventDefault();
     if (!verifyForm()) return null;
 
+    getOneUser({ variables: { email, passW } });
+
     setPassValid(undefined);
     setPassValidMsg('');
     setPassW('');
@@ -135,6 +137,7 @@ const Login: React.FC = () => {
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
+  console.log(data)
   return (
     <div className={styles.Login} data-testid="Login">
       <h2 className={styles.welcome}>Welcome back!</h2>
