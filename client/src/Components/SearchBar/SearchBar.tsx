@@ -3,6 +3,7 @@ import styles from './SearchBar.module.scss';
 import { Field, Label, Input } from '@zendeskgarden/react-forms';
 import FilterButton from '../FilterButton/FilterButton';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
+import Data from '../../mockData/data.json';
 
 const SearchBar: React.FC = () => {
   const calendarIcon = require('../../Images/FormIcons/calendar.svg');
