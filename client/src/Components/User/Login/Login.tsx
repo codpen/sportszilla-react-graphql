@@ -1,9 +1,43 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { useLazyQuery, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
+import Loader from '../../Loader/Loader';
 import styles from './Login.module.scss';
+
+interface UserData {
+  [index: string]: number | string | Date | undefined;
+  ID?: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  passW: string;
+  birthday?: Date | undefined;
+  creationDate?: Date;
+  updatedOn?: Date;
+  deletionDate?: Date | undefined;
+  __typeName?: string;
+}
+
+const GET_ONE_USER = gql`
+  query GetOneUser($id: Float!) {
+    getOneUser(ID: $id) {
+      ID
+      firstName
+      lastName
+      userName
+      email
+      passW
+      birthday
+      creationDate
+      updatedOn
+      deletionDate
+    }
+  }
+`;
 
 const SButton = styled(Button)`
   font-size: 30px;
@@ -23,6 +57,14 @@ const Login: React.FC = () => {
   const [passValid, setPassValid] = useState<VALIDATION | undefined>(undefined);
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
+
+  interface Response {
+    getOneUser: UserData;
+  }
+  interface Arguments {
+    id: number;
+  }
+  const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER);
 
   const validateEmail = (email: string): boolean => {
     const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -89,6 +131,9 @@ const Login: React.FC = () => {
     setMailValidMsg('');
     setEmail('');
   };
+
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <p>Oopsie: {error.message}</p>;
 
   return (
     <div className={styles.Login} data-testid="Login">
