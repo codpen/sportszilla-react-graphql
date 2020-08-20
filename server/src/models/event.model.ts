@@ -8,6 +8,7 @@ import {
   PrimaryKey,
   AutoIncrement,
   HasMany,
+  Unique,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 // import User from './user.model';
@@ -21,6 +22,7 @@ export default class Event extends Model<Event> {
   @Field(() => Int)
   readonly ID: number;
 
+  @Unique(true)
   @Column
   @Field(() => String)
   sportEventName: string;

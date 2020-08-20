@@ -1,4 +1,5 @@
 import {
+  Unique,
   Table,
   Column,
   Model,
@@ -24,6 +25,7 @@ export default class Sport extends Model<Sport> {
   @Field(() => Int)
   readonly ID: number;
 
+  @Unique(true)
   @Column
   @Field(() => String)
   sportName: string;
