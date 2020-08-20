@@ -24,29 +24,26 @@ function Main({ boolProp }: PropTypes): ReactElement {
       <header>
         <Navbar />
       </header>
-
-      <div className="left">
-        <main>
-          <Switch>
-            <Route exact path="/intro/">
-              <Board />
-            </Route>
-            <Route exact path="/apollo/">
-              <Apollo />
-            </Route>
-            <Route path="/user/profile/">
-              <Profile />
-            </Route>
-            <Route path="/user/login/">
-              <Login />
-            </Route>
-            <Route path="/user/signUp/">
-              <SignUp />
-            </Route>
-            <Redirect from="/" to="/intro/" />
-          </Switch>
-        </main>
-      </div>
+      <main>
+        <Switch>
+          <Route exact path="/intro/">
+            <Board />
+          </Route>
+          <Route exact path="/apollo/">
+            <Apollo />
+          </Route>
+          <Route path="/user/profile/">
+            <Profile />
+          </Route>
+          <Route path="/user/login/">
+            <Login />
+          </Route>
+          <Route path="/user/signUp/">
+            <SignUp />
+          </Route>
+          <Redirect from="/" to="/intro/" />
+        </Switch>
+      </main>
     </div>
   );
 }
