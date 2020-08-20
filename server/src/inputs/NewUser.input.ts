@@ -22,8 +22,8 @@ export default class NewUser {
   @Field()
   birthday: Date;
 
-  // @Field(() => Sport)
-  // favSport: Sport [];
+  @Field(() => [Number], { nullable: true })
+  favSports: number[];
 }
 /**
  * suggestions for the table-

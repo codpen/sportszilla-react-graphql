@@ -50,9 +50,9 @@ export default class User extends Model<User> {
   @Field(() => Date, { nullable: true })
   birthday: Date;
 
-  // @BelongsToMany(() => User, () => FavSports)
-  // @Field(() => Sport, { nullable: true })
-  // favSports: Sport[];
+  @BelongsToMany(() => Sport, () => FavSports)
+  @Field(() => [Sport], { nullable: true })
+  favSports: Sport[];
 
   @CreatedAt
   @Field(() => Date)

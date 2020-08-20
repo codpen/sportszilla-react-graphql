@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
+import Sport from '../models/sport.model';
 
 @Resolver()
 export default class UserResolver {
@@ -31,7 +32,11 @@ export default class UserResolver {
       const { passW } = userData;
       const pswdHash = await bcrypt.hash(passW, 10);
       userData.passW = pswdHash;
-      return User.create(userData);
+      const user = await User.create(userData);
+       await user.$set('favSports', userData.favSports);
+      return user;
+      
+      
     } catch (err) {
       console.error(err);
     }
