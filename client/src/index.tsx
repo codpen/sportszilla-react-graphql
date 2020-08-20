@@ -21,7 +21,7 @@ ReactDOM.render(
     <ThemeProvider>
       <Router>
         <ApolloProvider client={client}>
-          <Main boolProp={false} />
+          <Main />
         </ApolloProvider>
       </Router>
     </ThemeProvider>
