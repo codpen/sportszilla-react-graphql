@@ -4,7 +4,7 @@ import Apollo from '../ApolloClient/Apollo';
 import './Main.scss';
 import Navbar from '../Navbar/Navbar';
 import Intro from '../Intro/Intro';
-import Login from '../User/Login/Login';
+import Join from '../User/Join/Join';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
@@ -33,8 +33,8 @@ function Main({ boolProp }: PropTypes): ReactElement {
           <Route path="/apollo/">
             <Apollo />
           </Route>
-          <Route exact path="/user/login/">
-            <Login />
+          <Route exact path="/user/join/">
+            <Join />
           </Route>
           <Route exact path="/user/profile/">
             <Profile user={Data.users[0]} />
