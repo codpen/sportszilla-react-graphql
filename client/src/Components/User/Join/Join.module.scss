@@ -1,1 +1,21 @@
-.Join {}
+.Join {
+  margin-top: 8vh;
+  width: 100vw;
+  height: 91vh;
+  border: 1px solid white;
+  background-color: rgba(243, 227, 213, 0.9);
+
+  .welcome {
+    padding-top: 7vh;
+    margin: 0;
+    text-align: center;
+  }
+
+  .authBoxes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 8vh;
+  }
+}
