@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import styles from './SignUp.module.scss';
 
 const SButton = styled(Button)`
+  margin-top: 3vh;
   font-size: 30px;
   border-color: #90755f;
   color: #90755f;
@@ -89,7 +90,6 @@ const SignUp: React.FC = () => {
       default:
         return false;
     }
-    return false;
   };
 
   const handleDate = (date: Date): void => {
@@ -157,6 +157,42 @@ const SignUp: React.FC = () => {
     <div className={styles.SignUp} data-testid="SignUp">
       <h2 className={styles.welcome}>Thank you for signing up with us.</h2>
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
+        <Field style={{marginTop: '3vh', width: '300px'}}>
+          <Label>First name</Label>
+          <Input
+            name="firstName"
+            value={userData.firstName}
+            style={{ fontSize: '20px' }}
+            validation={validStatuses.firstName}
+            onChange={handleChange}
+          />
+          <Message validation={validStatuses.firstName}>{validMsgs.firstName}&nbsp;</Message>
+        </Field>
+
+        <Field className={styles.Field}>
+          <Label>Last name</Label>
+          <Input
+            name="lastName"
+            value={userData.lastName}
+            style={{ fontSize: '20px' }}
+            validation={validStatuses.lastName}
+            onChange={handleChange}
+          />
+          <Message validation={validStatuses.lastName}>{validMsgs.lastName}&nbsp;</Message>
+        </Field>
+
+        <Field className={styles.Field}>
+          <Label>Username</Label>
+          <Input
+            name="userName"
+            value={userData.userName}
+            style={{ fontSize: '20px' }}
+            validation={validStatuses.userName}
+            onChange={handleChange}
+          />
+          <Message validation={validStatuses.userName}>{validMsgs.userName}&nbsp;</Message>
+        </Field>
+
         <Field className={styles.Field}>
           <Label>Email</Label>
           <Input
@@ -168,6 +204,7 @@ const SignUp: React.FC = () => {
           />
           <Message validation={validStatuses.email}>{validMsgs.email}&nbsp;</Message>
         </Field>
+
         <Field className={styles.Field}>
           <Label>Password</Label>
           <Input
@@ -180,6 +217,7 @@ const SignUp: React.FC = () => {
           />
           <Message validation={validStatuses.passW}>{validMsgs.passW}&nbsp;</Message>
         </Field>
+
         <Field className={styles.Field}>
           <Label>Birthday</Label>
           <Datepicker value={userData.birthday} onChange={handleDate}>
@@ -189,6 +227,7 @@ const SignUp: React.FC = () => {
             />
           </Datepicker>
         </Field>
+
         <SButton type="submit">Sign up</SButton>
       </form>
     </div>
