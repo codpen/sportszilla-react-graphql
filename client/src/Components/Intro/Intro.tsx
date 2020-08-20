@@ -10,7 +10,8 @@ const Intro: React.FC = () => (
       <h1>Find Your Next Teammates</h1>
     </div>
     <div>
-      <ButtonGeneric buttonText="Join Now" buttonLink="#" />
+      <ButtonGeneric buttonText="Find Events" buttonLink="/board/" />
+      <ButtonGeneric buttonText="Join Now" buttonLink="/user/login/" />
     </div>
     <div className={styles.container}>
       <div className={styles.mapContainer}>

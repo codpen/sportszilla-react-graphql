@@ -9,6 +9,8 @@ import Login from '../User/Login/Login';
 import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
+import Map from '../Map/Map';
+import Board from '../Board/Board';
 
 interface PropTypes {
   boolProp: boolean;
@@ -27,6 +29,9 @@ function Main({ boolProp }: PropTypes): ReactElement {
         <Switch>
           <Route exact path="/intro/">
             <Intro />
+          </Route>
+          <Route exact path="/board/">
+            <Board />
           </Route>
           <Route exact path="/apollo/">
             <Apollo />

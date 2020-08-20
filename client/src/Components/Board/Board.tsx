@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import styles from './EventList.module.scss';
+import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
+import SearchBar from '../SearchBar/SearchBar';
+import Map from '../Map/Map';
 
-const EventList: React.FC = () => {
+const Board: React.FC = () => {
   type Event = {
     id: number;
     sport_id: number;
@@ -36,11 +38,27 @@ const EventList: React.FC = () => {
     );
   });
 
+  const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
+
   return (
-    <div className={styles.EventList} data-testid="EventList">
-      {list}
+    <div className={styles.Container}>
+      <div className={styles.Container1}>
+        <SearchBar />
+        <div className={styles.Board} data-testid="Board">
+          {list}
+        </div>
+        <div className={styles.Button}>
+          <button>
+            <p>Map View</p>
+            <img src={arrowIcon} alt="down-arrow" />
+          </button>
+        </div>
+      </div>
+      <div className={styles.Map}>
+        <Map />
+      </div>
     </div>
   );
 };
 
-export default EventList;
+export default Board;

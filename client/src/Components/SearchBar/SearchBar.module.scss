@@ -1,0 +1,16 @@
+.SearchBar {
+  display: flex;
+  justify-content: flex-end;
+  margin: 3%;
+  margin-top: 5.5rem;
+  margin-bottom: 0.5rem;
+  .SearchBar_Field {
+    display: flex;
+    width: 45%;
+    .SearchBar_Field_CalendarIcon {
+      height: 1.5rem;
+      width: 1.5rem;
+      margin-right: 0.4rem;
+    }
+  }
+}

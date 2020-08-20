@@ -11,7 +11,7 @@ interface PropTypes {
 }
 
 const Sport: React.FC<PropTypes> = ({ sport }) => {
-  const logo = require(`../../Images/SportSVG/${sport.name}.svg`);
+  const logo = require(`../../Images/SportIcons/${sport.name}.svg`);
 
   return (
     <div className={styles.Sport} data-testid="Sport">

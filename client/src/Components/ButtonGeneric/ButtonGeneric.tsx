@@ -9,10 +9,11 @@ interface PropTypes {
 
 const ButtonGeneric: React.FC<PropTypes> = ({ buttonText, buttonLink }) => (
   <div className="wrap">
-    <button className={styles.ButtonGeneric} data-testid="ButtonGeneric">
-      <Link to={buttonLink}></Link>
-      <strong>{buttonText}</strong>
-    </button>
+    <Link to={buttonLink}>
+      <button className={styles.ButtonGeneric} data-testid="ButtonGeneric">
+        <strong>{buttonText}</strong>
+      </button>
+    </Link>
   </div>
 );
 
