@@ -95,7 +95,7 @@ const Login: React.FC = () => {
 
   return (
     <div className={styles.Login} data-testid="Login">
-      <h2 className={styles.welcome}>Welcome back.</h2>
+      <h2 className={styles.welcome}>Welcome back!</h2>
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <Field className={styles.emailField}>
           <Label>Email</Label>

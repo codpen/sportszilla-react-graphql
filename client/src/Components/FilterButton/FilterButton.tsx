@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './FilterButton.module.scss';
-import { Item, Menu, Dropdown, Trigger } from '@zendeskgarden/react-dropdowns';
+import { Item, Menu, Dropdown, Trigger, Field, Autocomplete } from '@zendeskgarden/react-dropdowns';
 import Data from '../../mockData/data.json';
 import Sport from '../Sport/Sport';
 
@@ -12,6 +12,7 @@ const FilterButton: React.FC = () => {
     name: string;
   };
   const [sport, setSport] = useState<SportObj[]>(Data.sports);
+  const [selectedItem, setSelectedItem] = useState<string>('Sport');
 
   const list = sport.map((sp) => {
     return (
@@ -23,12 +24,11 @@ const FilterButton: React.FC = () => {
 
   return (
     <div className={styles.FilterButton}>
-      <Dropdown onSelect={(value) => console.log(`Selected: ${value}`)}>
-        <Trigger>
-          <button>
-            <img src={filterIcon} alt="filterIcon" />
-          </button>
-        </Trigger>
+      <img src={filterIcon} alt="filterIcon" />
+      <Dropdown selectedItem={selectedItem} onSelect={(value) => setSelectedItem(value)}>
+        <Field className={styles.Field}>
+          <Autocomplete>{selectedItem}</Autocomplete>
+        </Field>
         <Menu placement="end">{list}</Menu>
       </Dropdown>
     </div>

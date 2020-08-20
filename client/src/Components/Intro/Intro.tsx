@@ -11,7 +11,7 @@ const Intro: React.FC = () => (
     </div>
     <div>
       <ButtonGeneric buttonText="Find Events" buttonLink="/board/" />
-      <ButtonGeneric buttonText="Join Now" buttonLink="/user/login/" />
+      <ButtonGeneric buttonText="Join Now" buttonLink="/user/join/" />
     </div>
     <div className={styles.container}>
       <div className={styles.mapContainer}>
