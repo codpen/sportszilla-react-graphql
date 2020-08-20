@@ -7,7 +7,7 @@ import Map from '../Map/Map';
 const Intro: React.FC = () => (
   <div className={styles.Intro} data-testid="Intro">
     <div className={styles.Intro_Title}>
-      <h1>Find Your Next Teammates</h1>
+      <h1>Find Your Next Teammates Test</h1>
     </div>
     <div>
       <ButtonGeneric buttonText="Find Events" buttonLink="/board/" />
