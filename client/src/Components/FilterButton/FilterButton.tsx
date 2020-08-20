@@ -24,8 +24,9 @@ const FilterButton: React.FC = () => {
 
   return (
     <div className={styles.FilterButton}>
+      <img src={filterIcon} alt="filterIcon" />
       <Dropdown selectedItem={selectedItem} onSelect={(value) => setSelectedItem(value)}>
-        <Field>
+        <Field className={styles.Field}>
           <Autocomplete>{selectedItem}</Autocomplete>
         </Field>
         <Menu placement="end">{list}</Menu>
