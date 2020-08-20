@@ -30,8 +30,21 @@ const DropMenu: React.FC = () => {
       </div>
       <div className={styles.sideDrawer} id="drawerMenu">
         <ul>
-          <li>Login</li>
-          <li>Sign Up</li>
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/user/login">Login</a>
+          </li>
+          <li>
+            <a href="/user/signup">Sign Up</a>
+          </li>
+          <li>
+            <a href="/board">Events</a>
+          </li>
+          <li>
+            <a href="/user/profile">Profile</a>
+          </li>
         </ul>
       </div>
     </div>
