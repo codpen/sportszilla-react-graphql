@@ -11,10 +11,7 @@ import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
 
-interface PropTypes {
-  boolProp: boolean;
-}
-function Main({ boolProp }: PropTypes): ReactElement {
+function Main(): ReactElement {
   const [users, setUsers] = useState<object[]>([Data.users]);
   const [events, setEvents] = useState<object[]>([Data.events]);
   const [sport, setSport] = useState<object[]>([Data.sports]);
