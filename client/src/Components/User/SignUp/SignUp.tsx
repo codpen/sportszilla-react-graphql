@@ -1,10 +1,35 @@
 import React, { useState, FormEvent, ChangeEvent } from 'react';
+import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
+import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
+
+interface UserData {
+  [index: string]: number | string | Date | undefined;
+  ID?: number;
+  firstName: string;
+  lastName: string;
+  userName: string;
+  email: string;
+  passW: string;
+  birthday?: Date | undefined;
+  creationDate?: Date;
+  updatedOn?: Date;
+  deletionDate?: Date | undefined;
+  __typeName?: string;
+}
+
+const NEW_USER = gql`
+  mutation NewUser($userData: NewUser!) {
+    newUser(userData: $userData) {
+      ID
+    }
+  }
+`;
 
 const SButton = styled(Button)`
   margin-top: 3vh;
@@ -18,15 +43,7 @@ const SButton = styled(Button)`
   }
 `;
 
-interface UserData {
-  [index: string]: string | Date | undefined;
-  firstName: string;
-  lastName: string;
-  userName?: string;
-  email: string;
-  passW: string;
-  birthday?: Date | undefined;
-}
+
 interface ValidStatuses {
   [index: string]: VALIDATION | undefined;
   firstName: VALIDATION | undefined;
@@ -73,6 +90,14 @@ const SignUp: React.FC = () => {
   }
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
 
+  interface Response {
+    userData: UserData;
+  }
+  interface Arguments {
+    userData: UserData;
+  }
+  const [createUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER)
+
   const validateField = (fieldName: string, fieldValue: string): boolean => {
     switch (fieldName) {
       case 'firstName':
@@ -113,7 +138,6 @@ const SignUp: React.FC = () => {
       setValidStatuses(updatedVals);
       setValidMsgs(updatedMsgs);
     } else if (validateField(name, value)) {
-      console.log(name, value);
       updatedVals[name] = 'success';
       updatedMsgs[name] = 'OK';
       setValidStatuses(updatedVals);
@@ -150,10 +174,14 @@ const SignUp: React.FC = () => {
       return null;
     }
 
+    createUser({ variables: { userData } });
     setUserData(initialUD);
     setValidStatuses(initialSts);
     setValidMsgs(initialMsgs);
   };
+
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <p>Oopsie: {error.message}</p>;
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">
