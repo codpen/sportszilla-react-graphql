@@ -1,9 +1,18 @@
 /* eslint-disable */
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Sport from '../models/sport.model';
-import NewSport from '../inputs/newSport.input';
+import NewSport from '../inputs/NewSport.input';
 @Resolver()
 export default class sportResolver {
+  @Query(() => [Sport])
+  async getAllSport(){
+    try {
+      return Sport.findAll();
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
   @Query(() => Sport)
   async getOneSport(@Arg('sportName') sportName: string) {
     try {

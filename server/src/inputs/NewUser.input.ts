@@ -22,8 +22,8 @@ export default class NewUser {
   @Field()
   birthday: Date;
 
-  @Field()
-  favSport: string;
+  // @Field(() => Sport)
+  // favSport: Sport [];
 }
 /**
  * suggestions for the table-

@@ -10,10 +10,12 @@ import {
   HasMany,
   DataType,
   BelongsToMany,
+  HasOne,
 } from 'sequelize-typescript';
-import { ObjectType, Field, Int } from 'type-graphql';
+import { ObjectType, Field, Int, ID } from 'type-graphql';
 import Sport from './sport.model';
 import FavSports from './favSports.model'
+import sportResolver from '../resolvers/sportResolver';
 
 @Table
 @ObjectType()
@@ -48,9 +50,9 @@ export default class User extends Model<User> {
   @Field(() => Date, { nullable: true })
   birthday: Date;
 
-  @BelongsToMany(() => User, () => FavSports)
-  @Field(() => Sport)
-  favSports: Sport[];
+  // @BelongsToMany(() => User, () => FavSports)
+  // @Field(() => Sport, { nullable: true })
+  // favSports: Sport[];
 
   @CreatedAt
   @Field(() => Date)

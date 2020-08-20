@@ -17,13 +17,17 @@ export default class EventResolver {
     }
   }
 
-  // @Query(() => Event)
-  // async getAllEvents(){
-  //   try {
-  //    return Event.findAll()
-  //   } catch (error) {
-  //     console.error(error)
-  // }
+  @Query(() => [Event])
+  async getAllEvents(){
+    try {
+      return Event.findAll();
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+
+
 
   @Mutation(() => Event)
   async newEvent(@Arg('eventData') eventData: NewSportEvent) {
