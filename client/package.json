@@ -60,6 +60,7 @@
   "devDependencies": {
     "@types/googlemaps": "^3.39.13",
     "@types/react-router-dom": "^5.1.5",
+    "@types/styled-components": "^5.1.2",
     "prettier": "^2.0.5"
   }
 }
