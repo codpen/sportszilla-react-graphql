@@ -5,6 +5,8 @@ import './Main.scss';
 import Navbar from '../Navbar/Navbar';
 import Intro from '../Intro/Intro';
 import Join from '../User/Join/Join';
+import Login from '../User/Login/Login';
+import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
@@ -35,6 +37,12 @@ function Main({ boolProp }: PropTypes): ReactElement {
           </Route>
           <Route exact path="/user/join/">
             <Join />
+          </Route>
+          <Route exact path="/user/login/">
+            <Login />
+          </Route>
+          <Route exact path="/user/signup/">
+            <SignUp />
           </Route>
           <Route exact path="/user/profile/">
             <Profile />
