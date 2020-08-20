@@ -18,9 +18,14 @@ export default class UserResolver {
   }
 
   @Query(() => User)
-  async getOneUser(@Arg('ID') id: number) {
+  async getOneUser(@Arg('email') email: string, @Arg('passW') passW: string) {
     try {
-      return User.findOne({ where: { ID: id } });
+      const user = await User.findOne({ where: { email } });
+      if (!user) throw new Error('User not found!');
+      const isValidPassW = await bcrypt.compare(passW, user.passW);
+      if (!isValidPassW) throw new Error('Invalid password!')
+      console.log(isValidPassW);
+      return user;
     } catch (err) {
       console.error(err);
     }
@@ -33,10 +38,8 @@ export default class UserResolver {
       const pswdHash = await bcrypt.hash(passW, 10);
       userData.passW = pswdHash;
       const user = await User.create(userData);
-       await user.$set('favSports', userData.favSports);
+      //await user.$set('favSports', userData.favSports);
       return user;
-      
-      
     } catch (err) {
       console.error(err);
     }
