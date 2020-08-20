@@ -1,11 +1,13 @@
 .Login {
-  background-color: #f3e3d5;
+  margin-top: 8vh;
+  background-color: rgba(243, 227, 213, 0.9);
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
 
   .welcome {
+    margin: 0;
     padding-top: 3vh;
-    background-color: #f3e3d5;
+    text-align: center;
   }
 
   .loginForm {
