@@ -51,7 +51,16 @@ const Profile: React.FC<PropTypes> = ({ user }) => {
   const [event, setEvent] = useState<Event[]>(Data.events);
 
   const listFriends = Data.users.map((user) => {
-    return <div>{user.first_name}</div>;
+    return (
+      <li>
+        <Avatar backgroundColor={PALETTE.grey[600]} size="extrasmall">
+          <Avatar.Text>{user?.first_name[0]}</Avatar.Text>
+        </Avatar>
+        <p>
+          {user.first_name} {user.last_name}
+        </p>
+      </li>
+    );
   });
 
   return (
@@ -67,12 +76,17 @@ const Profile: React.FC<PropTypes> = ({ user }) => {
       </div>
       <div className={styles.btnCnt}>
         <ButtonGeneric buttonText="Create Event" buttonLink="/event/" />
-        <ButtonGeneric buttonText="Join Event" buttonLink="/board/" />
+        <ButtonGeneric buttonText="Join" buttonLink="/board/" />
       </div>
-      <div>
+      <div className={styles.eventCtn}>
         <EventLogin event={event[0]} />
       </div>
-      <div className={styles.friendCtn}>{listFriends}</div>
+      <div className={styles.friendCtn}>
+        <div>
+          <input placeholder="Search friends" />
+        </div>
+        <ul>{listFriends}</ul>
+      </div>
     </div>
   );
 };
