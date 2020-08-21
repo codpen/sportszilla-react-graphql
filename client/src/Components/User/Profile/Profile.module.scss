@@ -36,8 +36,8 @@
   .friendCtn {
     flex: 1;
     overflow: scroll;
-    border-radius: 2px;
-    width: 90%;
+    border-radius: 5px;
+    width: 82%;
     height: 20%;
     display: flex;
     flex-direction: column;
@@ -45,6 +45,10 @@
     background-color: white;
     color: black;
     font-size: 20px;
+    margin-left: 15px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
+      0 4px 4px rgba(0, 0, 0, 0.11), 0 8px 8px rgba(0, 0, 0, 0.11), 0 16px 16px rgba(0, 0, 0, 0.11),
+      0 32px 32px rgba(0, 0, 0, 0.11);
     div {
       width: 100%;
       input {
