@@ -3,12 +3,14 @@ import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
 import SearchBar from '../SearchBar/SearchBar';
+import { HashLink as Link } from 'react-router-hash-link';
 import Map from '../Map/Map';
 
 const Board: React.FC = () => {
   type Event = {
     id: number;
     sport_id: number;
+    sport_name: string;
     location: {
       latitude: number;
       longitude: number;
@@ -30,6 +32,8 @@ const Board: React.FC = () => {
 
   const [event, setEvent] = useState<Event[]>(Data.events);
 
+  const [eventFilter, setEventFilter] = useState<Event[]>();
+
   const list = event.map((event) => {
     return (
       <div>
@@ -38,24 +42,43 @@ const Board: React.FC = () => {
     );
   });
 
+  const filterBySport = (sport: any) => {
+    const filteredList = Data.events.filter((e) => {
+      return e.sport_name === sport;
+    });
+    setEvent([...filteredList]);
+  };
+
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
+
+  const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
 
   return (
     <div className={styles.Container}>
-      <div className={styles.Container1}>
-        <SearchBar />
+      <div id="list" className={styles.Container1}>
+        <SearchBar filterBySport={filterBySport} />
         <div className={styles.Board} data-testid="Board">
           {list}
         </div>
         <div className={styles.Button}>
-          <button>
-            <p>Map View</p>
-            <img src={arrowIcon} alt="down-arrow" />
-          </button>
+          <Link smooth to="/Board/#map">
+            <button>
+              <p>Map View</p>
+              <img src={arrowIcon} alt="down-arrow" />
+            </button>
+          </Link>
         </div>
       </div>
-      <div className={styles.Map}>
-        <Map />
+      <div id="map" className={styles.Map}>
+        <div className={styles.Map}>
+          <div className={styles.Map_arrow}>
+            <Link smooth to="/Board/#list">
+              <p>Back to List</p>
+              <img src={arrowIconUp} alt="down-arrow" />
+            </Link>
+          </div>
+          <Map />
+        </div>
       </div>
     </div>
   );

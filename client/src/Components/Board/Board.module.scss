@@ -2,12 +2,13 @@
   margin-top: 0rem;
   margin-bottom: 2rem;
   overflow: scroll;
-  max-height: 35rem;
+  max-height: 80vh;
 }
 
 .Container {
   display: flex;
   flex-direction: column;
+  height: 200vh;
 }
 
 .Container1 {
@@ -17,26 +18,52 @@
   flex-direction: column;
   justify-content: flex-start;
 }
+.Button {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-end;
+  button {
+    background-color: rgba(255, 235, 205, 0);
+    border: none;
+    outline: none;
 
-button {
-  background-color: rgba(255, 235, 205, 0);
-  border: none;
-  outline: none;
+    p {
+      color: white;
+      font-size: 1rem;
+      text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8);
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+    img {
+      height: 2rem;
+      margin-top: 0;
+    }
+  }
+}
 
+.Map {
+  height: 100vh;
+  width: 100%;
+}
+.Map_arrow {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  margin-top: 0.2rem;
+  z-index: 1;
   p {
-    color: white;
+    color: black;
     font-size: 1rem;
-    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8);
     margin-top: 0;
     margin-bottom: 0;
   }
   img {
-    height: 2rem;
     margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
   }
-}
-
-.map {
-  height: 100vh;
-  width: 100%;
 }
