@@ -16,7 +16,7 @@ import {
 import { ObjectType, Field, Int, ID } from 'type-graphql';
 import Sport from './sport.model';
 import FavSports from './favSports.model'
-import sportResolver from '../resolvers/sportResolver';
+import SportResolver from '../resolvers/SportResolver';
 import { UniqueArgumentNamesRule, UniqueOperationTypesRule } from 'graphql';
 
 @Table
@@ -40,7 +40,7 @@ export default class User extends Model<User> {
   @Column
   @Field(() => String, { nullable: true })
   userName: string;
-  
+
   @Unique(true)
   @Column
   @Field(() => String)

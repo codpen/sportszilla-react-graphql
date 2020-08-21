@@ -7,7 +7,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import UserResolver from './resolvers/UserResolver';
 import EventResolver from './resolvers/EventResolver';
-import sportResolver from './resolvers/sportResolver';
+import SportResolver from './resolvers/SportResolver';
 
 dotenv.config();
 
@@ -28,7 +28,7 @@ async function startServer() {
   }
 
   const schema = await buildSchema({
-    resolvers: [UserResolver, EventResolver, sportResolver],
+    resolvers: [UserResolver, EventResolver, SportResolver],
     validate: false,
   });
   const apolloServer = new ApolloServer({
