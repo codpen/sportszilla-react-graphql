@@ -76,7 +76,6 @@ export default class User extends Model<User> {
 
   /** query da tabala de usuarios  */
   /**
-  
    * create @Column @Field(() => [Sport])
    * favSports: Sportr []
    */

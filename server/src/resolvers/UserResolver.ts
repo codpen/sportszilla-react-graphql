@@ -1,6 +1,8 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg, Int } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, ObjectType, Field } from 'type-graphql';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import LoginResponse from '../auth/LoginResponse'
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
@@ -17,26 +19,34 @@ export default class UserResolver {
     }
   }
 
-  @Query(() => User)
-  async getOneUser(@Arg('ID') id: number) {
+  @Query(() => LoginResponse)
+  async login(@Arg('email') email: string, @Arg('passW') passW: string) {
     try {
-      return User.findOne({ where: { ID: id } });
+      const user = await User.findOne({ where: { email } });
+      if (!user) throw new Error('User not found!');
+      const isValidPassW = await bcrypt.compare(passW, user.passW);
+      if (!isValidPassW) throw new Error('Invalid password!')
+      return {
+        accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
+        user
+      };
     } catch (err) {
       console.error(err);
     }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => LoginResponse)
   async newUser(@Arg('userData') userData: NewUser) {
     try {
       const { passW } = userData;
       const pswdHash = await bcrypt.hash(passW, 10);
       userData.passW = pswdHash;
       const user = await User.create(userData);
-       await user.$set('favSports', userData.favSports);
-      return user;
-      
-      
+      //await user.$set('favSports', userData.favSports);
+      return {
+        accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
+        user
+      };
     } catch (err) {
       console.error(err);
     }

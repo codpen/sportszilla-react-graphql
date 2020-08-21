@@ -10,9 +10,12 @@ import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
+import { UserData } from '../User/UserData';
 
 function Main(): ReactElement {
-  const [users, setUsers] = useState<object[]>([Data.users]);
+  const [users, setUsers] = useState<UserData[]>([]);
+  const [loggedInUser, setLoggedInUser] = useState<UserData>({ email: '' });
+
   const [events, setEvents] = useState<object[]>([Data.events]);
   const [sport, setSport] = useState<object[]>([Data.sports]);
 
@@ -36,13 +39,13 @@ function Main(): ReactElement {
             <Join />
           </Route>
           <Route exact path="/user/login/">
-            <Login />
+            <Login setUser={setLoggedInUser} />
           </Route>
           <Route exact path="/user/signup/">
-            <SignUp />
+            <SignUp setUser={setLoggedInUser} />
           </Route>
           <Route exact path="/user/profile/">
-            <Profile />
+            <Profile user={loggedInUser} setUser={setLoggedInUser} />
           </Route>
           <Redirect from="/" to="/intro/" />
         </Switch>
