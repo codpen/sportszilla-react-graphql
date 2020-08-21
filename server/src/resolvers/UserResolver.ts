@@ -35,7 +35,7 @@ export default class UserResolver {
     }
   }
 
-  @Mutation(() => User)
+  @Mutation(() => LoginResponse)
   async newUser(@Arg('userData') userData: NewUser) {
     try {
       const { passW } = userData;
@@ -43,7 +43,10 @@ export default class UserResolver {
       userData.passW = pswdHash;
       const user = await User.create(userData);
       //await user.$set('favSports', userData.favSports);
-      return user;
+      return {
+        accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
+        user
+      };
     } catch (err) {
       console.error(err);
     }
