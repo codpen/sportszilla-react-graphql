@@ -1,4 +1,11 @@
-import React, { ReactElement, useState, FormEvent, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import React, {
+  ReactElement,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useLazyQuery, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
@@ -13,7 +20,9 @@ const LOGIN = gql`
   query Login($email: String!, $passW: String!) {
     login(email: $email, passW: $passW) {
       accessToken
-      user{email}
+      user {
+        email
+      }
     }
   }
 `;
@@ -161,6 +170,6 @@ function Login({ setUser }: PropTypes): ReactElement {
       </form>
     </div>
   );
-};
+}
 
 export default Login;

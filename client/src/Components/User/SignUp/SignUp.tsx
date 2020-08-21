@@ -1,4 +1,11 @@
-import React, { ReactElement, useState, FormEvent, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import React, {
+  ReactElement,
+  useState,
+  FormEvent,
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
@@ -14,7 +21,9 @@ const NEW_USER = gql`
   mutation NewUser($userData: NewUser!) {
     newUser(userData: $userData) {
       accessToken
-      user{ID}
+      user {
+        ID
+      }
     }
   }
 `;
@@ -30,7 +39,6 @@ const SButton = styled(Button)`
     color: #ffffff;
   }
 `;
-
 
 interface ValidStatuses {
   [index: string]: VALIDATION | undefined;
@@ -60,7 +68,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
     email: '',
     passW: '',
     birthday: undefined,
-  }
+  };
   const [userData, setUserData] = useState<UserData>(initialUD);
 
   const initialSts: ValidStatuses = {
@@ -69,7 +77,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
     userName: undefined,
     email: undefined,
     passW: undefined,
-  }
+  };
   const [validStatuses, setValidStatuses] = useState<ValidStatuses>(initialSts);
 
   const initialMsgs: ValidMsgs = {
@@ -78,7 +86,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
     userName: '',
     email: '',
     passW: '',
-  }
+  };
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
   const history = useHistory();
 
@@ -92,7 +100,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
   interface Arguments {
     userData: UserData;
   }
-  const [createUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER)
+  const [createUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER);
 
   const validateField = (fieldName: string, fieldValue: string): boolean => {
     switch (fieldName) {
@@ -147,16 +155,18 @@ function SignUp({ setUser }: PropTypes): ReactElement {
   };
 
   const verifyForm = (): string[] => {
-    const notValids = Object
-      .keys(validStatuses)
-      .reduce<string[]>((notValids: string[], key: string) => {
+    const notValids = Object.keys(validStatuses).reduce<string[]>(
+      (notValids: string[], key: string) => {
         // not compulsory values (can be undefined, not just success):
-        const correct = ((validStatuses[key] === 'success') ||
-          (key === 'userName' && validStatuses[key] === undefined));
+        const correct =
+          validStatuses[key] === 'success' ||
+          (key === 'userName' && validStatuses[key] === undefined);
         !correct && notValids.push(key);
-        return notValids
-      }, []);
-   return notValids;
+        return notValids;
+      },
+      []
+    );
+    return notValids;
   };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
@@ -188,7 +198,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
     <div className={styles.SignUp} data-testid="SignUp">
       <h2 className={styles.welcome}>Thank you for signing up with us.</h2>
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
-        <Field style={{marginTop: '3vh', width: '300px'}}>
+        <Field style={{ marginTop: '3vh', width: '300px' }}>
           <Label>First name</Label>
           <Input
             name="firstName"
@@ -252,10 +262,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
         <Field className={styles.Field}>
           <Label>Birthday</Label>
           <Datepicker value={userData.birthday} onChange={handleDate}>
-            <Input
-              name="birthday"
-              style={{ fontSize: '20px' }}
-            />
+            <Input name="birthday" style={{ fontSize: '20px' }} />
           </Datepicker>
         </Field>
 
@@ -263,6 +270,6 @@ function SignUp({ setUser }: PropTypes): ReactElement {
       </form>
     </div>
   );
-};
+}
 
 export default SignUp;
