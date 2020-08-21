@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './DropMenu.module.scss';
 
 const DropMenu: React.FC = () => {
-  const [rotated, setRotated] = useState<boolean | undefined>();
   const [open, setOpen] = useState<boolean>(false);
-  const menu: HTMLElement | null = document.getElementById('drawerMenu');
+  let menu: HTMLElement;
+
+  useEffect(() => {
+    menu = document.getElementById('drawerMenu') as HTMLElement;
+  }, [open]);
 
   const onClick = () => {
+    console.log(menu);
     if (!open && menu) {
       menu.style.left = '40vw';
     } else {

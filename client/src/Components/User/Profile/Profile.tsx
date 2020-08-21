@@ -9,7 +9,6 @@ import styles from './Profile.module.scss';
 
 import Data from '../../../mockData/data.json';
 import image from '../../../Images/profile.jpg';
-import { element } from 'prop-types';
 import { UserData } from '../UserData';
 
 interface PropTypes {
