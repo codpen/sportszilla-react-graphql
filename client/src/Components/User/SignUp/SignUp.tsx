@@ -1,4 +1,5 @@
 import React, { ReactElement, useState, FormEvent, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
@@ -12,7 +13,8 @@ import { UserData } from '../UserData';
 const NEW_USER = gql`
   mutation NewUser($userData: NewUser!) {
     newUser(userData: $userData) {
-      ID
+      accessToken
+      user{ID}
     }
   }
 `;
@@ -78,9 +80,14 @@ function SignUp({ setUser }: PropTypes): ReactElement {
     passW: '',
   }
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
+  const history = useHistory();
 
+  interface LoginResponse {
+    accessToken: string;
+    user: UserData;
+  }
   interface Response {
-    userData: UserData;
+    login: LoginResponse;
   }
   interface Arguments {
     userData: UserData;
@@ -171,6 +178,11 @@ function SignUp({ setUser }: PropTypes): ReactElement {
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
+  if (data && data.login) {
+    localStorage.setItem('accessToken', data.login.accessToken);
+    setUser(data.login.user);
+    history.push('/user/profile');
+  }
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">
