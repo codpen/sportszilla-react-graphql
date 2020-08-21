@@ -6,10 +6,9 @@ import NewSport from '../inputs/NewSport.input';
 @Resolver()
 export default class SportResolver {
   @Query(() => [Sport])
-  async getAllSport(){
+  async getAllSport() {
     try {
       return Sport.findAll();
-
     } catch (error) {
       console.log(error);
     }

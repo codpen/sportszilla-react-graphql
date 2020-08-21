@@ -1,4 +1,4 @@
-import User from '../models/user.model'
+import User from '../models/user.model';
 
 const user = new User();
 test('should have firstName');

@@ -7,5 +7,5 @@ export default class LoginResponse {
   accessToken: string;
 
   @Field()
-  user: User
+  user: User;
 }

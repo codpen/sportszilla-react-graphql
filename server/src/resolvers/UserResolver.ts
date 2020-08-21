@@ -2,7 +2,7 @@
 import { Resolver, Query, Mutation, Arg, ObjectType, Field } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import LoginResponse from '../auth/LoginResponse'
+import LoginResponse from '../auth/LoginResponse';
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
@@ -25,10 +25,10 @@ export default class UserResolver {
       const user = await User.findOne({ where: { email } });
       if (!user) throw new Error('User not found!');
       const isValidPassW = await bcrypt.compare(passW, user.passW);
-      if (!isValidPassW) throw new Error('Invalid password!')
+      if (!isValidPassW) throw new Error('Invalid password!');
       return {
         accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
-        user
+        user,
       };
     } catch (err) {
       console.error(err);
@@ -45,7 +45,7 @@ export default class UserResolver {
       //await user.$set('favSports', userData.favSports);
       return {
         accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
-        user
+        user,
       };
     } catch (err) {
       console.error(err);

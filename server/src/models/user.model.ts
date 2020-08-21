@@ -11,11 +11,11 @@ import {
   DataType,
   BelongsToMany,
   HasOne,
-  Unique
+  Unique,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int, ID } from 'type-graphql';
 import Sport from './sport.model';
-import FavSports from './favSports.model'
+import FavSports from './favSports.model';
 import SportResolver from '../resolvers/SportResolver';
 import { UniqueArgumentNamesRule, UniqueOperationTypesRule } from 'graphql';
 
