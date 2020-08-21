@@ -32,6 +32,8 @@ const Board: React.FC = () => {
 
   const [event, setEvent] = useState<Event[]>(Data.events);
 
+  const [eventFilter, setEventFilter] = useState<Event[]>();
+
   const list = event.map((event) => {
     return (
       <div>
@@ -40,6 +42,13 @@ const Board: React.FC = () => {
     );
   });
 
+  const filterBySport = (sport: any) => {
+    const filteredList = Data.events.filter((e) => {
+      return e.sport_name === sport;
+    });
+    setEvent([...filteredList]);
+  };
+
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
 
   const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
@@ -47,7 +56,7 @@ const Board: React.FC = () => {
   return (
     <div className={styles.Container}>
       <div id="list" className={styles.Container1}>
-        <SearchBar />
+        <SearchBar filterBySport={filterBySport} />
         <div className={styles.Board} data-testid="Board">
           {list}
         </div>

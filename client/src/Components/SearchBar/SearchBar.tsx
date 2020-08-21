@@ -4,7 +4,11 @@ import { Field, Label, Input } from '@zendeskgarden/react-forms';
 import FilterButton from '../FilterButton/FilterButton';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
 
-const SearchBar: React.FC = () => {
+interface PropTypes {
+  filterBySport: any;
+}
+
+const SearchBar: React.FC<PropTypes> = ({ filterBySport }) => {
   const calendarIcon = require('../../Images/FormIcons/calendar.svg');
 
   return (
@@ -18,7 +22,7 @@ const SearchBar: React.FC = () => {
         >
           <Input />
         </Datepicker>
-        <FilterButton />
+        <FilterButton filterBySport={filterBySport} />
       </Field>
     </div>
   );
