@@ -4,9 +4,9 @@ import Sport from '../models/sport.model';
 
 @InputType()
 export default class NewFavSport {
-	@Field(() => User)
-	userId: number
+  @Field(() => User)
+  userId: number;
 
-	@Field(() => Sport)
-	sportId: number
+  @Field(() => Sport)
+  sportId: number;
 }

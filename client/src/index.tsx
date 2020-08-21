@@ -8,7 +8,7 @@ import Main from './Components/Main/Main';
 import * as serviceWorker from './Service/serviceWorker';
 
 const link = createHttpLink({
-  uri: 'http://localhost:8000',
+  uri: 'http://localhost:8000/graphql',
 });
 
 const client = new ApolloClient({
@@ -21,7 +21,7 @@ ReactDOM.render(
     <ThemeProvider>
       <Router>
         <ApolloProvider client={client}>
-          <Main boolProp={false} />
+          <Main />
         </ApolloProvider>
       </Router>
     </ThemeProvider>

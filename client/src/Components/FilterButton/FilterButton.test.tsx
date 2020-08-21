@@ -6,7 +6,7 @@ import FilterButton from './FilterButton';
 describe('<FilterButton />', () => {
   test('it should mount', () => {
     render(<FilterButton />);
-    
+
     const filterButton = screen.getByTestId('FilterButton');
 
     expect(filterButton).toBeInTheDocument();

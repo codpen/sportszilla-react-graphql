@@ -2,13 +2,13 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Sport from '../models/sport.model';
 import NewSport from '../inputs/NewSport.input';
+
 @Resolver()
-export default class sportResolver {
+export default class SportResolver {
   @Query(() => [Sport])
-  async getAllSport(){
+  async getAllSport() {
     try {
       return Sport.findAll();
-      
     } catch (error) {
       console.log(error);
     }
