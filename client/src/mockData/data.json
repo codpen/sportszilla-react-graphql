@@ -50,7 +50,7 @@
     {
       "id": 101,
       "sport_id": 2,
-      "sport_name": "Football",
+      "sport_name": "Basketball",
       "location": { "latitude": 38.2573471, "longitude": 3.1169697, "accuracy": 30 },
       "date": "1.1.2021",
       "description": "We need more 4 players ",
@@ -65,7 +65,7 @@
     {
       "id": 102,
       "sport_id": 1,
-      "sport_name": "Basketball",
+      "sport_name": "Football",
       "location": { "latitude": 38.0, "longitude": 3.1169697, "accuracy": 30 },
       "date": "1.2.2021",
       "description": "Game this weekend",
