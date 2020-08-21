@@ -1,5 +1,5 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg, ObjectType, Field } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, ObjectType, Field, FieldResolver, Root } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import LoginResponse from '../auth/LoginResponse';
@@ -10,12 +10,12 @@ import Sport from '../models/sport.model';
 import FavSports from '../models/favSports.model';
 import favSportResolver from './favSportsResolver';
 
-@Resolver()
+@Resolver(User)
 export default class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     try {
-      return User.findAll({ order: [['ID', 'ASC']] });
+      return User.findAll({ order: [['ID', 'ASC']], include: [Sport] });
     } catch (err) {
       console.error(err);
     }
@@ -79,6 +79,12 @@ export default class UserResolver {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  @FieldResolver()
+  favSports(@Root() user: User) {
+    console.log(user)
+    return user.favSports || user.$get('favSports');
   }
 
 }
