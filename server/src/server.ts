@@ -1,7 +1,8 @@
 import 'reflect-metadata';
-import { ApolloServer } from 'apollo-server';
+import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { Sequelize } from 'sequelize-typescript';
+import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
 import UserResolver from './resolvers/UserResolver';
@@ -11,6 +12,8 @@ import sportResolver from './resolvers/sportResolver';
 dotenv.config();
 
 const { PORT, DB_NAME, DB_PSWD, DB_PORT } = process.env;
+
+const app = express();
 
 async function startServer() {
   const DB_URL = `postgres://${DB_NAME}:${DB_PSWD}@packy.db.elephantsql.com:${DB_PORT}/${DB_NAME}`;
@@ -28,10 +31,13 @@ async function startServer() {
     resolvers: [UserResolver, EventResolver, sportResolver],
     validate: false,
   });
+  const apolloServer = new ApolloServer({
+    schema,
+  });
+  apolloServer.applyMiddleware({ app });
 
-  const apolloServer = new ApolloServer({ schema });
-
-  apolloServer.listen(PORT).then(() => console.info(`Server has started on port: ${PORT}!`));
+  const serverPath = `Server has started at: http://localhost:${PORT}!`;
+  app.listen({ port: PORT }, () => console.info(serverPath));
 }
 /**
  * testing startServer
