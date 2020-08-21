@@ -3,19 +3,18 @@ import styles from './SearchBar.module.scss';
 import { Field, Label, Input } from '@zendeskgarden/react-forms';
 import FilterButton from '../FilterButton/FilterButton';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
-import Data from '../../mockData/data.json';
 
-const SearchBar: React.FC = () => {
+interface PropTypes {
+  filterBySport: any;
+}
+
+const SearchBar: React.FC<PropTypes> = ({ filterBySport }) => {
   const calendarIcon = require('../../Images/FormIcons/calendar.svg');
 
   return (
     <div className={styles.SearchBar} data-testid="SearchBar">
+      <img className={styles.SearchBar_Field_CalendarIcon} src={calendarIcon} alt="calendarIcon" />
       <Field className={styles.SearchBar_Field}>
-        <img
-          className={styles.SearchBar_Field_CalendarIcon}
-          src={calendarIcon}
-          alt="calendarIcon"
-        />
         <Datepicker
           isCompact={true}
           value={new Date()}
@@ -23,9 +22,7 @@ const SearchBar: React.FC = () => {
         >
           <Input />
         </Datepicker>
-        <Field>
-          <FilterButton />
-        </Field>
+        <FilterButton filterBySport={filterBySport} />
       </Field>
     </div>
   );

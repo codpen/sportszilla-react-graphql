@@ -1,5 +1,4 @@
 @import '../../Style/colors';
-
 .Container {
   background-color: white;
   color: rgba(0, 0, 0, 0.7);
@@ -11,17 +10,49 @@
   font-size: 0.8rem;
 }
 
-.EventTitle {
+.Head {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  padding-top: 0.5rem;
+  justify-content: space-between;
+  .EventTitle {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 0.6rem;
+    margin-left: 1rem;
+
+    .Title {
+      margin: 0;
+      text-align: left;
+    }
+    div {
+      margin: 0;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: center;
+      img {
+        height: 0.8rem;
+        width: 0.8rem;
+        margin: 0rem;
+        margin-right: 0.2rem;
+        margin-bottom: 0.3rem;
+      }
+      p {
+        text-align: left;
+      }
+    }
+  }
+  img {
+    height: 2rem;
+    width: 2rem;
+    margin: 0.8rem;
+  }
 }
 
 .EventLogin {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 h2 {
@@ -39,8 +70,36 @@ h2 {
   box-shadow: 0.5rem 0.5rem 1rem rgba(0, 0, 0, 0.7);
   color: #f4f6ff;
 }
-.EventBox {
-  margin-top: 0;
-  margin-left: 1.25rem;
-  width: 10rem;
+.EventBox_left {
+  margin: 0.6rem;
+  border-radius: 0.2rem;
+  width: 4rem;
+  box-shadow: 0.2rem 0.2rem 0.8rem rgba(0, 0, 0, 0.7);
+
+  p {
+    color: rgb(231, 9, 9);
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+  h4 {
+    margin-top: 0.2rem;
+    margin-bottom: 0.4rem;
+  }
+  .EventBox_Left_Time {
+    margin-top: 0.3rem;
+    font-size: 0.7rem;
+  }
+}
+.EventBox_center {
+  h4 {
+    margin: 0;
+    margin-bottom: 0.8rem;
+  }
+}
+.EventBox_center_pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  margin-top: 0rem;
+  border: solid white 0.1rem;
 }

@@ -1,1 +1,72 @@
-.Profile {}
+.Profile {
+  height: 95%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 15px;
+  padding-right: 30px;
+  overflow: hidden;
+
+  h2 {
+    font-size: 38px;
+  }
+
+  .spacer {
+    height: 11%;
+  }
+
+  .avatarCnt {
+    color: white;
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
+  }
+
+  .btnCnt {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .eventCtn {
+    width: 90%;
+  }
+
+  .friendCtn {
+    flex: 1;
+    overflow: scroll;
+    border-radius: 2px;
+    width: 90%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    color: black;
+    font-size: 20px;
+    div {
+      width: 100%;
+      input {
+        width: 100%;
+        height: 30px;
+        ::placeholder {
+          font-size: 40px;
+          line-height: 3;
+        }
+      }
+    }
+
+    ul {
+      li {
+        height: 25px;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+        p {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
