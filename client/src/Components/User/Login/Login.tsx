@@ -8,18 +8,11 @@ import Loader from '../../Loader/Loader';
 import { UserData } from '../UserData';
 import styles from './Login.module.scss';
 
-const GET_ONE_USER = gql`
-  query GetOneUser($email: String!, $passW: String!) {
-    getOneUser(email: $email, passW: $passW) {
-      ID
-      firstName
-      lastName
-      userName
-      email
-      birthday
-      creationDate
-      updatedOn
-      deletionDate
+const LOGIN = gql`
+  query Login($email: String!, $passW: String!) {
+    login(email: $email, passW: $passW) {
+      accessToken
+      user{email}
     }
   }
 `;
@@ -46,14 +39,18 @@ function Login({ setUser }: PropTypes): ReactElement {
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
 
+  interface LoginResponse {
+    accessToken: string;
+    user: UserData;
+  }
   interface Response {
-    getOneUser: UserData;
+    login: LoginResponse;
   }
   interface Arguments {
     email: string;
     passW: string;
   }
-  const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER);
+  const [login, { loading, data, error }] = useLazyQuery<Response, Arguments>(LOGIN);
 
   const validateEmail = (email: string): boolean => {
     const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -113,7 +110,7 @@ function Login({ setUser }: PropTypes): ReactElement {
     event.preventDefault();
     if (!verifyForm()) return null;
 
-    getOneUser({ variables: { email, passW } });
+    login({ variables: { email, passW } });
 
     setPassValid(undefined);
     setPassValidMsg('');
@@ -125,7 +122,7 @@ function Login({ setUser }: PropTypes): ReactElement {
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <div className={styles.errorNotification}>Oopsie: {error.message}</div>;
-  if (data && data.getOneUser) setUser(data.getOneUser);
+  if (data && data.login) setUser(data.login.user);
 
   return (
     <div className={styles.Login} data-testid="Login">
