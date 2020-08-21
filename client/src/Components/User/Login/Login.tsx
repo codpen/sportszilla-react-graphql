@@ -1,4 +1,5 @@
 import React, { ReactElement, useState, FormEvent, ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useLazyQuery, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
@@ -51,6 +52,7 @@ function Login({ setUser }: PropTypes): ReactElement {
     passW: string;
   }
   const [login, { loading, data, error }] = useLazyQuery<Response, Arguments>(LOGIN);
+  const history = useHistory();
 
   const validateEmail = (email: string): boolean => {
     const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -122,7 +124,11 @@ function Login({ setUser }: PropTypes): ReactElement {
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <div className={styles.errorNotification}>Oopsie: {error.message}</div>;
-  if (data && data.login) setUser(data.login.user);
+  if (data && data.login) {
+    localStorage.setItem('accessToken', data.login.accessToken);
+    setUser(data.login.user);
+    history.push('/user/profile');
+  }
 
   return (
     <div className={styles.Login} data-testid="Login">
