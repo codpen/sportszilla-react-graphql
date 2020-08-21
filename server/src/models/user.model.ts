@@ -40,7 +40,7 @@ export default class User extends Model<User> {
   @Column
   @Field(() => String, { nullable: true })
   userName: string;
-  
+
   @Unique(true)
   @Column
   @Field(() => String)

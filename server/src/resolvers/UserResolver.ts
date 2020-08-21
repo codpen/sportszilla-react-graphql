@@ -1,10 +1,12 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg, Int } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, Int, Field, FieldResolver } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
+import FavSports from '../models/favSports.model';
+import favSportResolver from './favSportsResolver';
 
 @Resolver()
 export default class UserResolver {
@@ -35,8 +37,6 @@ export default class UserResolver {
       const user = await User.create(userData);
        await user.$set('favSports', userData.favSports);
       return user;
-      
-      
     } catch (err) {
       console.error(err);
     }
@@ -68,4 +68,5 @@ export default class UserResolver {
       console.error(err);
     }
   }
+
 }
