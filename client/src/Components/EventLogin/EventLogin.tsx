@@ -39,16 +39,19 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
   const randomAvatar = Faker.fake('{{internet.avatar}}');
   const randomList = [
     <img
+      key="1"
       className={styles.EventBox_center_pic}
       src={Faker.fake('{{internet.avatar}}')}
       alt="profile_pic"
     />,
     <img
+      key="2"
       className={styles.EventBox_center_pic}
       src={Faker.fake('{{internet.avatar}}')}
       alt="profile_pic"
     />,
     <img
+      key="3"
       className={styles.EventBox_center_pic}
       src={Faker.fake('{{internet.avatar}}')}
       alt="profile_pic"

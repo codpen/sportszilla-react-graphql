@@ -20,7 +20,7 @@ const FilterButton: React.FC<PropTypes> = ({ filterBySport }) => {
 
   const list = sport.map((sp) => {
     return (
-      <Item value={sp.name}>
+      <Item key={`${sp.id}`} value={sp.name}>
         <Sport sport={sp} />
       </Item>
     );

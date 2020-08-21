@@ -34,9 +34,9 @@ const Board: React.FC = () => {
 
   const [eventFilter, setEventFilter] = useState<Event[]>();
 
-  const list = event.map((event) => {
+  const list = event.map((event, i) => {
     return (
-      <div>
+      <div key={`${event.id} ${event.sport_name}`}>
         <EventLogin event={event} />
       </div>
     );
