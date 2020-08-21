@@ -6,7 +6,7 @@ import Profile from './Profile';
 describe('<Profile />', () => {
   test('it should mount', () => {
     render(<Profile />);
-    
+
     const profile = screen.getByTestId('Profile');
 
     expect(profile).toBeInTheDocument();
