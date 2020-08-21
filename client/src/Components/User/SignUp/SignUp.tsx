@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { ReactElement, useState, FormEvent, ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
@@ -7,21 +7,7 @@ import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/valida
 import styled from 'styled-components';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
-
-interface UserData {
-  [index: string]: number | string | Date | undefined;
-  ID?: number;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  email: string;
-  passW: string;
-  birthday?: Date | undefined;
-  creationDate?: Date;
-  updatedOn?: Date;
-  deletionDate?: Date | undefined;
-  __typeName?: string;
-}
+import { UserData } from '../UserData';
 
 const NEW_USER = gql`
   mutation NewUser($userData: NewUser!) {
@@ -61,7 +47,10 @@ interface ValidMsgs {
   passW: string;
 }
 
-const SignUp: React.FC = () => {
+interface PropTypes {
+  setUser: Dispatch<SetStateAction<UserData>>;
+}
+function SignUp({ setUser }: PropTypes): ReactElement {
   const initialUD: UserData = {
     firstName: '',
     lastName: '',

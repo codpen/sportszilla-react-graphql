@@ -1,26 +1,12 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { ReactElement, useState, FormEvent, ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useLazyQuery, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
 import Loader from '../../Loader/Loader';
+import { UserData } from '../UserData';
 import styles from './Login.module.scss';
-
-interface UserData {
-  [index: string]: number | string | Date | undefined;
-  ID?: number;
-  firstName: string;
-  lastName: string;
-  userName: string;
-  email: string;
-  passW: string;
-  birthday?: Date | undefined;
-  creationDate?: Date;
-  updatedOn?: Date;
-  deletionDate?: Date | undefined;
-  __typeName?: string;
-}
 
 const GET_ONE_USER = gql`
   query GetOneUser($email: String!, $passW: String!) {
@@ -49,7 +35,10 @@ const SButton = styled(Button)`
   }
 `;
 
-const Login: React.FC = () => {
+interface PropTypes {
+  setUser: Dispatch<SetStateAction<UserData>>;
+}
+function Login({ setUser }: PropTypes): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [passW, setPassW] = useState<string>('');
   const [mailValid, setMailValid] = useState<VALIDATION | undefined>(undefined);
@@ -135,7 +124,8 @@ const Login: React.FC = () => {
   };
 
   if (loading) return <Loader boxHeight={400} />;
-  if (error) return <p>Oopsie: {error.message}</p>;
+  if (error) return <div className={styles.errorNotification}>Oopsie: {error.message}</div>;
+  if (data && data.getOneUser) setUser(data.getOneUser);
 
   return (
     <div className={styles.Login} data-testid="Login">
