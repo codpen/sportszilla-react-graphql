@@ -1,10 +1,16 @@
 import { MiddlewareFn } from 'type-graphql';
 import { verify } from 'jsonwebtoken';
-import { MyContext } from './MyContext';
 
 //format like bearer 21321n2bmbbj
 
-const Auth: MiddlewareFn<MyContext> = ({ context }, next) => {
+
+export interface AuthContext {
+  req: Request;
+  res: Response;
+  payload?: { userId: string };
+}
+
+const Auth: MiddlewareFn<AuthContext> = ({ context }, next) => {
   const authorization = context.req.headers['authorization'];
 
   if (!authorization) {
