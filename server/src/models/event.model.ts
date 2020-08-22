@@ -48,6 +48,14 @@ export default class Event extends Model<Event> {
   indoor: boolean;
 
   @Column
+  @Field(() => String)
+  timeStart: string;
+
+  @Column
+  @Field(() => String)
+  timeEnd: string;
+
+  @Column
   @Field(() => Number)
   availableSpots: number;
 

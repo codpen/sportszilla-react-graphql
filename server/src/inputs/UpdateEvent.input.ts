@@ -23,4 +23,10 @@ export default class UpdateEvent {
 
   @Field({ nullable: true })
   location?: string;
+
+  @Field({ nullable: true })
+  timeStart?: string;
+
+  @Field({nullable: true})
+  timeEnd?: string;
 }

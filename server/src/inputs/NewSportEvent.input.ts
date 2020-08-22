@@ -24,6 +24,12 @@ export default class NewSportEvent {
   @Field()
   location: string;
 
+  @Field(() => String)
+  timeStart: string;
+
+  @Field(() => String)
+  timeEnd: string;
+
   //   @Field({ nullable: true })
   //   createdAt: string;
 
