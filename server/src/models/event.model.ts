@@ -40,6 +40,10 @@ export default class Event extends Model<Event> {
   date: Date;
 
   @Column
+  @Field(() => String)
+  location: string;
+
+  @Column
   @Field(() => Boolean)
   indoor: boolean;
 
