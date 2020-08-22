@@ -17,27 +17,33 @@ function sendJWT(user: User, res: Response): void {
 }
 
 async function auth(req: Request, res: Response) {
-  const isNewUser = req.params.isNewUser === 'true';
+  let errStatus = 500;
   try {
-    if (isNewUser) {
+    if (req.params.userType === 'new') {
       const pswdHash = await bcrypt.hash(req.body.passW, 10);
       req.body.passW = pswdHash;
       const user = await User.create(req.body);
       sendJWT(user, res);
-    } else {
+    } else if (req.params.userType === 'returning') {
       const user = await User.findOne({ where: { email: req.body.email } });
-      if (!user) throw new Error('No user found with this email!');
+      if (!user) {
+        errStatus = 404;
+        throw new Error('No user found with this email!');
+      }
       const isValidPassW = await bcrypt.compare(req.body.passW, user.passW);
-      if (!isValidPassW) throw new Error('Invalid password!');
+      if (!isValidPassW) {
+        errStatus = 401;
+        throw new Error('Invalid password!');
+      }
       sendJWT(user, res);
     }
   } catch (err) {
     console.error(err);
-    res.status(500);
+    res.status(errStatus);
     res.send(err);
   }
 }
 
-router.post('/auth/:isNewUser', auth);
+router.post('/auth/:userType', auth);
 
 export default router;
