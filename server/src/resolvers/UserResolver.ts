@@ -8,7 +8,7 @@ import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
 import FavSports from '../models/favSports.model';
-import favSportResolver from './favSportsResolver';
+import FavSportResolver from './FavSportsResolver';
 
 @Resolver(User)
 export default class UserResolver {

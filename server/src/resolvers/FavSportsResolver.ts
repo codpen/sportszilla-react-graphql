@@ -6,7 +6,7 @@ import FavSports from '../models/favSports.model';
 import Sport from '../models/sport.model';
 
 @Resolver()
-export default class favSportResolver {
+export default class FavSportResolver {
   @Query(() => User)
   async getAllUsers(@Arg('ID') id: number): Promise<User[]>{
     try {
