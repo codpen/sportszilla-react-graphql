@@ -1,27 +1,22 @@
-import { Request, Response } from 'express';
+import { Request } from 'express';
 import { MiddlewareFn } from 'type-graphql';
+import { AuthenticationError } from 'apollo-server-express';
 import jwt from 'jsonwebtoken';
-
-//format like bearer 21321n2bmbbj
+import { JWT_KEY } from '../server';
 
 export interface AuthContext {
   req: Request;
-  res: Response;
-  payload?: { userId: string };
 }
 
 const Auth: MiddlewareFn<AuthContext> = ({ context }, next) => {
   const authorization = context.req.get('Authorization');
+  if (!authorization) throw new AuthenticationError('Please, log in!');
 
-  try {
-    if (!authorization) throw new Error('Not authenticated');
-    const token = authorization.split(' ')[1];
-    const payload = jwt.verify(token, 'MySecretKey');
-    console.log(payload);
-    context.payload = payload as any;
-  } catch (err) {
-    console.error(err);
-  }
+  const jwtToken = authorization.split(' ')[1];
+  jwt.verify(jwtToken, JWT_KEY, (err) => {
+    if (err) throw new AuthenticationError('Invalid token!');
+  });
+
   return next();
 };
 
