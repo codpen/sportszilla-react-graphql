@@ -14,8 +14,10 @@ const Intro: React.FC = () => (
       <ButtonGeneric buttonText="Join Now" buttonLink="/user/join/" />
     </div>
     <div className={styles.container}>
-      <div className={styles.mapContainer}>
-        <Map />
+      <div className={styles.parCtn}>
+        <div className={styles.mapContainer}>
+          <Map />
+        </div>
       </div>
     </div>
   </div>

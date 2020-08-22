@@ -4,33 +4,39 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-}
 
-.Intro_Title {
-  font-size: 1.2rem;
-  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(0, 0, 0, 0.8),
-    0px 4px 7px rgba(0, 0, 0, 0.8);
-}
+  .Intro_Title {
+    font-size: 1.2rem;
+    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8), -3px 0px 7px rgba(0, 0, 0, 0.8),
+      0px 4px 7px rgba(0, 0, 0, 0.8);
+  }
+  h1 {
+    margin-top: 5rem;
+    color: white;
+    font-weight: 600;
+  }
 
-.Intro_Title h1 {
-  margin-top: 5rem;
-  color: white;
-  font-weight: 600;
-}
+  .container {
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    display: flex;
+    overflow: hidden;
 
-.container {
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  justify-content: flex-end;
-  display: flex;
-  overflow: hidden;
-}
+    .parCtn {
+      height: 40%;
+      width: 200vw;
+      border-top-left-radius: 60%;
+      border-top-right-radius: 20%;
 
-.mapContainer {
-  height: 50%;
-  width: 200%;
-  overflow: hidden;
-  border-top-left-radius: 60%;
-  border-top-right-radius: 20%;
+      overflow: hidden;
+
+      .mapContainer {
+        height: 100%;
+        width: 200vw;
+        margin-top: -35%;
+      }
+    }
+  }
 }

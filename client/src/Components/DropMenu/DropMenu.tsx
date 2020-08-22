@@ -10,7 +10,6 @@ const DropMenu: React.FC = () => {
   }, [open]);
 
   const onClick = () => {
-    console.log(menu);
     if (!open && menu) {
       menu.style.left = '40vw';
     } else {
