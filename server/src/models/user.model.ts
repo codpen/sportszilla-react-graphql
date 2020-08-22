@@ -21,7 +21,7 @@ import { UniqueArgumentNamesRule, UniqueOperationTypesRule } from 'graphql';
 
 @Table
 @ObjectType()
-export default class User extends Model<User> {
+export default class UserWrong extends Model<UserWrong> {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -53,6 +53,10 @@ export default class User extends Model<User> {
   @Column
   @Field(() => Date, { nullable: true })
   birthday: Date;
+
+  @Column
+  @Field(() => String, { nullable: true })
+  location: string;
 
   @BelongsToMany(() => Sport, () => FavSports)
   @Field(() => [Sport], { nullable: true })
