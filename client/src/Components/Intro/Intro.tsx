@@ -14,8 +14,8 @@ const Intro: React.FC = () => (
       <ButtonGeneric buttonText="Join Now" buttonLink="/user/join/" />
     </div>
     <div className={styles.container}>
-      <div className={styles.parCtn}>
-        <div className={styles.mapContainer}>
+      <div className={styles.mapContainer}>
+        <div>
           <Map />
         </div>
       </div>

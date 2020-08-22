@@ -24,18 +24,14 @@
     display: flex;
     overflow: hidden;
 
-    .parCtn {
-      height: 40%;
+    .mapContainer {
+      height: 35%;
       width: 200vw;
+      overflow: hidden;
       border-top-left-radius: 60%;
       border-top-right-radius: 20%;
-
-      overflow: hidden;
-
-      .mapContainer {
-        height: 100%;
-        width: 200vw;
-        margin-top: -35%;
+      div {
+        top: -25%;
       }
     }
   }
