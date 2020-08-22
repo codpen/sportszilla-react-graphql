@@ -3,30 +3,15 @@ import React, {
   useState,
   FormEvent,
   ChangeEvent,
-  Dispatch,
-  SetStateAction,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useMutation, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
-import { Datepicker } from '@zendeskgarden/react-datepickers';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
 import { UserData } from '../UserData';
-
-const NEW_USER = gql`
-  mutation NewUser($userData: NewUser!) {
-    newUser(userData: $userData) {
-      accessToken
-      user {
-        ID
-      }
-    }
-  }
-`;
 
 const SButton = styled(Button)`
   margin-top: 3vh;
@@ -43,38 +28,26 @@ const SButton = styled(Button)`
 interface ValidStatuses {
   [index: string]: VALIDATION | undefined;
   firstName: VALIDATION | undefined;
-  lastName: VALIDATION | undefined;
-  userName: VALIDATION | undefined;
   email: VALIDATION | undefined;
   passW: VALIDATION | undefined;
 }
 interface ValidMsgs {
   [index: string]: string;
   firstName: string;
-  lastName: string;
-  userName: string;
   email: string;
   passW: string;
 }
 
-interface PropTypes {
-  setUser: Dispatch<SetStateAction<UserData>>;
-}
-function SignUp({ setUser }: PropTypes): ReactElement {
+function SignUp(): ReactElement {
   const initialUD: UserData = {
     firstName: '',
-    lastName: '',
-    userName: '',
     email: '',
     passW: '',
-    birthday: undefined,
   };
   const [userData, setUserData] = useState<UserData>(initialUD);
 
   const initialSts: ValidStatuses = {
     firstName: undefined,
-    lastName: undefined,
-    userName: undefined,
     email: undefined,
     passW: undefined,
   };
@@ -82,34 +55,17 @@ function SignUp({ setUser }: PropTypes): ReactElement {
 
   const initialMsgs: ValidMsgs = {
     firstName: '',
-    lastName: '',
-    userName: '',
     email: '',
     passW: '',
   };
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
   const history = useHistory();
-
-  interface LoginResponse {
-    accessToken: string;
-    user: UserData;
-  }
-  interface Response {
-    login: LoginResponse;
-  }
-  interface Arguments {
-    userData: UserData;
-  }
-  const [createUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const validateField = (fieldName: string, fieldValue: string): boolean => {
     switch (fieldName) {
       case 'firstName':
         return fieldValue.length < 40 && fieldValue.length > 2;
-      case 'lastName':
-        return fieldValue.length < 60 && fieldValue.length > 2;
-      case 'userName':
-        return fieldValue.length < 40;
       case 'email':
         const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return mailRgx.test(fieldValue);
@@ -119,13 +75,6 @@ function SignUp({ setUser }: PropTypes): ReactElement {
       default:
         return false;
     }
-  };
-
-  const handleDate = (date: Date): void => {
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      birthday: date,
-    }));
   };
 
   interface FormMethod<E> {
@@ -157,10 +106,7 @@ function SignUp({ setUser }: PropTypes): ReactElement {
   const verifyForm = (): string[] => {
     const notValids = Object.keys(validStatuses).reduce<string[]>(
       (notValids: string[], key: string) => {
-        // not compulsory values (can be undefined, not just success):
-        const correct =
-          validStatuses[key] === 'success' ||
-          (key === 'userName' && validStatuses[key] === undefined);
+        const correct = validStatuses[key] === 'success';
         !correct && notValids.push(key);
         return notValids;
       },
@@ -168,6 +114,29 @@ function SignUp({ setUser }: PropTypes): ReactElement {
     );
     return notValids;
   };
+
+  interface JWTToken {
+    jwtToken: string;
+  }
+  interface LoginData {
+    firstName: string;
+    email: string;
+    passW: string;
+  }
+  async function loginRequest<JWTToken>(loginData: LoginData): Promise<JWTToken> {
+    const loginURL = 'http://localhost:8000/auth/new';
+    const init: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    }
+    return fetch(loginURL, init)
+      .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
+      .then((result) => result.json())
+      .catch(console.error);
+  }
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
@@ -179,20 +148,25 @@ function SignUp({ setUser }: PropTypes): ReactElement {
       });
       return null;
     }
+    setIsLoading(true);
 
-    createUser({ variables: { userData } });
-    setUserData(initialUD);
-    setValidStatuses(initialSts);
-    setValidMsgs(initialMsgs);
+    loginRequest<JWTToken>({
+      firstName: userData.firstName!,
+      email: userData.email!,
+      passW: userData.passW!,
+    })
+      .then((tokenObj) => {
+        const { jwtToken } = tokenObj;
+        localStorage.setItem('jwtToken', jwtToken);
+        setUserData(initialUD);
+        setValidStatuses(initialSts);
+        setValidMsgs(initialMsgs);
+        setIsLoading(false);
+        history.push('/user/profile');
+      });
   };
 
-  if (loading) return <Loader boxHeight={400} />;
-  if (error) return <p>Oopsie: {error.message}</p>;
-  if (data && data.login) {
-    localStorage.setItem('accessToken', data.login.accessToken);
-    setUser(data.login.user);
-    history.push('/user/profile');
-  }
+  if (isLoading) return <Loader boxHeight={800} />;
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">
@@ -208,30 +182,6 @@ function SignUp({ setUser }: PropTypes): ReactElement {
             onChange={handleChange}
           />
           <Message validation={validStatuses.firstName}>{validMsgs.firstName}&nbsp;</Message>
-        </Field>
-
-        <Field className={styles.Field}>
-          <Label>Last name</Label>
-          <Input
-            name="lastName"
-            value={userData.lastName}
-            style={{ fontSize: '20px' }}
-            validation={validStatuses.lastName}
-            onChange={handleChange}
-          />
-          <Message validation={validStatuses.lastName}>{validMsgs.lastName}&nbsp;</Message>
-        </Field>
-
-        <Field className={styles.Field}>
-          <Label>Username</Label>
-          <Input
-            name="userName"
-            value={userData.userName}
-            style={{ fontSize: '20px' }}
-            validation={validStatuses.userName}
-            onChange={handleChange}
-          />
-          <Message validation={validStatuses.userName}>{validMsgs.userName}&nbsp;</Message>
         </Field>
 
         <Field className={styles.Field}>
@@ -257,13 +207,6 @@ function SignUp({ setUser }: PropTypes): ReactElement {
             onChange={handleChange}
           />
           <Message validation={validStatuses.passW}>{validMsgs.passW}&nbsp;</Message>
-        </Field>
-
-        <Field className={styles.Field}>
-          <Label>Birthday</Label>
-          <Datepicker value={userData.birthday} onChange={handleDate}>
-            <Input name="birthday" style={{ fontSize: '20px' }} />
-          </Datepicker>
         </Field>
 
         <SButton type="submit">Sign up</SButton>
