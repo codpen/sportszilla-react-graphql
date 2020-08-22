@@ -1,13 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import { useQuery, gql } from '@apollo/client';
+import { EventData } from './Event';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
 import SearchBar from '../SearchBar/SearchBar';
+import Loader from '../Loader/Loader';
 import { HashLink as Link } from 'react-router-hash-link';
 import Map from '../Map/Map';
 
-const Board: React.FC = () => {
-  type Event = {
+interface PropTypes {
+  allEvents: Dispatch<SetStateAction<EventData[]>>;
+}
+
+const EVENTS = gql`
+  query {
+    getAllEvents {
+      ID
+      sportEventName
+      sportName
+      time
+      date
+      indoor
+      availableSpots
+    }
+  }
+`;
+
+const Board: React.FC<PropTypes> = ({ allEvents }) => {
+  interface Response {
+    getAllEvents: EventData[];
+  }
+
+  const { loading, data, error } = useQuery<Response>(EVENTS);
+
+  type EventBS = {
     id: number;
     sport_id: number;
     sport_name: string;
@@ -30,7 +57,7 @@ const Board: React.FC = () => {
     min_participants: number;
   };
 
-  const [event, setEvent] = useState<Event[]>(Data.events);
+  const [event, setEvent] = useState<EventBS[]>(Data.events);
 
   const [eventFilter, setEventFilter] = useState<Event[]>();
 
@@ -50,8 +77,13 @@ const Board: React.FC = () => {
   };
 
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
-
   const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
+
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <div>Oopsie: {error.message}</div>;
+  if (data && data.getAllEvents) {
+    allEvents(data.getAllEvents);
+  }
 
   return (
     <div className={styles.Container}>
