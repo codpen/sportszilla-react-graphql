@@ -1,4 +1,5 @@
 import { InputType, Field } from 'type-graphql';
+import { FilterRootFields } from 'graphql-tools';
 
 @InputType()
 export default class UpdateEvent {
@@ -19,4 +20,7 @@ export default class UpdateEvent {
 
   @Field({ nullable: true })
   availableSpots?: number;
+
+  @Field({ nullable: true })
+  location?: string;
 }

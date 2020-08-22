@@ -22,6 +22,9 @@ export default class UpdateUser {
   @Field({ nullable: true })
   birthday?: Date;
 
+  @Field({ nullable: true })
+  location?: string;
+
   // @Field()
   // favSport?: number;
   /**

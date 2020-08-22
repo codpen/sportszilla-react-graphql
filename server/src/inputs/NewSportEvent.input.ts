@@ -21,6 +21,9 @@ export default class NewSportEvent {
   @Field()
   availableSpots: number;
 
+  @Field()
+  location: string;
+
   //   @Field({ nullable: true })
   //   createdAt: string;
 
