@@ -13,4 +13,7 @@ export default class NewSport {
 
   @Field()
   minPlayersToPracticeSport: Number;
+
+  @Field()
+  esquipamentNeeded: String
 }

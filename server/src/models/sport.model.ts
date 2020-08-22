@@ -40,11 +40,15 @@ export default class Sport extends Model<Sport> {
 
   @Column
   @Field(() => String)
-  fieldType: String;
+  fieldType: string;
 
   @Column
   @Field(() => Number)
-  minPlayersToPracticeSport: Number;
+  minPlayersToPracticeSport: number;
+
+  @Column
+  @Field(() => String)
+  equipamentNeeded: string
 
   @CreatedAt
   @Field(() => Date)
