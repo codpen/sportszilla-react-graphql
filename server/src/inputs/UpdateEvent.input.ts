@@ -27,6 +27,6 @@ export default class UpdateEvent {
   @Field({ nullable: true })
   timeStart?: string;
 
-  @Field({nullable: true})
+  @Field({ nullable: true })
   timeEnd?: string;
 }
