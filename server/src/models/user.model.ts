@@ -58,6 +58,10 @@ export default class User extends Model<User> {
   @Field(() => [Sport], { nullable: true })
   favSports: Sport[];
 
+  @Column
+  @Field(() => String)
+  location: string;
+
   @CreatedAt
   @Field(() => Date)
   creationDate: Date;
