@@ -5,6 +5,7 @@ import { Sequelize } from 'sequelize-typescript';
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path';
+import cors from 'cors';
 import authRouter from './auth/authRouter';
 import UserResolver from './resolvers/UserResolver';
 import EventResolver from './resolvers/EventResolver';
@@ -13,10 +14,11 @@ import SportResolver from './resolvers/SportResolver';
 dotenv.config();
 
 export const {
-  PORT, DB_NAME, DB_PSWD, DB_PORT, JWT_KEY,
+  PORT, DB_NAME, DB_PSWD, DB_PORT, JWT_KEY, CLIENT_PORT,
 } = process.env;
 
 const app = express();
+app.use(cors({ origin: `http://localhost:${CLIENT_PORT}`, credentials: true }));
 app.use(express.json());
 app.use(authRouter);
 
@@ -38,6 +40,7 @@ async function startServer() {
   });
   const apolloServer = new ApolloServer({
     schema,
+    context: ({ req }) => ({ req }),
   });
   apolloServer.applyMiddleware({ app });
 
