@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import styles from './Map.module.scss';
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import { EventBS } from '../Board/eventBS';
 
 import pinIcon from './footbal_icon.png';
 
@@ -9,6 +10,10 @@ const containerStyle = {
   height: '100%',
 };
 
+interface PropTypes {
+  event: EventBS[];
+}
+
 const mapOptions = {
   disableDefaultUI: true,
   styles: require('./mapStyle.json'),
@@ -16,7 +21,17 @@ const mapOptions = {
 
 //const mapStyles = require('./mapStyle.json');
 
-const Map: React.FC = () => {
+const Map: React.FC<PropTypes> = ({ event }) => {
+  const markerList = event.map((ev, i) => {
+    return (
+      <Marker
+        key={`${i}`}
+        title={'Marker'}
+        position={{ lat: ev.location.latitude, lng: ev.location.longitude }}
+      />
+    );
+  });
+
   return (
     <div className={styles.Map} data-testid="Map">
       <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
@@ -26,12 +41,7 @@ const Map: React.FC = () => {
           mapContainerStyle={containerStyle}
           options={mapOptions}
         >
-          <Marker title={'Marker'} position={{ lat: 51, lng: 0 }} />
-          <Marker
-            title={'Marker'}
-            position={{ lat: 51.005, lng: 0 }}
-            //  icon={pinIcon}
-          />
+          {markerList}
         </GoogleMap>
       </LoadScript>
     </div>

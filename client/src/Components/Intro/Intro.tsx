@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Intro.module.scss';
-
+import Data from '../../mockData/data.json';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import Map from '../Map/Map';
 
@@ -15,7 +15,7 @@ const Intro: React.FC = () => (
     </div>
     <div className={styles.container}>
       <div className={styles.mapContainer}>
-        <Map />
+        <Map event={Data.events} />
       </div>
     </div>
   </div>

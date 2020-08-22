@@ -1,6 +1,7 @@
 import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { EventData } from './Event';
+import { EventBS } from './eventBS';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
@@ -34,28 +35,6 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
   }
 
   const { loading, data, error } = useQuery<Response>(EVENTS);
-
-  type EventBS = {
-    ID: number;
-    sportName: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      accuracy: number;
-    };
-    date: string;
-    sportEventName: string;
-    organizer: number;
-    filter: {
-      target_gender: string;
-      target_level: string;
-    };
-    timeStart: string;
-    timeEnd: string;
-    registered_participants: number[];
-    max_participants: number;
-    min_participants: number;
-  };
 
   const [event, allEvent] = useState<EventBS[]>(Data.events);
 
@@ -109,7 +88,7 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
               <img src={arrowIconUp} alt="down-arrow" />
             </Link>
           </div>
-          <Map />
+          <Map event={Data.events} />
         </div>
       </div>
     </div>

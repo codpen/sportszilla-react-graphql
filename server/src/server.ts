@@ -11,9 +11,7 @@ import SportResolver from './resolvers/SportResolver';
 
 dotenv.config();
 
-const {
-  PORT, DB_NAME, DB_PSWD, DB_PORT,
-} = process.env;
+const { PORT, DB_NAME, DB_PSWD, DB_PORT } = process.env;
 
 const app = express();
 
@@ -23,7 +21,7 @@ async function startServer() {
   try {
     await sequelize.authenticate();
     sequelize.addModels([path.join(__dirname, '/models/**/*.model.ts')]);
-    sequelize.sync();
+    sequelize.sync({ force: true });
     console.info('Connected to Postgres.');
   } catch (error) {
     console.error('Unable to connect to the database:', error);
