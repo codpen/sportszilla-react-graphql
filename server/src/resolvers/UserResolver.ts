@@ -30,16 +30,6 @@ export default class UserResolver {
   }
 
   @Mutation(() => User)
-  async newUser(@Arg('userData') userData: NewUser) {
-    try {
-      const user = await User.create(userData);
-      return user;
-    } catch (err) {
-      console.error(err);
-    }
-  }
-
-  @Mutation(() => User)
   async updateUser(@Arg('ID') id: number, @Arg('userData') userData: UpdateUser) {
     try {
       const user = await User.findOne({ where: { ID: id } });

@@ -6,7 +6,7 @@ import User from '../models/user.model';
 
 const router = express.Router();
 
-function sendToken(user: User, res: Response): void {
+function sendJWT(user: User, res: Response): void {
   const jwtToken = jwt.sign(
     { userId: user.id, email: user.email },
     JWT_KEY || 'secret',
@@ -23,13 +23,13 @@ async function auth(req: Request, res: Response) {
       const pswdHash = await bcrypt.hash(req.body.passW, 10);
       req.body.passW = pswdHash;
       const user = await User.create(req.body);
-      sendToken(user, res);
+      sendJWT(user, res);
     } else {
       const user = await User.findOne({ where: { email: req.body.email } });
       if (!user) throw new Error('No user found with this email!');
       const isValidPassW = await bcrypt.compare(req.body.passW, user.passW);
       if (!isValidPassW) throw new Error('Invalid password!');
-      sendToken(user, res);
+      sendJWT(user, res);
     }
   } catch (err) {
     console.error(err);
