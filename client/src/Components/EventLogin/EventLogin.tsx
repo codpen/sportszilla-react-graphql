@@ -5,23 +5,22 @@ import Moment from 'react-moment';
 import Faker from 'faker';
 
 type Event = {
-  id: number;
-  sport_id: number;
-  sport_name: string;
+  ID: number;
+  sportName: string;
   location: {
     latitude: number;
     longitude: number;
     accuracy: number;
   };
   date: string;
-  description: string;
+  sportEventName: string;
   organizer: number;
   filter: {
     target_gender: string;
     target_level: string;
   };
-  time_start: string;
-  time_end: string;
+  timeStart: string;
+  timeEnd: string;
   registered_participants: number[];
   max_participants: number;
   min_participants: number;
@@ -62,13 +61,13 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
     <div className={styles.Container}>
       <div className={styles.Head}>
         <div className={styles.EventTitle}>
-          <h2 className={styles.Title}>{event.description}</h2>
+          <h2 className={styles.Title}>{event.sportEventName}</h2>
           <div>
             <img src={require('../../Images/FormIcons/pin.svg')} alt="" />
             <p>{randomAddress}</p>
           </div>
         </div>
-        <img src={require(`../../Images/SportIcons/${event.sport_name}.svg`)} alt="" />
+        <img src={require(`../../Images/SportIcons/${event.sportName}.svg`)} alt="" />
       </div>
 
       <div className={styles.EventLogin} data-testid="EventLogin">
@@ -78,7 +77,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
               <Moment format="D MMM">{randomDate}</Moment>
             </p>
             <div className={styles.EventBox_Left_Time}>
-              <div>{event.time_start}</div>-<div>{event.time_end}</div>
+              <div>{event.timeStart}</div>-<div>{event.timeEnd}</div>
             </div>
           </h4>
         </div>

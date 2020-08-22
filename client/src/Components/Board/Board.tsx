@@ -10,7 +10,8 @@ import { HashLink as Link } from 'react-router-hash-link';
 import Map from '../Map/Map';
 
 interface PropTypes {
-  allEvents: Dispatch<SetStateAction<EventData[]>>;
+  setEvents: Dispatch<SetStateAction<EventData[]>>;
+  events: EventData[];
 }
 
 const EVENTS = gql`
@@ -27,7 +28,7 @@ const EVENTS = gql`
   }
 `;
 
-const Board: React.FC<PropTypes> = ({ allEvents }) => {
+const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
   interface Response {
     getAllEvents: EventData[];
   }
@@ -35,35 +36,34 @@ const Board: React.FC<PropTypes> = ({ allEvents }) => {
   const { loading, data, error } = useQuery<Response>(EVENTS);
 
   type EventBS = {
-    id: number;
-    sport_id: number;
-    sport_name: string;
+    ID: number;
+    sportName: string;
     location: {
       latitude: number;
       longitude: number;
       accuracy: number;
     };
     date: string;
-    description: string;
+    sportEventName: string;
     organizer: number;
     filter: {
       target_gender: string;
       target_level: string;
     };
-    time_start: string;
-    time_end: string;
+    timeStart: string;
+    timeEnd: string;
     registered_participants: number[];
     max_participants: number;
     min_participants: number;
   };
 
-  const [event, setEvent] = useState<EventBS[]>(Data.events);
+  const [event, allEvent] = useState<EventBS[]>(Data.events);
 
   const [eventFilter, setEventFilter] = useState<Event[]>();
 
   const list = event.map((event, i) => {
     return (
-      <div key={`${event.id} ${event.sport_name}`}>
+      <div key={`${event.ID} ${event.sportName}`}>
         <EventLogin event={event} />
       </div>
     );
@@ -71,9 +71,9 @@ const Board: React.FC<PropTypes> = ({ allEvents }) => {
 
   const filterBySport = (sport: any) => {
     const filteredList = Data.events.filter((e) => {
-      return e.sport_name === sport;
+      return e.sportName === sport;
     });
-    setEvent([...filteredList]);
+    allEvent([...filteredList]);
   };
 
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
@@ -82,7 +82,7 @@ const Board: React.FC<PropTypes> = ({ allEvents }) => {
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <div>Oopsie: {error.message}</div>;
   if (data && data.getAllEvents) {
-    allEvents(data.getAllEvents);
+    setEvents(data.getAllEvents);
   }
 
   return (

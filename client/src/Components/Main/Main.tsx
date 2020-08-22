@@ -17,7 +17,6 @@ function Main(): ReactElement {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loggedInUser, setLoggedInUser] = useState<UserData>({ email: '' });
   const [events, setEvents] = useState<EventData[]>([]);
-  const [sport, setSport] = useState<object[]>([Data.sports]);
   console.log(events);
   return (
     <div className="Main">
@@ -30,7 +29,7 @@ function Main(): ReactElement {
             <Intro />
           </Route>
           <Route path="/board/">
-            <Board allEvents={setEvents} />
+            <Board setEvents={setEvents} events={events} />
           </Route>
           <Route path="/apollo/">
             <Apollo />
