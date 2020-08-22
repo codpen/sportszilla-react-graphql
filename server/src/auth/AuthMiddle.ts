@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { MiddlewareFn } from 'type-graphql';
-import { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 //format like bearer 21321n2bmbbj
 
@@ -16,7 +16,7 @@ const Auth: MiddlewareFn<AuthContext> = ({ context }, next) => {
   try {
     if (!authorization) throw new Error('Not authenticated');
     const token = authorization.split(' ')[1];
-    const payload = verify(token, 'MySecretKey');
+    const payload = jwt.verify(token, 'MySecretKey');
     console.log(payload);
     context.payload = payload as any;
   } catch (err) {
