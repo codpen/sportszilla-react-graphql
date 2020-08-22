@@ -39,10 +39,10 @@ function Main(): ReactElement {
             <Join />
           </Route>
           <Route exact path="/user/login/">
-            <Login setUser={setLoggedInUser} />
+            <Login />
           </Route>
           <Route exact path="/user/signup/">
-            <SignUp setUser={setLoggedInUser} />
+            <SignUp />
           </Route>
           <Route exact path="/user/profile/">
             <Profile user={loggedInUser} setUser={setLoggedInUser} />
