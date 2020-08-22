@@ -3,29 +3,14 @@ import React, {
   useState,
   FormEvent,
   ChangeEvent,
-  Dispatch,
-  SetStateAction,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useLazyQuery, gql } from '@apollo/client';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
-import styled from 'styled-components';
+import styled, { ThemeConsumer } from 'styled-components';
 import Loader from '../../Loader/Loader';
-import { UserData } from '../UserData';
 import styles from './Login.module.scss';
-
-const LOGIN = gql`
-  query Login($email: String!, $passW: String!) {
-    login(email: $email, passW: $passW) {
-      accessToken
-      user {
-        email
-      }
-    }
-  }
-`;
 
 const SButton = styled(Button)`
   font-size: 30px;
@@ -38,29 +23,15 @@ const SButton = styled(Button)`
   }
 `;
 
-interface PropTypes {
-  setUser: Dispatch<SetStateAction<UserData>>;
-}
-function Login({ setUser }: PropTypes): ReactElement {
+function Login(): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [passW, setPassW] = useState<string>('');
   const [mailValid, setMailValid] = useState<VALIDATION | undefined>(undefined);
   const [passValid, setPassValid] = useState<VALIDATION | undefined>(undefined);
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  interface LoginResponse {
-    accessToken: string;
-    user: UserData;
-  }
-  interface Response {
-    login: LoginResponse;
-  }
-  interface Arguments {
-    email: string;
-    passW: string;
-  }
-  const [login, { loading, data, error }] = useLazyQuery<Response, Arguments>(LOGIN);
   const history = useHistory();
 
   const validateEmail = (email: string): boolean => {
@@ -117,27 +88,49 @@ function Login({ setUser }: PropTypes): ReactElement {
     return passValid === 'success' && mailValid === 'success';
   };
 
+  interface JWTToken {
+    jwtToken: string;
+  }
+  interface LoginData {
+    email: string;
+    passW: string;
+  }
+  async function loginRequest<S>(loginData: LoginData): Promise<S> {
+    const loginURL = 'http://localhost:8000/auth/returning';
+    const init: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(loginData),
+    }
+    return fetch(loginURL, init)
+      .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
+      .then((result) => result.json())
+      .catch(console.error);
+  }
+
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     if (!verifyForm()) return null;
+    setIsLoading(true);
 
-    login({ variables: { email, passW } });
-
-    setPassValid(undefined);
-    setPassValidMsg('');
-    setPassW('');
-    setMailValid(undefined);
-    setMailValidMsg('');
-    setEmail('');
+    loginRequest<JWTToken>({ email, passW })
+      .then((tokenObj) => {
+        const { jwtToken } = tokenObj;
+        localStorage.setItem('jwtToken', jwtToken);
+        setPassValid(undefined);
+        setPassValidMsg('');
+        setPassW('');
+        setMailValid(undefined);
+        setMailValidMsg('');
+        setEmail('');
+        setIsLoading(false);
+        history.push('/user/profile');
+      });
   };
 
-  if (loading) return <Loader boxHeight={400} />;
-  if (error) return <div className={styles.errorNotification}>Oopsie: {error.message}</div>;
-  if (data && data.login) {
-    localStorage.setItem('accessToken', data.login.accessToken);
-    setUser(data.login.user);
-    history.push('/user/profile');
-  }
+  if (isLoading) return <Loader boxHeight={800} />;
 
   return (
     <div className={styles.Login} data-testid="Login">
