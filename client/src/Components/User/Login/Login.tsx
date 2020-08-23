@@ -9,7 +9,8 @@ import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-f
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
-import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
+import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
+import { LoginRequest, LoginData, jwtToken } from '../../Main/main';
 import Loader from '../../Loader/Loader';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
 import styles from './Login.module.scss';
@@ -33,7 +34,10 @@ const EyeIcon = styled(EndIcon)`
   }
 `
 
-function Login(): ReactElement {
+interface PropTypes {
+  loginRequest: LoginRequest<jwtToken>;
+}
+function Login({ loginRequest }: PropTypes): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [passW, setPassW] = useState<string>('');
   const [mailValid, setMailValid] = useState<VALIDATION | undefined>(undefined);
@@ -42,7 +46,6 @@ function Login(): ReactElement {
   const [passValidMsg, setPassValidMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuth, setIsAuth] = useState<boolean>(false);
-  const [FBtoken, setFBtoken] = useState<string>('');
 
   const history = useHistory();
 
@@ -100,54 +103,35 @@ function Login(): ReactElement {
     return passValid === 'success' && mailValid === 'success';
   };
 
-  interface JWTToken {
-    jwtToken: string;
-  }
-  interface LoginData {
-    email: string;
-    passW: string;
-  }
-  async function loginRequest<S>(loginData: LoginData): Promise<S> {
-    const loginURL = 'http://localhost:8000/auth/returning';
-    const init: RequestInit = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    }
-    return fetch(loginURL, init)
-      .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
-      .then((result) => result.json())
-      .catch(console.error);
-  }
+  const tokenResponse = (tokenObj: jwtToken) => {
+    const { jwtToken } = tokenObj;
+    localStorage.setItem('jwtToken', jwtToken);
+    setPassValid(undefined);
+    setPassValidMsg('');
+    setPassW('');
+    setMailValid(undefined);
+    setMailValidMsg('');
+    setEmail('');
+    setIsLoading(false);
+    history.push('/user/profile');
+  };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     if (!verifyForm()) return null;
     setIsLoading(true);
-
-    loginRequest<JWTToken>({ email, passW })
-      .then((tokenObj) => {
-        const { jwtToken } = tokenObj;
-        localStorage.setItem('jwtToken', jwtToken);
-        setPassValid(undefined);
-        setPassValidMsg('');
-        setPassW('');
-        setMailValid(undefined);
-        setMailValidMsg('');
-        setEmail('');
-        setIsLoading(false);
-        history.push('/user/profile');
-      });
+    loginRequest({ email, passW, path: 'returning' })
+      .then((tokenResponse));
   };
 
   const FBResp = (userInfo: ReactFacebookLoginInfo) => {
     console.log('userInfo: ', userInfo);
+    setIsLoading(true);
+    loginRequest({ path: 'returningFace', accessTokenFB: userInfo.accessToken })
+      .then((tokenResponse));
   };
-  const onFailure = (error: string) => {
-    alert(error);
-  }
+
+  const onFailure = (error: string) => alert(error);
 
   if (isLoading) return <Loader boxHeight={800} />;
 
@@ -159,9 +143,9 @@ function Login(): ReactElement {
         appId="607268229976801"
         autoLoad={false}
         fields="name,email,picture"
+        textButton="Log in with facebook"
         callback={FBResp}
       />
-
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <Field className={styles.emailField}>
           <Label>Email</Label>
@@ -189,7 +173,15 @@ function Login(): ReactElement {
                   const mediaInput = event.currentTarget.parentNode?.firstElementChild;
                   mediaInput?.setAttribute('type', 'text');
                 }}
+                onTouchStart={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
                 onMouseUp={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+                onTouchEnd={(event) => {
                   const mediaInput = event.currentTarget.parentNode?.firstElementChild;
                   mediaInput?.setAttribute('type', 'password');
                 }}
