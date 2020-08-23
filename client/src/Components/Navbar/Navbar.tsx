@@ -6,7 +6,7 @@ import logo from '../../Images/godzilla.svg';
 import logoBall from '../../Images/filled-circle.svg';
 import hamburger from '../../Images/open-menu.svg';
 import DropMenu from '../DropMenu/DropMenu';
-import logo1 from '../../Images/Logo/LogoMakr_7xg4JO.png'
+import logo1 from '../../Images/Logo/LogoMakr_7xg4JO.png';
 
 const Navbar: React.FC = () => {
   return (
