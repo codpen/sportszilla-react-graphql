@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import styles from './Map.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
-import { GoogleMap, LoadScript, InfoWindow, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, InfoBox, InfoWindow, Marker } from '@react-google-maps/api';
 import { EventBS } from '../Board/eventBS';
+import { InfoBoxOptions } from '@react-google-maps/infobox';
 
-import pinIcon from './footbal_icon.png';
 import { isPunctuatorToken } from 'graphql/language/lexer';
 
 const containerStyle = {
@@ -21,6 +21,12 @@ const mapOptions = {
   styles: require('./mapStyle.json'),
 };
 
+const infoBoxOptions = {
+  boxStyle: {
+    width: '100vw',
+    closeBoxMargin: '2px',
+  },
+};
 //const mapStyles = require('./mapStyle.json');
 
 const Map: React.FC<PropTypes> = ({ event }) => {
@@ -28,23 +34,28 @@ const Map: React.FC<PropTypes> = ({ event }) => {
 
   const markerList = event.map((ev, i) => {
     const sportIcon: any = {
-      url: require(`../../Images/SportIcons/${ev.sportName}.svg`),
-      scaledSize: { height: 30, width: 30 },
+      url: require(`../../Images/SportIconsColor/${ev.sportName}.svg`),
+      scaledSize: { height: 35, width: 35 },
     };
 
     return (
-      <Marker
-        icon={sportIcon}
-        key={ev.ID}
-        position={{ lat: ev.location.latitude, lng: ev.location.longitude }}
-        onClick={() => setOpen(ev.ID)}
-      >
-        {(open === ev.ID || open === 0) && (
-          <InfoWindow onCloseClick={() => setOpen(null)}>
-            <EventLogin event={ev} />
-          </InfoWindow>
-        )}
-      </Marker>
+      <div style={{ width: '100%' }}>
+        <Marker
+          title={ev.sportEventName}
+          icon={sportIcon}
+          key={ev.ID}
+          position={{ lat: ev.location.latitude, lng: ev.location.longitude }}
+          onClick={() => setOpen(ev.ID)}
+        >
+          {(open === ev.ID || open === 0) && (
+            <InfoBox options={{ closeBoxURL: '' }} onCloseClick={() => setOpen(null)}>
+              <div className={styles.Popup}>
+                <EventLogin event={ev} />
+              </div>
+            </InfoBox>
+          )}
+        </Marker>
+      </div>
     );
   });
 
@@ -52,6 +63,7 @@ const Map: React.FC<PropTypes> = ({ event }) => {
     <div className={styles.Map} data-testid="Map">
       <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
         <GoogleMap
+          onClick={() => setOpen(null)}
           center={{ lat: 51, lng: 0 }}
           zoom={14}
           mapContainerStyle={containerStyle}
