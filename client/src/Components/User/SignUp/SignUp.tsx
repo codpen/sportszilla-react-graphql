@@ -5,10 +5,13 @@ import React, {
   ChangeEvent,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
+import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
+import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
+import { LoginRequest, LoginData, jwtToken } from '../../Main/main';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
 import { UserData } from '../UserData';
@@ -25,6 +28,14 @@ const SButton = styled(Button)`
   }
 `;
 
+const EyeIcon = styled(EndIcon)`
+  width: 35px;
+  height: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 interface ValidStatuses {
   [index: string]: VALIDATION | undefined;
   firstName: VALIDATION | undefined;
@@ -38,7 +49,12 @@ interface ValidMsgs {
   passW: string;
 }
 
-function SignUp(): ReactElement {
+interface PropTypes {
+  loginRequest: LoginRequest<jwtToken>;
+}
+function SignUp({ loginRequest }: PropTypes): ReactElement {
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+
   const initialUD: UserData = {
     firstName: '',
     email: '',
@@ -115,28 +131,15 @@ function SignUp(): ReactElement {
     return notValids;
   };
 
-  interface JWTToken {
-    jwtToken: string;
-  }
-  interface LoginData {
-    firstName: string;
-    email: string;
-    passW: string;
-  }
-  async function loginRequest<JWTToken>(loginData: LoginData): Promise<JWTToken> {
-    const loginURL = 'http://localhost:8000/auth/new';
-    const init: RequestInit = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(loginData),
-    }
-    return fetch(loginURL, init)
-      .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
-      .then((result) => result.json())
-      .catch(console.error);
-  }
+  const tokenResponse = (tokenObj: jwtToken) => {
+    const { jwtToken } = tokenObj;
+    localStorage.setItem('jwtToken', jwtToken);
+    setUserData(initialUD);
+    setValidStatuses(initialSts);
+    setValidMsgs(initialMsgs);
+    setIsLoading(false);
+    history.push('/user/profile');
+  };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
@@ -149,28 +152,40 @@ function SignUp(): ReactElement {
       return null;
     }
     setIsLoading(true);
-
-    loginRequest<JWTToken>({
+    loginRequest({
       firstName: userData.firstName!,
       email: userData.email!,
       passW: userData.passW!,
+      path: 'new'
     })
-      .then((tokenObj) => {
-        const { jwtToken } = tokenObj;
-        localStorage.setItem('jwtToken', jwtToken);
-        setUserData(initialUD);
-        setValidStatuses(initialSts);
-        setValidMsgs(initialMsgs);
-        setIsLoading(false);
-        history.push('/user/profile');
-      });
+      .then(tokenResponse);
   };
+
+  const FBResp = (userInfo: ReactFacebookLoginInfo) => {
+    console.log('userInfo: ', userInfo);
+    setIsLoading(true);
+    loginRequest({ email: userInfo.email, accessTokenFB: userInfo.accessToken, path: 'newFace' })
+      .then(tokenResponse);
+  };
+
+  const onFailure = (error: string) => {
+    alert(error);
+  }
 
   if (isLoading) return <Loader boxHeight={800} />;
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">
       <h2 className={styles.welcome}>Thank you for signing up with us.</h2>
+
+      <FacebookLogin
+        appId="607268229976801"
+        autoLoad={false}
+        fields="name,email,picture"
+        textButton="Sign up with facebook"
+        callback={FBResp}
+      />
+
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
         <Field style={{ marginTop: '3vh', width: '300px' }}>
           <Label>First name</Label>
@@ -198,13 +213,33 @@ function SignUp(): ReactElement {
 
         <Field className={styles.Field}>
           <Label>Password</Label>
-          <Input
+          <MediaInput
             name="passW"
             value={userData.passW}
             type="password"
-            style={{ fontSize: '20px' }}
+            style={{ height: '40px', fontSize: '22px' }}
             validation={validStatuses.passW}
             onChange={handleChange}
+            end={
+              <EyeIcon
+                onMouseDown={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onTouchStart={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onMouseUp={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+                onTouchEnd={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+              />
+            }
           />
           <Message validation={validStatuses.passW}>{validMsgs.passW}&nbsp;</Message>
         </Field>
