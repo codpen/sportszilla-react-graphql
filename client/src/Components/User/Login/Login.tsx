@@ -8,7 +8,8 @@ import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
-import styled, { ThemeConsumer } from 'styled-components';
+import styled from 'styled-components';
+import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 import Loader from '../../Loader/Loader';
 import styles from './Login.module.scss';
 
@@ -31,6 +32,7 @@ function Login(): ReactElement {
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
 
   const history = useHistory();
 
@@ -130,11 +132,26 @@ function Login(): ReactElement {
       });
   };
 
+  const facebookResponse = (userInfo: ReactFacebookLoginInfo) => {
+    console.log(userInfo);
+  };
+
+  const onFailure = (error: string) => {
+    alert(error);
+  }
+
   if (isLoading) return <Loader boxHeight={800} />;
 
   return (
     <div className={styles.Login} data-testid="Login">
       <h2 className={styles.welcome}>Welcome back!</h2>
+
+      <FacebookLogin
+        appId="700795493835882"
+        autoLoad={false}
+        fields="name,email,picture"
+        callback={facebookResponse}
+      />
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <Field className={styles.emailField}>
           <Label>Email</Label>
