@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import styles from './Map.module.scss';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import EventLogin from '../EventLogin/EventLogin';
+import { GoogleMap, LoadScript, InfoWindow, Marker } from '@react-google-maps/api';
 import { EventBS } from '../Board/eventBS';
 
 import pinIcon from './footbal_icon.png';
+import { isPunctuatorToken } from 'graphql/language/lexer';
 
 const containerStyle = {
   width: '100%',
@@ -22,13 +24,27 @@ const mapOptions = {
 //const mapStyles = require('./mapStyle.json');
 
 const Map: React.FC<PropTypes> = ({ event }) => {
+  const [open, setOpen] = useState<number | null>(null);
+
   const markerList = event.map((ev, i) => {
+    const sportIcon: any = {
+      url: require(`../../Images/SportIcons/${ev.sportName}.svg`),
+      scaledSize: { height: 30, width: 30 },
+    };
+
     return (
       <Marker
-        key={`${i}`}
-        title={'Marker'}
+        icon={sportIcon}
+        key={ev.ID}
         position={{ lat: ev.location.latitude, lng: ev.location.longitude }}
-      />
+        onClick={() => setOpen(ev.ID)}
+      >
+        {(open === ev.ID || open === 0) && (
+          <InfoWindow onCloseClick={() => setOpen(null)}>
+            <EventLogin event={ev} />
+          </InfoWindow>
+        )}
+      </Marker>
     );
   });
 
