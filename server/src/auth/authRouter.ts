@@ -36,6 +36,10 @@ async function auth(req: Request, res: Response) {
         throw new Error('Invalid password!');
       }
       sendJWT(user, res);
+    } else if (req.params.userType === 'returningFace') {
+      console.log('existing Face response: ', req.body);
+    } else if (req.params.userType === 'newFace') {
+      console.log('new Face response: ', req.body);
     }
   } catch (err) {
     console.error(err);

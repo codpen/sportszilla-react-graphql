@@ -54,7 +54,7 @@ export default class UserResolver {
 
   @FieldResolver()
   async favSports(@Root() user: User) {
-    console.log(user)
+    console.log(user);
     return user.favSports || user.$get('favSports');
   }
 
