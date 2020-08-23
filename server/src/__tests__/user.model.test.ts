@@ -14,17 +14,21 @@ sequelize.$overrideImport('../models/user.model', './users/mock.js');
 
 const dbMock = new SequelizeMock();
 
-var UserMock = dbMock.define('user', {
-	firstName: 'Jane',
-	lastName: 'Doe',
-	email: 'test@example.com'
-}, {
-	instanceMethods: {
-			getFullName: function () {
-					return this.get('firstName') + ' ' + this.get('lastName');
-			},
-	},
-});
+var UserMock = dbMock.define(
+  'user',
+  {
+    firstName: 'Jane',
+    lastName: 'Doe',
+    email: 'test@example.com',
+  },
+  {
+    instanceMethods: {
+      getFullName: function () {
+        return this.get('firstName') + ' ' + this.get('lastName');
+      },
+    },
+  }
+);
 
 // const BCRYPT_HASH_BEGINNING = '$2a$';
 // const TEST_PASSWORD = 'hello there';

@@ -1,5 +1,14 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg, ObjectType, Field, FieldResolver, Root } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Arg,
+  ObjectType,
+  Field,
+  FieldResolver,
+  Root,
+} from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import LoginResponse from '../auth/LoginResponse';
@@ -44,7 +53,7 @@ export default class UserResolver {
       const pswdHash = await bcrypt.hash(passW, 10);
       userData.passW = pswdHash;
       const user = await User.create(userData);
-       await user.$set('favSports', userData.favSports);
+      await user.$set('favSports', userData.favSports);
       return {
         accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
         user,
@@ -83,8 +92,7 @@ export default class UserResolver {
 
   @FieldResolver()
   favSports(@Root() user: User) {
-    console.log(user)
+    console.log(user);
     return user.favSports || user.$get('favSports');
   }
-
 }

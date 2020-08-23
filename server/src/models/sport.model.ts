@@ -3,18 +3,15 @@ import {
   Table,
   Column,
   Model,
-  HasMany,
   AutoIncrement,
   PrimaryKey,
   CreatedAt,
   UpdatedAt,
-  DeletedAt,
   BelongsToMany,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import FavSports from './favSports.model';
 import User from './user.model';
-import { type } from 'os';
 
 @Table
 @ObjectType()
@@ -48,7 +45,7 @@ export default class Sport extends Model<Sport> {
 
   @Column
   @Field(() => String)
-  equipamentNeeded: string
+  equipamentNeeded: string;
 
   @CreatedAt
   @Field(() => Date)

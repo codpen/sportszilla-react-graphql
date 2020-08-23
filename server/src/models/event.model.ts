@@ -7,11 +7,9 @@ import {
   DeletedAt,
   PrimaryKey,
   AutoIncrement,
-  HasMany,
   Unique,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
-// import User from './user.model';
 
 @Table
 @ObjectType()

@@ -11,9 +11,7 @@ import SportResolver from './resolvers/SportResolver';
 
 dotenv.config();
 
-const {
-  PORT, DB_NAME, DB_PSWD, DB_PORT,
-} = process.env;
+const { PORT, DB_NAME, DB_PSWD, DB_PORT } = process.env;
 
 const app = express();
 
