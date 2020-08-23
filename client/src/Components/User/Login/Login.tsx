@@ -5,12 +5,13 @@ import React, {
   ChangeEvent,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
 import FacebookLogin, { ReactFacebookLoginInfo } from 'react-facebook-login';
 import Loader from '../../Loader/Loader';
+import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
 import styles from './Login.module.scss';
 
 const SButton = styled(Button)`
@@ -24,6 +25,14 @@ const SButton = styled(Button)`
   }
 `;
 
+const EyeIcon = styled(EndIcon)`
+  width: 35px;
+  height: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 function Login(): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [passW, setPassW] = useState<string>('');
@@ -33,6 +42,7 @@ function Login(): ReactElement {
   const [passValidMsg, setPassValidMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [FBtoken, setFBtoken] = useState<string>('');
 
   const history = useHistory();
 
@@ -132,10 +142,9 @@ function Login(): ReactElement {
       });
   };
 
-  const facebookResponse = (userInfo: ReactFacebookLoginInfo) => {
-    console.log(userInfo);
+  const FBResp = (userInfo: ReactFacebookLoginInfo) => {
+    console.log('userInfo: ', userInfo);
   };
-
   const onFailure = (error: string) => {
     alert(error);
   }
@@ -147,18 +156,19 @@ function Login(): ReactElement {
       <h2 className={styles.welcome}>Welcome back!</h2>
 
       <FacebookLogin
-        appId="700795493835882"
+        appId="607268229976801"
         autoLoad={false}
         fields="name,email,picture"
-        callback={facebookResponse}
+        callback={FBResp}
       />
+
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <Field className={styles.emailField}>
           <Label>Email</Label>
           <Input
             name="email"
             value={email}
-            style={{ fontSize: '20px' }}
+            style={{ height: '62px', fontSize: '22px' }}
             validation={mailValid}
             onChange={handleChange}
           />
@@ -166,13 +176,25 @@ function Login(): ReactElement {
         </Field>
         <Field className={styles.passWField}>
           <Label>Password</Label>
-          <Input
+          <MediaInput
             name="passW"
             value={passW}
             type="password"
-            style={{ fontSize: '20px' }}
+            style={{ height: '40px', fontSize: '22px' }}
             validation={passValid}
             onChange={handleChange}
+            end={
+              <EyeIcon
+                onMouseDown={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onMouseUp={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+              />
+            }
           />
           <Message validation={passValid}>{passValidMsg}&nbsp;</Message>
         </Field>
