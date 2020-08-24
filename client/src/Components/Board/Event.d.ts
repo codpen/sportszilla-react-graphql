@@ -1,12 +1,20 @@
 export interface EventData {
   ID?: number;
-  sportEventName?: string;
+  eventName?: string;
+  sportID?: number;
   sportName?: string;
-  time?: string;
+  timeStart?: string;
+  timeEnd?: string;
   date?: string;
+  location?: number;
   indoor?: boolean;
   availableSpots?: number;
   creationDate?: Date;
   updatedOn?: Date;
   deletionDate?: Date;
+  creator?: number;
+  participants?: number[];
+  minParticipants?: number;
+  maxParticipants?: number;
+  description?: string;
 }

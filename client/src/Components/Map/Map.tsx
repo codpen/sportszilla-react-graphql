@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
+import { GoogleMap, LoadScript, InfoBox, Marker } from '@react-google-maps/api';
 import styles from './Map.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
-import { GoogleMap, LoadScript, InfoBox, InfoWindow, Marker } from '@react-google-maps/api';
 import { EventBS } from '../Board/eventBS';
-import { InfoBoxOptions } from '@react-google-maps/infobox';
-
-import { isPunctuatorToken } from 'graphql/language/lexer';
 
 const containerStyle = {
   width: '100%',
@@ -20,14 +17,6 @@ const mapOptions = {
   disableDefaultUI: true,
   styles: require('./mapStyle.json'),
 };
-
-const infoBoxOptions = {
-  boxStyle: {
-    width: '100vw',
-    closeBoxMargin: '2px',
-  },
-};
-//const mapStyles = require('./mapStyle.json');
 
 const Map: React.FC<PropTypes> = ({ event }) => {
   const [open, setOpen] = useState<number | null>(null);

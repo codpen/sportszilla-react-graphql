@@ -1,8 +1,9 @@
 import React from 'react';
-import styles from './EventLogin.module.scss';
-import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
+import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
 import Faker from 'faker';
+import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
+import styles from './EventLogin.module.scss';
 
 type Event = {
   ID: number;
@@ -29,7 +30,6 @@ type Event = {
 interface PropTypes {
   event: Event;
 }
-
 const EventLogin: React.FC<PropTypes> = ({ event }) => {
   const randomDate = Faker.fake('{{date.future}}');
   const randomAddress = Faker.fake(
@@ -61,7 +61,9 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
     <div className={styles.Container}>
       <div className={styles.Head}>
         <div className={styles.EventTitle}>
-          <h2 className={styles.Title}>{event.sportEventName}</h2>
+          <Link style={{ textDecoration: 'none', color: '#000000' }} to={`/event/${event.ID}`}>
+            <h2 className={styles.Title}>{event.sportEventName}</h2>
+          </Link>
           <div>
             <img src={require('../../Images/FormIcons/pin.svg')} alt="" />
             <p>{randomAddress}</p>
@@ -74,7 +76,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
         <div className={styles.EventBox_left}>
           <h4>
             <p>
-              <Moment format="D MMM">{randomDate}</Moment>
+              <Moment format="D MMM">{event.date}</Moment>
             </p>
             <div className={styles.EventBox_Left_Time}>
               <div>{event.timeStart}</div>-<div>{event.timeEnd}</div>

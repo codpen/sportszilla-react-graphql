@@ -1,5 +1,6 @@
 import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { useQuery, gql } from '@apollo/client';
+import moment from 'moment';
 import { EventData } from './Event';
 import { EventBS } from './eventBS';
 import styles from './Board.module.scss';
@@ -15,32 +16,30 @@ interface PropTypes {
   events: EventData[];
 }
 
-const EVENTS = gql`
-  query {
-    getAllEvents {
-      ID
-      sportEventName
-      sportName
-      time
-      date
-      indoor
-      availableSpots
-    }
-  }
-`;
+// const EVENTS = gql`
+//   query {
+//     getAllEvents {
+//       ID
+//       eventName
+//       sportName
+//       time
+//       date
+//       indoor
+//       availableSpots
+//     }
+//   }
+// `;
 
 const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
   interface Response {
     getAllEvents: EventData[];
   }
 
-  const { loading, data, error } = useQuery<Response>(EVENTS);
+  // const { loading, data, error } = useQuery<Response>(EVENTS);
 
   const [event, allEvent] = useState<EventBS[]>(Data.events);
 
-  const [eventFilter, setEventFilter] = useState<Event[]>();
-
-  const list = event.map((event, i) => {
+  const list = event.map((event: EventBS) => {
     return (
       <div key={`${event.ID} ${event.sportName}`}>
         <EventLogin event={event} />
@@ -55,19 +54,27 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
     allEvent([...filteredList]);
   };
 
+  const filterByDate = (date: any) => {
+    const filteredList = Data.events.filter((e) => {
+      return moment(e.date).format('MMMM Do YYYY') === moment(date).format('MMMM Do YYYY');
+    });
+    console.log(filteredList);
+    allEvent([...filteredList]);
+  };
+
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
   const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
 
-  if (loading) return <Loader boxHeight={400} />;
-  if (error) return <div>Oopsie: {error.message}</div>;
-  if (data && data.getAllEvents) {
-    setEvents(data.getAllEvents);
-  }
+  // if (loading) return <Loader boxHeight={400} />;
+  // if (error) return <div>Oopsie: {error.message}</div>;
+  // if (data && data.getAllEvents) {
+  //   setEvents(data.getAllEvents);
+  // }
 
   return (
     <div className={styles.Container}>
       <div id="list" className={styles.Container1}>
-        <SearchBar filterBySport={filterBySport} />
+        <SearchBar filterBySport={filterBySport} filterByDate={filterByDate} />
         <div className={styles.Board} data-testid="Board">
           {list}
         </div>
@@ -88,7 +95,7 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
               <img src={arrowIconUp} alt="down-arrow" />
             </Link>
           </div>
-          <Map event={Data.events} />
+          <Map event={event} />
         </div>
       </div>
     </div>
