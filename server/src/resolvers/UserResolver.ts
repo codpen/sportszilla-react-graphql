@@ -18,7 +18,7 @@ import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
 import FavSports from '../models/favSports.model';
-import { userInfo } from 'os';
+import UserFriends from '../models/friends.model';
 // import FavSportResolver from './FavSportsResolver';
 
 @Resolver(User)
@@ -26,7 +26,7 @@ export default class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     try {
-      return User.findAll({ order: [['ID', 'ASC']], include: [Sport] });
+      return User.findAll({ order: [['ID', 'ASC']], include: [Sport, User]});
     } catch (err) {
       console.error(err);
     }
@@ -45,6 +45,14 @@ export default class UserResolver {
       };
     } catch (err) {
       console.error(err);
+    }
+  }
+
+  @Query(() => User)
+  async getOneUser(@Arg('userName') username: string){
+    try { 
+      return await User.findOne({ where: { userName: username }})
+    } catch (error) { 
     }
   }
 
@@ -75,7 +83,13 @@ export default class UserResolver {
         const pswdHash = await bcrypt.hash(passW, 10);
         userData.passW = pswdHash;
       }
-      return user.update(userData);
+      if(userData.friends && userData.friends.length){
+       const result = await user.$add('friends', userData.friends);
+       console.log('result' , result)
+        delete userData.friends
+      }
+      await user.update(userData);
+      return user
     } catch (err) {
       console.error(err);
     }
@@ -94,9 +108,14 @@ export default class UserResolver {
 
   @FieldResolver()
   favSports(@Root() user: User) {
-    console.log(user);
     return user.favSports || user.$get('favSports');
   }
+  @FieldResolver()
+  friends(@Root() user: User) {
+    return user.friends || user.$get('friends');
+  }
+
+
 
   // @FieldResolver()
   // friends(@Root() user: User) {

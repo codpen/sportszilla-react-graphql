@@ -70,6 +70,14 @@ export default class Event extends Model<Event> {
   @Field(() => Date, { nullable: true })
   deletionDate: Date;
 
+  @Column
+  @Field(() => String, { nullable: true })
+  lat: string
+
+  @Column
+  @Field(() => String, { nullable: true })
+  lng: string
+
   // @Column
   // @Field(() => [User])
   // registeredUsers: User[];
