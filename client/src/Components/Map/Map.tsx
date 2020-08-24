@@ -50,17 +50,15 @@ const Map: React.FC<PropTypes> = ({ event }) => {
 
   return (
     <div className={styles.Map} data-testid="Map">
-      <LoadScript googleMapsApiKey={process.env.REACT_APP_API_KEY}>
-        <GoogleMap
-          onClick={() => setOpen(null)}
-          center={{ lat: 51, lng: 0 }}
-          zoom={14}
-          mapContainerStyle={containerStyle}
-          options={mapOptions}
-        >
-          {markerList}
-        </GoogleMap>
-      </LoadScript>
+      <GoogleMap
+        onClick={() => setOpen(null)}
+        center={{ lat: 51, lng: 0 }}
+        zoom={14}
+        mapContainerStyle={containerStyle}
+        options={mapOptions}
+      >
+        {markerList}
+      </GoogleMap>
     </div>
   );
 };
