@@ -139,13 +139,6 @@ function Login({ loginRequest }: PropTypes): ReactElement {
       .then((tokenResponse));
   };
 
-  const FBResp = (userInfo: ReactFacebookLoginInfo) => {
-    console.log('userInfo: ', userInfo);
-    setIsLoading(true);
-    loginRequest({ path: 'returningFace', accessTokenFB: userInfo.accessToken })
-      .then((tokenResponse));
-  };
-
   if (isLoading) return <Loader boxHeight={800} />;
 
   console.log(history);

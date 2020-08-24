@@ -175,13 +175,6 @@ function SignUp({ loginRequest }: PropTypes): ReactElement {
       .then(tokenResponse);
   };
 
-  const FBResp = (userInfo: ReactFacebookLoginInfo) => {
-    console.log('userInfo: ', userInfo);
-    setIsLoading(true);
-    loginRequest({ email: userInfo.email, accessTokenFB: userInfo.accessToken, path: 'newFace' })
-      .then(tokenResponse);
-  };
-
   const onFailure = (error: string) => {
     alert(error);
   }
