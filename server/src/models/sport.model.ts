@@ -7,15 +7,17 @@ import {
   PrimaryKey,
   CreatedAt,
   UpdatedAt,
+  HasMany,
   BelongsToMany,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import FavSports from './favSports.model';
 import User from './user.model';
+import Event from './event.model';
 
 @Table
 @ObjectType()
-export default class Sport extends Model<Sport> {
+export default class Sport2 extends Model<Sport2> {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -26,30 +28,34 @@ export default class Sport extends Model<Sport> {
   @Column
   @Field(() => String)
   sportName: string;
-  
+
   @Column
   @Field(() => Boolean)
   indoor: Boolean;
-  
+
   @Column
   @Field(() => String)
   fieldType: string;
-  
+
   @Column
   @Field(() => Number)
   minPlayersToPracticeSport: number;
-  
+
   @Column
   @Field(() => String)
-  equipamentNeeded: string;
-  
+  equipmentNeeded: string;
+
   @CreatedAt
   @Field(() => Date)
   creationDate: Date;
-  
+
   @UpdatedAt
   @Field(() => Date)
   updatedOn: Date;
+
+  @HasMany(() => Event)
+  @Field(() => Event)
+  events: Event[]
 
   @BelongsToMany(() => User, () => FavSports)
   @Field(() => [User], { nullable: true })

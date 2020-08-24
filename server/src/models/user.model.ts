@@ -8,16 +8,18 @@ import {
   PrimaryKey,
   AutoIncrement,
   BelongsToMany,
+  HasMany,
   Unique,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
+import Event from './event.model';
 import FavSports from './favSports.model';
-import UserFriends from './friends.model';
+import Participants from './participants.model';
 
 @Table
 @ObjectType()
-export default class User extends Model<User> {
+export default class User2 extends Model<User2> {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -53,26 +55,18 @@ export default class User extends Model<User> {
   @Column
   @Field(() => String)
   location: string;
-  
+
   @CreatedAt
   @Field(() => Date)
   creationDate: Date;
-  
+
   @UpdatedAt
   @Field(() => Date)
   updatedOn: Date;
-  
+
   @DeletedAt
   @Field(() => Date, { nullable: true })
   deletionDate: Date;
-  
-  @BelongsToMany(() => Sport, () => FavSports)
-  @Field(() => [Sport], { nullable: true })
-  favSports: Sport[];
-
-  @BelongsToMany(() => User, () => UserFriends, 'userId', 'friendId')
-  @Field(() => [User], { nullable: true })
-  friends: User[];
 
   @Column
   @Field(() => String, { nullable: true })
@@ -81,6 +75,24 @@ export default class User extends Model<User> {
   @Column
   @Field(() => String, { nullable: true })
   lng: string
+
+  @HasMany(() => Event)
+  @Field(() => Event)
+  events: Event[]
+
+  @BelongsToMany(() => Event, () => Participants)
+  @Field(() => [Event], { nullable: true })
+  participates: Event[];
+
+  @BelongsToMany(() => Sport, () => FavSports)
+  @Field(() => [Sport], { nullable: true })
+  favSports: Sport[];
+
+  /*
+  @BelongsToMany(() => User, () => UserFriends, 'userId', 'friendId')
+  @Field(() => [User], { nullable: true })
+  friends: User[];
+  */
 
   // @Column
   // @Field(() => [User])

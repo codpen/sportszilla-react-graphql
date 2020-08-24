@@ -7,10 +7,10 @@ export default class NewSportEvent {
   eventName: string;
 
   @Field()
-  sportName: string;
+  timeStart: Date;
 
   @Field()
-  time: string;
+  timeEnd: Date;
 
   @Field()
   date: Date;
@@ -21,20 +21,29 @@ export default class NewSportEvent {
   @Field()
   availableSpots: number;
 
-  @Field(() => String)
-  timeStart: string;
+  @Field()
+  location: string;
 
-  @Field(() => String)
-  timeEnd: string;
+  @Field()
+  minParticipants: number;
+
+  @Field()
+  maxParticipants: number;
+
+  @Field()
+  description: string;
+
+  @Field()
+  sportID: number;
+
+  @Field()
+  userID: number;
 
   @Field({ nullable: true })
   lat: string;
 
   @Field({ nullable: true })
   lng: string;
-
-  @Field({ nullable: true })
-  description: string;
 
   //   @Field({ nullable: true })
   //   createdAt: string;
