@@ -88,7 +88,7 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
               <img src={arrowIconUp} alt="down-arrow" />
             </Link>
           </div>
-          <Map event={Data.events} />
+          <Map event={event} />
         </div>
       </div>
     </div>
