@@ -71,11 +71,11 @@ export default class Event extends Model<Event> {
   deletionDate: Date;
 
   @Column
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   lat: string
 
   @Column
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   lng: string
 
   // @Column
