@@ -8,6 +8,7 @@ import Join from '../User/Join/Join';
 import Login from '../User/Login/Login';
 import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
+import EventDetails from '../EventDetails/EventDetails';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
 import CreateEvent from '../CreateEvent/CreateEvent';
@@ -37,6 +38,9 @@ function Main(): ReactElement {
           </Route>
           <Route exact path="/newevent/">
             <CreateEvent user={undefined} />
+          </Route>
+          <Route exact path="/event/:ID">
+            <EventDetails />
           </Route>
           <Route exact path="/user/join/">
             <Join />
