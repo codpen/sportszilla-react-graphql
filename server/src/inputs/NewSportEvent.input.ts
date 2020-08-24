@@ -4,7 +4,7 @@ import { InputType, Field } from 'type-graphql';
 @InputType()
 export default class NewSportEvent {
   @Field()
-  sportEventName: string;
+  eventName: string;
 
   @Field()
   sportName: string;

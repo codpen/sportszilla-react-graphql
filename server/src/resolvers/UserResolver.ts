@@ -8,6 +8,7 @@ import {
   Field,
   FieldResolver,
   Root,
+  ID,
 } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -17,6 +18,7 @@ import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
 import FavSports from '../models/favSports.model';
+import { userInfo } from 'os';
 // import FavSportResolver from './FavSportsResolver';
 
 @Resolver(User)
@@ -95,4 +97,10 @@ export default class UserResolver {
     console.log(user);
     return user.favSports || user.$get('favSports');
   }
+
+  // @FieldResolver()
+  // friends(@Root() user: User) {
+  //   console.log(user);
+  //   return user.friends;
+  // }
 }

@@ -70,8 +70,8 @@ export default class User extends Model<User> {
   deletionDate: Date;
 
   // @Column
-  // @Field(() => )
-  // favariteSports: Sport[];
+  // @Field(() => [User])
+  // friends: number[];
 
   /** query da tabala de usuarios  */
   /**

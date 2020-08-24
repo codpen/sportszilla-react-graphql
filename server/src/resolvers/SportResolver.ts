@@ -2,12 +2,13 @@
 import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Sport from '../models/sport.model';
 import NewSport from '../inputs/NewSport.input';
+import User from '../models/user.model';
 @Resolver()
 export default class SportResolver {
   @Query(() => [Sport])
   async getAllSport() {
     try {
-      return Sport.findAll();
+      return Sport.findAll({ order: [['ID', 'ASC']], include: [User] });
     } catch (error) {
       console.log(error);
     }

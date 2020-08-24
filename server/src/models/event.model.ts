@@ -10,6 +10,7 @@ import {
   Unique,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
+import User from '../models/user.model'
 
 @Table
 @ObjectType()
@@ -23,7 +24,7 @@ export default class Event extends Model<Event> {
   @Unique(true)
   @Column
   @Field(() => String)
-  sportEventName: string;
+  eventName: string;
 
   @Column
   @Field(() => String)
@@ -68,6 +69,10 @@ export default class Event extends Model<Event> {
   @DeletedAt
   @Field(() => Date, { nullable: true })
   deletionDate: Date;
+
+  // @Column
+  // @Field(() => [User])
+  // registeredUsers: User[];
 
   // @Column
   // @Field({ nullable: true })
