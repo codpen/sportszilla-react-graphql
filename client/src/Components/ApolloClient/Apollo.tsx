@@ -45,10 +45,7 @@ const Apollo: React.FC = () => {
   }
   const { loading, data, error, refetch } = useQuery<Response>(GET_ALL_USERS);
 
-  interface LoadUsers {
-    (): void;
-  }
-  const loadUsers: LoadUsers = () => {
+  const loadUsers = (): void => {
     refetch();
   };
 
