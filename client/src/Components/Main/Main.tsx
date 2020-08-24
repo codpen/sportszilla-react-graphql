@@ -11,14 +11,13 @@ import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
 import { UserData } from '../User/UserData';
+import { EventData } from '../Board/Event';
 
 function Main(): ReactElement {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loggedInUser, setLoggedInUser] = useState<UserData>({ email: '' });
-
-  const [events, setEvents] = useState<object[]>([Data.events]);
-  const [sport, setSport] = useState<object[]>([Data.sports]);
-
+  const [events, setEvents] = useState<EventData[]>([]);
+  console.log(events);
   return (
     <div className="Main">
       <header>
@@ -30,7 +29,7 @@ function Main(): ReactElement {
             <Intro />
           </Route>
           <Route path="/board/">
-            <Board />
+            <Board setEvents={setEvents} events={events} />
           </Route>
           <Route path="/apollo/">
             <Apollo />

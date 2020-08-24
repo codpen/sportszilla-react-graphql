@@ -1,42 +1,48 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
+import { useQuery, gql } from '@apollo/client';
+import { EventData } from './Event';
+import { EventBS } from './eventBS';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
 import SearchBar from '../SearchBar/SearchBar';
+import Loader from '../Loader/Loader';
 import { HashLink as Link } from 'react-router-hash-link';
 import Map from '../Map/Map';
 
-const Board: React.FC = () => {
-  type Event = {
-    id: number;
-    sport_id: number;
-    sport_name: string;
-    location: {
-      latitude: number;
-      longitude: number;
-      accuracy: number;
-    };
-    date: string;
-    description: string;
-    organizer: number;
-    filter: {
-      target_gender: string;
-      target_level: string;
-    };
-    time_start: string;
-    time_end: string;
-    registered_participants: number[];
-    max_participants: number;
-    min_participants: number;
-  };
+interface PropTypes {
+  setEvents: Dispatch<SetStateAction<EventData[]>>;
+  events: EventData[];
+}
 
-  const [event, setEvent] = useState<Event[]>(Data.events);
+const EVENTS = gql`
+  query {
+    getAllEvents {
+      ID
+      sportEventName
+      sportName
+      time
+      date
+      indoor
+      availableSpots
+    }
+  }
+`;
+
+const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
+  interface Response {
+    getAllEvents: EventData[];
+  }
+
+  const { loading, data, error } = useQuery<Response>(EVENTS);
+
+  const [event, allEvent] = useState<EventBS[]>(Data.events);
 
   const [eventFilter, setEventFilter] = useState<Event[]>();
 
   const list = event.map((event, i) => {
     return (
-      <div key={`${event.id} ${event.sport_name}`}>
+      <div key={`${event.ID} ${event.sportName}`}>
         <EventLogin event={event} />
       </div>
     );
@@ -44,14 +50,19 @@ const Board: React.FC = () => {
 
   const filterBySport = (sport: any) => {
     const filteredList = Data.events.filter((e) => {
-      return e.sport_name === sport;
+      return e.sportName === sport;
     });
-    setEvent([...filteredList]);
+    allEvent([...filteredList]);
   };
 
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
-
   const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
+
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <div>Oopsie: {error.message}</div>;
+  if (data && data.getAllEvents) {
+    setEvents(data.getAllEvents);
+  }
 
   return (
     <div className={styles.Container}>
@@ -77,7 +88,7 @@ const Board: React.FC = () => {
               <img src={arrowIconUp} alt="down-arrow" />
             </Link>
           </div>
-          <Map />
+          <Map event={Data.events} />
         </div>
       </div>
     </div>

@@ -48,46 +48,43 @@
   ],
   "events": [
     {
-      "id": 101,
-      "sport_id": 2,
-      "sport_name": "Basketball",
-      "location": { "latitude": 38.2573471, "longitude": 3.1169697, "accuracy": 30 },
+      "ID": 101,
+      "sportName": "basketball",
+      "location": { "latitude": 51.005, "longitude": 0, "accuracy": 30 },
       "date": "1.1.2021",
-      "description": "We need more 4 players ",
+      "sportEventName": "We need more 4 players ",
       "organizer": 5,
       "filter": { "target_gender": "mixed", "target_level": "intermediate" },
-      "time_start": "10:40 am",
-      "time_end": "01:00 pm",
+      "timeStart": "10:40 am",
+      "timeEnd": "01:00 pm",
       "registered_participants": [5, 4, 3],
       "max_participants": 10,
       "min_participants": 5
     },
     {
-      "id": 102,
-      "sport_id": 1,
-      "sport_name": "Football",
-      "location": { "latitude": 38.0, "longitude": 3.1169697, "accuracy": 30 },
+      "ID": 102,
+      "sportName": "football",
+      "location": { "latitude": 51.01, "longitude": 0, "accuracy": 30 },
       "date": "1.2.2021",
-      "description": "Game this weekend",
+      "sportEventName": "Game this weekend",
       "organizer": 3,
       "filter": { "target_gender": "male", "target_level": "beginner" },
-      "time_start": "11:00 am",
-      "time_end": "04:00 pm",
+      "timeStart": "11:00 am",
+      "timeEnd": "04:00 pm",
       "registered_participants": [5, 2, 3],
       "max_participants": 10,
       "min_participants": 5
     },
     {
-      "id": 103,
-      "sport_id": 3,
-      "sport_name": "Tennis",
-      "location": { "latitude": 37.2573471, "longitude": 4.1169697, "accuracy": 30 },
+      "ID": 103,
+      "sportName": "tennis",
+      "location": { "latitude": 51.01, "longitude": 0.005, "accuracy": 30 },
       "date": "1.1.2021",
-      "description": "Just for fun",
+      "sportEventName": "Just for fun",
       "organizer": 1,
       "filter": { "target_gender": "mixed", "target_level": "any" },
-      "time_start": "11:40 am",
-      "time_end": "01:00 pm",
+      "timeStart": "11:40 am",
+      "timeEnd": "01:00 pm",
       "registered_participants": [1, 2, 3],
       "max_participants": 8,
       "min_participants": 6
@@ -96,23 +93,23 @@
   "sports": [
     {
       "id": 1,
-      "name": "Tennis"
+      "name": "tennis"
     },
     {
       "id": 2,
-      "name": "Football"
+      "name": "football"
     },
     {
       "id": 3,
-      "name": "Basketball"
+      "name": "basketball"
     },
     {
       "id": 4,
-      "name": "Bowling"
+      "name": "bowling"
     },
     {
       "id": 5,
-      "name": "Badminton"
+      "name": "badminton"
     }
   ]
 }
