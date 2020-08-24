@@ -19,7 +19,7 @@ interface PropTypes {
 //   query {
 //     getAllEvents {
 //       ID
-//       sportEventName
+//       eventName
 //       sportName
 //       time
 //       date

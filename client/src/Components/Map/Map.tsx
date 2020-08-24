@@ -41,7 +41,7 @@ const Map: React.FC<PropTypes> = ({ event }) => {
     return (
       <div style={{ width: '100%' }}>
         <Marker
-          title={ev.sportEventName}
+          title={ev.eventName}
           icon={sportIcon}
           key={ev.ID}
           position={{ lat: ev.location.latitude, lng: ev.location.longitude }}

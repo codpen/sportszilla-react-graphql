@@ -23,7 +23,7 @@ export default class Event extends Model<Event> {
   @Unique(true)
   @Column
   @Field(() => String)
-  sportEventName: string;
+  eventName: string;
 
   @Column
   @Field(() => String)
