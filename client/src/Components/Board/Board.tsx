@@ -2,6 +2,7 @@ import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { useQuery, gql } from '@apollo/client';
 import { EventData } from './Event';
 import { EventBS } from './eventBS';
+import moment from 'moment';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
@@ -38,7 +39,7 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
 
   const [event, allEvent] = useState<EventBS[]>(Data.events);
 
-  const [eventFilter, setEventFilter] = useState<Event[]>();
+  const [eventFilter, setEventFilter] = useState<EventBS[]>();
 
   const list = event.map((event, i) => {
     return (
@@ -55,6 +56,14 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
     allEvent([...filteredList]);
   };
 
+  const filterByDate = (date: any) => {
+    const filteredList = Data.events.filter((e) => {
+      return moment(e.date).format('MMMM Do YYYY') === moment(date).format('MMMM Do YYYY');
+    });
+    console.log(filteredList);
+    allEvent([...filteredList]);
+  };
+
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
   const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
 
@@ -67,7 +76,7 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
   return (
     <div className={styles.Container}>
       <div id="list" className={styles.Container1}>
-        <SearchBar filterBySport={filterBySport} />
+        <SearchBar filterBySport={filterBySport} filterByDate={filterByDate} />
         <div className={styles.Board} data-testid="Board">
           {list}
         </div>

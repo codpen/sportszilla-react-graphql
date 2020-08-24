@@ -74,7 +74,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
         <div className={styles.EventBox_left}>
           <h4>
             <p>
-              <Moment format="D MMM">{randomDate}</Moment>
+              <Moment format="D MMM">{event.date}</Moment>
             </p>
             <div className={styles.EventBox_Left_Time}>
               <div>{event.timeStart}</div>-<div>{event.timeEnd}</div>

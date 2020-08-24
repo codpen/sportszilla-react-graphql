@@ -78,6 +78,8 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const [maxParticipants, setMaxParticipants] = useState<number>(10);
   const [createEvent, { loading, error, data }] = useMutation<Response, Arguments>(NEW_EVENT);
 
+  console.log(eventData);
+
   const handleDate = (date: Date): void => {
     setEventData((eventData) => ({
       ...eventData,
