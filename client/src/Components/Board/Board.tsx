@@ -39,8 +39,6 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
 
   const [event, allEvent] = useState<EventBS[]>(Data.events);
 
-  const [eventFilter, setEventFilter] = useState<EventBS[]>();
-
   const list = event.map((event: EventBS) => {
     return (
       <div key={`${event.ID} ${event.sportName}`}>

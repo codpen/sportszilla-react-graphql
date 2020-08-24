@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
+import { GoogleMap, LoadScript, InfoBox, Marker } from '@react-google-maps/api';
 import styles from './Map.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
-import { GoogleMap, LoadScript, InfoBox, InfoWindow, Marker } from '@react-google-maps/api';
 import { EventBS } from '../Board/eventBS';
-import { InfoBoxOptions } from '@react-google-maps/infobox';
-
-import { isPunctuatorToken } from 'graphql/language/lexer';
 
 const containerStyle = {
   width: '100%',
@@ -21,14 +18,6 @@ const mapOptions = {
   styles: require('./mapStyle.json'),
 };
 
-const infoBoxOptions = {
-  boxStyle: {
-    width: '100vw',
-    closeBoxMargin: '2px',
-  },
-};
-//const mapStyles = require('./mapStyle.json');
-
 const Map: React.FC<PropTypes> = ({ event }) => {
   const [open, setOpen] = useState<number | null>(null);
 
@@ -41,7 +30,7 @@ const Map: React.FC<PropTypes> = ({ event }) => {
     return (
       <div style={{ width: '100%' }}>
         <Marker
-          title={ev.eventName}
+          title={ev.sportEventName}
           icon={sportIcon}
           key={ev.ID}
           position={{ lat: ev.location.latitude, lng: ev.location.longitude }}
