@@ -2,14 +2,14 @@ import {Model, Table, PrimaryKey, Column, ForeignKey} from 'sequelize-typescript
 import User from '../models/user.model'
 
 @Table
-export class UserFriends extends Model<UserFriends> {
+export default class UserFriends extends Model<UserFriends> {
   @ForeignKey(() => User)
-  @PrimaryKey
+  // @PrimaryKey
   @Column
   userId: number;
 
   @ForeignKey(() => User)
-  @PrimaryKey
+  // @PrimaryKey
   @Column
   friendId: number;
 }

@@ -26,32 +26,32 @@ export default class Sport extends Model<Sport> {
   @Column
   @Field(() => String)
   sportName: string;
+  
+  @Column
+  @Field(() => Boolean)
+  indoor: Boolean;
+  
+  @Column
+  @Field(() => String)
+  fieldType: string;
+  
+  @Column
+  @Field(() => Number)
+  minPlayersToPracticeSport: number;
+  
+  @Column
+  @Field(() => String)
+  equipamentNeeded: string;
+  
+  @CreatedAt
+  @Field(() => Date)
+  creationDate: Date;
+  
+  @UpdatedAt
+  @Field(() => Date)
+  updatedOn: Date;
 
   @BelongsToMany(() => User, () => FavSports)
   @Field(() => [User], { nullable: true })
   favedBy: User[];
-
-  @Column
-  @Field(() => Boolean)
-  indoor: Boolean;
-
-  @Column
-  @Field(() => String)
-  fieldType: string;
-
-  @Column
-  @Field(() => Number)
-  minPlayersToPracticeSport: number;
-
-  @Column
-  @Field(() => String)
-  equipamentNeeded: string;
-
-  @CreatedAt
-  @Field(() => Date)
-  creationDate: Date;
-
-  @UpdatedAt
-  @Field(() => Date)
-  updatedOn: Date;
 }

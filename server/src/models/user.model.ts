@@ -13,7 +13,7 @@ import {
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
 import FavSports from './favSports.model';
-import { UserFriends } from './friends.model';
+import UserFriends from './friends.model';
 
 @Table
 @ObjectType()
