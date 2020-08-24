@@ -65,7 +65,7 @@ TableEvent.defaultProps = {
   events: [
     {
       id: 10,
-      sportName: 'Basketball',
+      sportName: 'basketball',
       date: '1.1.2021',
       timeStart: '10:40 am',
       maxParticipants: 10,
@@ -75,7 +75,7 @@ TableEvent.defaultProps = {
     },
     {
       id: 11,
-      sportName: 'Football',
+      sportName: 'football',
       date: '1.1.2021',
       timeStart: '10:40 am',
       maxParticipants: 8,
