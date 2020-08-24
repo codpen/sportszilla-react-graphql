@@ -74,6 +74,14 @@ export default class User extends Model<User> {
   @Field(() => [User], { nullable: true })
   friends: User[];
 
+  @Column
+  @Field(() => String, { nullable: true })
+  lat: string
+
+  @Column
+  @Field(() => String, { nullable: true })
+  lng: string
+
   // @Column
   // @Field(() => [User])
   // friends: number[];
