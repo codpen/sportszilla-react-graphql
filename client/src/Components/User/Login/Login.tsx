@@ -4,12 +4,11 @@ import React, {
   FormEvent,
   ChangeEvent,
 } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
-import FacebookLogin, { ReactFacebookLoginInfo, ReactFacebookFailureResponse } from 'react-facebook-login';
 import { LoginRequest, LoginData, jwtToken } from '../../Main/main';
 import Loader from '../../Loader/Loader';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
@@ -25,6 +24,21 @@ const SButton = styled(Button)`
     color: #ffffff;
   }
 `;
+
+const FaceBookBtn = styled(Button)`
+  width: 300px;
+  height: 50px;
+  background-color: #3b5998;
+  color: #ffffff;
+  margin-top: 5vh;
+  box-shadow: 3px 3px 5px #a9a9a9;
+  &:hover {
+    border-color: #ffffff;
+    background-color: #3b5998;
+    color: #ffffff;
+    cursor: pointer;
+  }
+`
 
 const EyeIcon = styled(EndIcon)`
   width: 35px;
@@ -48,6 +62,7 @@ function Login({ loginRequest }: PropTypes): ReactElement {
   const [isAuth, setIsAuth] = useState<boolean>(false);
 
   const history = useHistory();
+  const { id_token } = useParams();
 
   const validateEmail = (email: string): boolean => {
     const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -131,21 +146,21 @@ function Login({ loginRequest }: PropTypes): ReactElement {
       .then((tokenResponse));
   };
 
-  const onFailure = (error: string) => alert(error);
-
   if (isLoading) return <Loader boxHeight={800} />;
 
+  console.log(history);
   return (
     <div className={styles.Login} data-testid="Login">
       <h2 className={styles.welcome}>Welcome back!</h2>
 
-      <FacebookLogin
-        appId="607268229976801"
-        autoLoad={false}
-        fields="name,email,picture"
-        textButton="Log in with facebook"
-        callback={FBResp}
-      />
+      <FaceBookBtn>
+        <a
+          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/login&state=1Q7Fs42g&nonce=h8n7D2pQ"
+          style={{ textDecoration: 'none', color: '#ffffff', fontSize: '18px' }}
+        >
+          Log in with Facebook
+        </a>
+      </FaceBookBtn>
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <Field className={styles.emailField}>
           <Label>Email</Label>

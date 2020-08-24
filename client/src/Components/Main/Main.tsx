@@ -8,6 +8,7 @@ import Join from '../User/Join/Join';
 import Login from '../User/Login/Login';
 import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
+import OktaAuth from '../User/OktaAuth/OktaAuth';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
 import { UserData } from '../User/UserData';
@@ -63,6 +64,10 @@ function Main(): ReactElement {
           </Route>
           <Route exact path="/user/profile/">
             <Profile user={loggedInUser} setUser={setLoggedInUser} />
+          </Route>
+          <Route exact path="/implicit/callback" />
+          <Route exact path="/user/okta/">
+            <OktaAuth />
           </Route>
           <Redirect from="/" to="/intro/" />
         </Switch>
