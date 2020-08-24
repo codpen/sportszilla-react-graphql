@@ -10,6 +10,7 @@ import SignUp from '../User/SignUp/SignUp';
 import Profile from '../User/Profile/Profile';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
+import CreateEvent from '../CreateEvent/CreateEvent';
 import { UserData } from '../User/UserData';
 import { EventData } from '../Board/Event';
 
@@ -34,6 +35,9 @@ function Main(): ReactElement {
           <Route path="/apollo/">
             <Apollo />
           </Route>
+          <Route exact path="/newevent/">
+            <CreateEvent user={undefined} />
+          </Route>
           <Route exact path="/user/join/">
             <Join />
           </Route>
@@ -44,7 +48,7 @@ function Main(): ReactElement {
             <SignUp setUser={setLoggedInUser} />
           </Route>
           <Route exact path="/user/profile/">
-            <Profile user={loggedInUser} setUser={setLoggedInUser} />
+            <Profile user={undefined} setUser={setLoggedInUser} />
           </Route>
           <Redirect from="/" to="/intro/" />
         </Switch>

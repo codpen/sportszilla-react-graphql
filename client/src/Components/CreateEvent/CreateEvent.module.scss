@@ -1,0 +1,26 @@
+.CreateEvent {
+  margin-top: 8vh;
+  background-color: rgba(243, 227, 213, 0.9);
+  width: 100vw;
+  height: 92vh;
+  padding-top: 5vh;
+  h1 {
+    font-size: 40px;
+  }
+
+  .signUpForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .Field {
+    margin-top: 1vh;
+    width: 300px;
+    .time {
+      display: flex;
+    }
+  }
+}

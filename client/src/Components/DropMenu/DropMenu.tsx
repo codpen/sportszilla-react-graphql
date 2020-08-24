@@ -46,6 +46,9 @@ const DropMenu: React.FC = () => {
             <a href="/board">Events</a>
           </li>
           <li>
+            <a href="/newevent/">Create Event</a>
+          </li>
+          <li>
             <a href="/user/profile">Profile</a>
           </li>
         </ul>
