@@ -2,8 +2,6 @@ import { Request, Response } from 'express';
 import { MiddlewareFn } from 'type-graphql';
 import { verify } from 'jsonwebtoken';
 
-//format like bearer 21321n2bmbbj
-
 export interface AuthContext {
   req: Request;
   res: Response;

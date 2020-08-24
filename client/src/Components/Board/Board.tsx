@@ -1,8 +1,8 @@
 import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
 import { useQuery, gql } from '@apollo/client';
+import moment from 'moment';
 import { EventData } from './Event';
 import { EventBS } from './eventBS';
-import moment from 'moment';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import Data from '../../mockData/data.json';
@@ -20,7 +20,7 @@ interface PropTypes {
 //   query {
 //     getAllEvents {
 //       ID
-//       sportEventName
+//       eventName
 //       sportName
 //       time
 //       date
@@ -41,7 +41,7 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
 
   const [eventFilter, setEventFilter] = useState<EventBS[]>();
 
-  const list = event.map((event, i) => {
+  const list = event.map((event: EventBS) => {
     return (
       <div key={`${event.ID} ${event.sportName}`}>
         <EventLogin event={event} />
