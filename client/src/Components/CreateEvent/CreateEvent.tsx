@@ -1,6 +1,5 @@
-import React, { useState, FormEvent, ChangeEvent } from 'react';
+import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import styles from './CreateEvent.module.scss';
-import { mediaQuery } from '@zendeskgarden/react-theming';
 import {
   Field,
   Label,
@@ -14,19 +13,23 @@ import { Datepicker } from '@zendeskgarden/react-datepickers';
 import styled from 'styled-components';
 import { useMutation, gql } from '@apollo/client';
 import { UserData } from '../User/UserData';
-import { number } from 'prop-types';
 import { ReactComponent as StartIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
-import { ReactComponent as SearchIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
+import AutoCompleteInput from './autoCompleteInput/autoCompleteInput';
 
 const NEW_EVENT = gql`
   mutation NewEvent($eventData: NewSportEvent!) {
     newEvent(eventData: $eventData) {
       Event {
         ID
-        sportEventName
+        eventName
         sportName
         time
         date
+        location
+        minParticipants
+        maxParticipants
+        lat
+        lng
       }
     }
   }
@@ -64,11 +67,11 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
     sportName: '',
     date: undefined,
     time: '',
-    timeStart: '',
-    timeEnd: '',
+    timeStart: '16:00',
+    timeEnd: '20:00',
     location: '',
-    minParticipants: 0,
-    maxParticipants: 0,
+    minParticipants: 5,
+    maxParticipants: 10,
   };
 
   const [eventData, setEventData] = useState<Event>(initialED);
@@ -76,6 +79,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const [timeEnd, setTimeEnd] = useState<number>(80);
   const [minParticipants, setMinParticipants] = useState<number>(5);
   const [maxParticipants, setMaxParticipants] = useState<number>(10);
+  const [sport, setSport] = useState<string>('');
   const [createEvent, { loading, error, data }] = useMutation<Response, Arguments>(NEW_EVENT);
 
   const handleDate = (date: Date): void => {
@@ -85,28 +89,45 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
     }));
   };
 
+  useEffect(() => {
+    setEventData({ ...eventData, sportName: sport });
+  }, [sport]);
+
   const onChangeTime = ({ minValue, maxValue }: any): void => {
     setTimeStart(minValue);
     setTimeEnd(maxValue);
+    setEventData((eventData) => ({
+      ...eventData,
+      timeStart: Math.floor(minValue / 4) + ':' + (15 * (minValue % 4) || '00'),
+      timeEnd: Math.floor(maxValue / 4) + ':' + (15 * (maxValue % 4) || '00'),
+    }));
   };
 
   const onChangeParticipants = ({ minValue, maxValue }: any): void => {
     setMinParticipants(minValue);
     setMaxParticipants(maxValue);
+    setEventData((eventData) => ({
+      ...eventData,
+      minParticipants: minValue,
+      maxParticipants: maxValue,
+    }));
   };
 
   const handleChange: FormMethod<ChangeEvent<HTMLInputElement>> = (event) => {
     const { name, value } = event.target;
-    setEventData((eventData) => ({ ...eventData, [name]: value }));
+    console.log(name);
+    setEventData((eventData) => ({
+      ...eventData,
+      [name]: value,
+    }));
   };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
-    createEvent({ variables: { eventData } });
+    console.log(eventData);
+    // createEvent({ variables: { eventData } });
     return null;
   };
-
-  const [selectedItem, setSelectedItem] = useState(options[0]);
 
   return (
     <div className={styles.CreateEvent} data-testid="CreateEvent">
@@ -117,8 +138,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
           <Input name="sportEventName" value={eventData.sportEventName} onChange={handleChange} />
         </Field>
         <Field className={styles.Field}>
-          <Label>Type of Sport</Label>
-          <MediaInput start={<StartIcon />} />
+          <AutoCompleteInput setSport={setSport} />
         </Field>
         <Field className={styles.Field}>
           <Label>Date</Label>
@@ -212,21 +232,3 @@ type Event = {
   minParticipants?: number;
   maxParticipants?: number;
 };
-
-const options = [
-  'Asparagus',
-  'Brussel sprouts',
-  'Cauliflower',
-  'Garlic',
-  'Jerusalem artichoke',
-  'Kale',
-  'Lettuce',
-  'Onion',
-  'Mushroom',
-  'Potato',
-  'Radish',
-  'Spinach',
-  'Tomato',
-  'Yam',
-  'Zucchini',
-];

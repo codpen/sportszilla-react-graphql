@@ -1,5 +1,5 @@
 .Profile {
-  height: 95%;
+  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -7,19 +7,32 @@
   padding: 15px;
   padding-right: 30px;
   overflow: hidden;
+  background-color: rgba(243, 227, 213, 0.9);
 
   .spacer {
     height: 11%;
   }
 
   .avatarCnt {
-    h2 {
-      font-size: 38px;
+    div {
+      color: black;
+      width: 100%;
+      padding-left: 5px;
+      display: flex;
+      flex-direction: column;
+      h2 {
+        font-size: 38px;
+        align-self: flex-start;
+      }
+      p {
+        font-size: 2em;
+        margin-left: 6px;
+      }
     }
   }
 
   .avatarCnt {
-    color: white;
+    color: rgb(77, 51, 51);
     display: flex;
     align-items: center;
     margin-left: 20px;

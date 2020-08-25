@@ -1,4 +1,4 @@
-// export interface SportData {
-//   ID?: number;
-//   sportName?: string;
-// }
+export interface SportData {
+  ID?: number;
+  sportName?: string;
+}

@@ -27,6 +27,7 @@
     "@zendeskgarden/react-forms": "^8.19.0",
     "@zendeskgarden/react-grid": "^8.19.0",
     "@zendeskgarden/react-loaders": "^8.19.0",
+    "@zendeskgarden/react-tags": "^8.20.0",
     "@zendeskgarden/react-theming": "^8.19.0",
     "@zendeskgarden/svg-icons": "^6.22.0",
     "dotenv": "^8.2.0",

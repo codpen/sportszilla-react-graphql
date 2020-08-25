@@ -1,5 +1,5 @@
 export interface UserData {
-  [index: string]: number | string | Date | undefined | number[];
+  [index: string]: number | string | Date | undefined | number[] | UserData[];
   ID?: number;
   firstName?: string;
   lastName?: string;
@@ -10,7 +10,7 @@ export interface UserData {
   creationDate?: Date;
   updatedOn?: Date;
   deletionDate?: Date | undefined;
-  location?: number;
+  location?: number | string;
   friends?: number[];
   favouriteSports?: number[];
   createdEvents?: number[];
