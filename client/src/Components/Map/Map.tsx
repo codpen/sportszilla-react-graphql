@@ -52,7 +52,7 @@ const Map: React.FC<PropTypes> = ({ events }) => {
     <div className={styles.Map} data-testid="Map">
       <GoogleMap
         onClick={() => setOpen(null)}
-        center={{ lat: 51, lng: 0 }}
+        center={{ lat: 41.3851, lng: 2.1734 }}
         zoom={14}
         mapContainerStyle={containerStyle}
         options={mapOptions}
