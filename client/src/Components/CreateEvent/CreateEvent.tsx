@@ -16,20 +16,27 @@ import { UserData } from '../User/UserData';
 import { ReactComponent as StartIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
 import AutoCompleteSport from './AutoCompleteSport/AutoCompleteSport';
 import AutoCompleteAddress from './AutoCompleteAddress/AutoCompleteAddress';
+import moment from 'moment';
 
 const NEW_EVENT = gql`
   mutation NewEvent($eventData: NewSportEvent!) {
     newEvent(eventData: $eventData) {
       Event {
-        ID
         eventName
-        sportName
-        time
-        date
-        location
+        timeStart
+        timeEnd
+        Location
+        latitude
+        longitude
+        accuracy
+        minParticipants
+        maxParticipants
+        indoor
         availableSpots
-        lat
-        lng
+        description
+        sportID
+        sport
+        participants
       }
     }
   }
@@ -65,18 +72,22 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const initialED: Event = {
     eventName: '',
     sportName: '',
-    date: undefined,
     time: '',
-    timeStart: '16:00',
-    timeEnd: '20:00',
+    timeStart: `${moment().format('YYYY-MM-DD')} 16:00`,
+    timeEnd: `${moment().format('YYYY-MM-DD')} 20:00`,
     lat: 0,
     lng: 0,
+    accuracy: 30,
     location: '',
     minParticipants: 5,
+    maxParticipants: 10,
     availableSpots: 10,
     indoor: false,
+    sportID: 1,
+    sport: 1,
+    participants: [],
   };
-
+  const [date, setDate] = useState<undefined | Date>(undefined);
   const [eventData, setEventData] = useState<Event>(initialED);
   const [timeStart, setTimeStart] = useState<number>(64);
   const [timeEnd, setTimeEnd] = useState<number>(80);
@@ -87,12 +98,16 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const [address, setAddress] = React.useState('');
   const [coordinates, setCoordinates] = React.useState<any>({ lat: null, lng: null });
 
-  console.log(eventData);
-
-  const handleDate = (date: Date): void => {
+  const handleDate = (dateF: Date): void => {
+    setDate(dateF);
     setEventData((eventData) => ({
       ...eventData,
-      date: date,
+      timeStart: `${moment(dateF).format('YYYY-MM-DD')} ${
+        Math.floor(timeStart / 4) + ':' + (15 * (timeStart % 4) || '00')
+      }`,
+      timeEnd: `${moment(dateF).format('YYYY-MM-DD')} ${
+        Math.floor(timeEnd / 4) + ':' + (15 * (timeEnd % 4) || '00')
+      }`,
     }));
   };
 
@@ -109,8 +124,12 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
     setTimeEnd(maxValue);
     setEventData((eventData) => ({
       ...eventData,
-      timeStart: Math.floor(minValue / 4) + ':' + (15 * (minValue % 4) || '00'),
-      timeEnd: Math.floor(maxValue / 4) + ':' + (15 * (maxValue % 4) || '00'),
+      timeStart: `${moment().format('YYYY-MM-DD') && moment(eventData.date).format('YYYY-MM-DD')} ${
+        Math.floor(minValue / 4) + ':' + (15 * (minValue % 4) || '00')
+      }`,
+      timeEnd: `${moment().format('YYYY-MM-DD') && moment(eventData.date).format('YYYY-MM-DD')} ${
+        Math.floor(maxValue / 4) + ':' + (15 * (maxValue % 4) || '00')
+      }`,
     }));
   };
 
@@ -153,7 +172,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
         </Field>
         <Field className={styles.Field}>
           <Label>Date</Label>
-          <Datepicker value={eventData.date} onChange={handleDate}>
+          <Datepicker value={date} onChange={handleDate}>
             <Input name="date" />
           </Datepicker>
         </Field>
@@ -239,6 +258,7 @@ type Event = {
   location?: string;
   lat?: number;
   lng?: number;
+  accuracy?: number;
   date?: Date;
   indoor?: boolean;
   description?: string;
@@ -248,5 +268,9 @@ type Event = {
   timeEnd?: string;
   registeredParticipants?: number[];
   minParticipants?: number;
+  maxParticipants?: number;
   availableSpots?: number;
+  sportID?: number;
+  sport?: number;
+  participants?: number[];
 };
