@@ -1,8 +1,6 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg } from 'type-graphql';
-// import Sport from '../models/sport.model'
+import { Resolver, Query, Arg } from 'type-graphql';
 import User from '../models/user.model';
-import FavSports from '../models/favSports.model';
 import Sport from '../models/sport.model';
 
 @Resolver()
@@ -27,6 +25,4 @@ export default class favSportResolver {
     }
   }
 
-//   // @Mutation(() => FavSports)
-//   // async newFavSport()
 }

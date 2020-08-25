@@ -1,5 +1,4 @@
 import { InputType, Field } from 'type-graphql';
-// import User from '../models/user.model';
 
 @InputType()
 export default class NewSportEvent {

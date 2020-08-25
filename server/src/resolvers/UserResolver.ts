@@ -4,11 +4,8 @@ import {
   Query,
   Mutation,
   Arg,
-  ObjectType,
-  Field,
   FieldResolver,
   Root,
-  ID,
 } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -17,9 +14,6 @@ import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
-import FavSports from '../models/favSports.model';
-import UserFriends from '../models/friends.model';
-// import FavSportResolver from './FavSportsResolver';
 
 @Resolver(User)
 export default class UserResolver {
@@ -89,7 +83,7 @@ export default class UserResolver {
        *   console.log('result' , result)
        *    delete userData.friends
        *  }
-      */
+       */
       await user.update(userData);
       userData.favSports && await user.$set('favSports', userData.favSports);
       return user;
@@ -113,18 +107,11 @@ export default class UserResolver {
   favSports(@Root() user: User) {
     return user.favSports || user.$get('favSports');
   }
+
   /*
-  @FieldResolver()
-  friends(@Root() user: User) {
-    return user.friends || user.$get('friends');
-  }
-  */
-
-
-
-  // @FieldResolver()
-  // friends(@Root() user: User) {
-  //   console.log(user);
-  //   return user.friends;
-  // }
+   *  @FieldResolver()
+   *  friends(@Root() user: User) {
+   *    return user.friends || user.$get('friends');
+   *  }
+   */
 }

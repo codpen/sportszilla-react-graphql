@@ -24,10 +24,13 @@ export default class NewUser {
   location: string;
 
   @Field({ nullable: true })
-  lat: string;
+  latitude: number;
 
   @Field({ nullable: true })
-  lng: string;
+  longitude: number;
+
+  @Field()
+  accuracy: number;
 
   @Field(() => [Number], { nullable: true })
   favSports: number[];
