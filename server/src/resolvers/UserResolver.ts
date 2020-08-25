@@ -26,7 +26,7 @@ export default class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     try {
-      return User.findAll({ order: [['ID', 'ASC']], include: [Sport, User]});
+      return User.findAll({ order: [['ID', 'ASC']], include: [Sport]});
     } catch (err) {
       console.error(err);
     }
@@ -63,7 +63,7 @@ export default class UserResolver {
       const pswdHash = await bcrypt.hash(passW, 10);
       userData.passW = pswdHash;
       const user = await User.create(userData);
-      await user.$set('favSports', userData.favSports);
+      userData.favSports && await user.$set('favSports', userData.favSports);
       return {
         accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
         user,
@@ -83,13 +83,16 @@ export default class UserResolver {
         const pswdHash = await bcrypt.hash(passW, 10);
         userData.passW = pswdHash;
       }
-      if(userData.friends && userData.friends.length){
-       const result = await user.$add('friends', userData.friends);
-       console.log('result' , result)
-        delete userData.friends
-      }
+      /*
+       *  if(userData.friends && userData.friends.length){
+       *   const result = await user.$add('friends', userData.friends);
+       *   console.log('result' , result)
+       *    delete userData.friends
+       *  }
+      */
       await user.update(userData);
-      return user
+      userData.favSports && await user.$set('favSports', userData.favSports);
+      return user;
     } catch (err) {
       console.error(err);
     }

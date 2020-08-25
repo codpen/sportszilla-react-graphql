@@ -42,7 +42,9 @@ export default class EventResolver {
     try {
       const event = await Event.findOne({ where: { ID: id } });
       if (event !== null) {
-        return event.update(eventData);
+        const updatedEvent = await event.update(eventData);
+        await updatedEvent.$set('participants', eventData.participants);
+        return Event.findOne({ where: { ID: updatedEvent.ID }, include: [Sport, User] });
       }
     } catch (error) {
       console.error(error);

@@ -1,6 +1,4 @@
 import { InputType, Field } from 'type-graphql';
-// import NewFavSport from './NewFavSport.input';
-import { HasMany } from 'sequelize-typescript';
 
 @InputType()
 export default class UpdateUser {
@@ -26,8 +24,10 @@ export default class UpdateUser {
   location?: string;
 
   @Field(() => [Number], { nullable: true })
-  friends: number[];
+  favSports: number[];
 
+  // @Field(() => [Number], { nullable: true })
+  // friends: number[];
 
   // @Field()
   // favSport?: number;

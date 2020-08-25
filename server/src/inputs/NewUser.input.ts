@@ -20,12 +20,15 @@ export default class NewUser {
   @Field()
   birthday: Date;
 
-  @Field(() => [Number], { nullable: true })
-  favSports: number[];
+  @Field()
+  location: string;
 
   @Field({ nullable: true })
   lat: string;
 
   @Field({ nullable: true })
   lng: string;
+
+  @Field(() => [Number], { nullable: true })
+  favSports: number[];
 }

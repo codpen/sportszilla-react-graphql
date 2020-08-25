@@ -28,4 +28,7 @@ export default class UpdateEvent {
 
   @Field({ nullable: true })
   timeEnd?: string;
+
+  @Field(() => [Number], { nullable: true })
+  participants: number[]
 }
