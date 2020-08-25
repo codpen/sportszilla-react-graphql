@@ -50,9 +50,9 @@ export default class UserResolver {
 
   @Query(() => User)
   async getOneUser(@Arg('userName') username: string){
-    try { 
+    try {
       return await User.findOne({ where: { userName: username }})
-    } catch (error) { 
+    } catch (error) {
     }
   }
 
@@ -110,10 +110,12 @@ export default class UserResolver {
   favSports(@Root() user: User) {
     return user.favSports || user.$get('favSports');
   }
+  /*
   @FieldResolver()
   friends(@Root() user: User) {
     return user.friends || user.$get('friends');
   }
+  */
 
 
 
