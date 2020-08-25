@@ -1,5 +1,7 @@
-import React, { useState, ReactElement } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
+import Loader from '../Loader/Loader';
+import { useQuery, useLazyQuery, gql } from '@apollo/client';
 import Apollo from '../ApolloClient/Apollo';
 import './Main.scss';
 import Navbar from '../Navbar/Navbar';
@@ -16,49 +18,69 @@ import { UserData } from '../User/UserData';
 import { EventData } from '../Board/Event';
 
 function Main(): ReactElement {
+  interface Response {
+    getAllEvents: EventData[];
+  }
+
+  const EVENTS = gql`
+    query {
+      getAllEvents {
+        ID
+      }
+    }
+  `;
+
+  const { loading, data, error } = useQuery<Response>(EVENTS);
+
   const [users, setUsers] = useState<UserData[]>([]);
   const [loggedInUser, setLoggedInUser] = useState<UserData>({ email: '' });
-  const [events, setEvents] = useState<EventData[]>([]);
-  console.log(events);
-  return (
-    <div className="Main">
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <Switch>
-          <Route path="/intro/">
-            <Intro />
-          </Route>
-          <Route path="/board/">
-            <Board setEvents={setEvents} events={events} />
-          </Route>
-          <Route path="/apollo/">
-            <Apollo />
-          </Route>
-          <Route exact path="/newevent/">
-            <CreateEvent user={undefined} />
-          </Route>
-          <Route exact path="/event/:ID">
-            <EventDetails />
-          </Route>
-          <Route exact path="/user/join/">
-            <Join />
-          </Route>
-          <Route exact path="/user/login/">
-            <Login setUser={setLoggedInUser} />
-          </Route>
-          <Route exact path="/user/signup/">
-            <SignUp setUser={setLoggedInUser} />
-          </Route>
-          <Route exact path="/user/profile/">
-            <Profile user={undefined} setUser={setLoggedInUser} />
-          </Route>
-          <Redirect from="/" to="/intro/" />
-        </Switch>
-      </main>
-    </div>
-  );
+
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <div>Oopsie: {error.message}</div>;
+  if (data && data.getAllEvents) {
+    console.log(data.getAllEvents);
+    return (
+      <div className="Main">
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Switch>
+            <Route path="/intro/">
+              <Intro />
+            </Route>
+            <Route path="/board/">
+              <Board events={data.getAllEvents} />
+            </Route>
+            <Route path="/apollo/">
+              <Apollo />
+            </Route>
+            <Route exact path="/newevent/">
+              <CreateEvent user={undefined} />
+            </Route>
+            <Route exact path="/event/:ID">
+              <EventDetails />
+            </Route>
+            <Route exact path="/user/join/">
+              <Join />
+            </Route>
+            <Route exact path="/user/login/">
+              <Login setUser={setLoggedInUser} />
+            </Route>
+            <Route exact path="/user/signup/">
+              <SignUp setUser={setLoggedInUser} />
+            </Route>
+            <Route exact path="/user/profile/">
+              <Profile user={undefined} setUser={setLoggedInUser} />
+            </Route>
+            <Redirect from="/" to="/intro/" />
+          </Switch>
+        </main>
+      </div>
+    );
+  }
+
+  return <div></div>;
 }
 
 export default Main;

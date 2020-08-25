@@ -12,30 +12,13 @@ import { HashLink as Link } from 'react-router-hash-link';
 import Map from '../Map/Map';
 
 interface PropTypes {
-  setEvents: Dispatch<SetStateAction<EventData[]>>;
   events: EventData[];
 }
 
-// const EVENTS = gql`
-//   query {
-//     getAllEvents {
-//       ID
-//       eventName
-//       sportName
-//       time
-//       date
-//       indoor
-//       availableSpots
-//     }
-//   }
-// `;
-
-const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
+const Board: React.FC<PropTypes> = ({ events }) => {
   interface Response {
     getAllEvents: EventData[];
   }
-
-  // const { loading, data, error } = useQuery<Response>(EVENTS);
 
   const [event, allEvent] = useState<EventBS[]>(Data.events);
 
@@ -64,12 +47,6 @@ const Board: React.FC<PropTypes> = ({ setEvents, events }) => {
 
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
   const arrowIconUp = require('../../Images/FormIcons/up-arrow.svg');
-
-  // if (loading) return <Loader boxHeight={400} />;
-  // if (error) return <div>Oopsie: {error.message}</div>;
-  // if (data && data.getAllEvents) {
-  //   setEvents(data.getAllEvents);
-  // }
 
   return (
     <div className={styles.Container}>
