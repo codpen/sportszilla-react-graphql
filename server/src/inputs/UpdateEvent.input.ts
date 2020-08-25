@@ -30,5 +30,5 @@ export default class UpdateEvent {
   timeEnd?: string;
 
   @Field(() => [Number], { nullable: true })
-  participants: number[]
+  participants: number[];
 }

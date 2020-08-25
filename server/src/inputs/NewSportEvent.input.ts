@@ -45,7 +45,7 @@ export default class NewSportEvent {
   sport: number;
 
   @Field(() => [Number], { nullable: true })
-  participants: number[]
+  participants: number[];
 
   //   @Field({ nullable: true })
   //   createdAt: string;
