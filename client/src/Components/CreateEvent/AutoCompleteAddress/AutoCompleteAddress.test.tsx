@@ -6,7 +6,7 @@ import Autocomplete from './Autocomplete';
 describe('<Autocomplete />', () => {
   test('it should mount', () => {
     render(<Autocomplete />);
-    
+
     const autocomplete = screen.getByTestId('Autocomplete');
 
     expect(autocomplete).toBeInTheDocument();

@@ -42,10 +42,9 @@ const EventDetails: React.FC = () => {
   interface Arguments {
     ID: number;
   }
-  const { loading, data, error } = useQuery<Response, Arguments>(
-    GET_ONE_EVENT,
-    { variables: { ID: Number(ID) } }
-  );
+  const { loading, data, error } = useQuery<Response, Arguments>(GET_ONE_EVENT, {
+    variables: { ID: Number(ID) },
+  });
 
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
@@ -57,7 +56,7 @@ const EventDetails: React.FC = () => {
     return (
       <form className={styles.EventDetails} data-testid="EventDetails">
         <Field>
-          <Label >Event title</Label>
+          <Label>Event title</Label>
           <h3 style={{ fontSize: '16px', margin: 0 }}>{event.eventName}</h3>
         </Field>
 
@@ -122,11 +121,10 @@ const EventDetails: React.FC = () => {
           <p>{String(event.participants)}</p>
         </Field>
       </form>
-    )
+    );
   }
 
   return <div></div>;
-
 };
 
 export default EventDetails;
