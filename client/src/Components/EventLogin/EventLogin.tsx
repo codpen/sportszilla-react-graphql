@@ -41,7 +41,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
     <div className={styles.Container}>
       <div className={styles.Head}>
         <div className={styles.EventTitle}>
-          <Link style={{ textDecoration: 'none', color: '#000000' }} to={`/event/1`}>
+          <Link style={{ textDecoration: 'none', color: '#000000' }} to={`/event/${event.ID}`}>
             <h2 className={styles.Title}>{event.eventName}</h2>
           </Link>
           <div>
