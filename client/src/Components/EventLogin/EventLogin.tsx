@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { EventBS } from '../Board/eventBS';
+import { EventData } from '../Board/Event';
 import Moment from 'react-moment';
 import Faker from 'faker';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import styles from './EventLogin.module.scss';
 
 type PropTypes = {
-  event: EventBS;
+  event: EventData;
 };
 
 const EventLogin: React.FC<PropTypes> = ({ event }) => {
@@ -46,20 +46,27 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
           </Link>
           <div>
             <img src={require('../../Images/FormIcons/pin.svg')} alt="" />
-            <p>{randomAddress}</p>
+            <p>{event.location}</p>
           </div>
         </div>
-        <img src={require(`../../Images/SportIcons/${event.sportName}.svg`)} alt="" />
+        <img src={require(`../../Images/SportIcons/${event.sport?.sportName}.svg`)} alt="" />
       </div>
 
       <div className={styles.EventLogin} data-testid="EventLogin">
         <div className={styles.EventBox_left}>
           <h4>
             <p>
-              <Moment format="D MMM">{event.date}</Moment>
+              <Moment format="D MMM">{event.timeStart}</Moment>
             </p>
+
             <div className={styles.EventBox_Left_Time}>
-              <div>{event.timeStart}</div>-<div>{event.timeEnd}</div>
+              <div>
+                <Moment format="HH:MM">{event.timeStart}</Moment>
+              </div>
+              -
+              <div>
+                <Moment format="HH:MM">{event.timeEnd}</Moment>
+              </div>
             </div>
           </h4>
         </div>
@@ -67,7 +74,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
           <h4>
             <span>
               Participants: {''}
-              {event.min_participants} / {event.max_participants}
+              {event.minParticipants} / {event.maxParticipants}
             </span>
           </h4>
           <div>{randomList}</div>

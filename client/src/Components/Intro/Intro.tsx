@@ -3,8 +3,13 @@ import styles from './Intro.module.scss';
 import Data from '../../mockData/data.json';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import Map from '../Map/Map';
+import { EventData } from '../Board/Event';
 
-const Intro: React.FC = () => (
+interface PropTypes {
+  events: EventData[];
+}
+
+const Intro: React.FC<PropTypes> = ({ events }) => (
   <div className={styles.Intro} data-testid="Intro">
     <div className={styles.Intro_Title}>
       <h1>Find Your Next Teammates</h1>
@@ -15,7 +20,7 @@ const Intro: React.FC = () => (
     </div>
     <div className={styles.container}>
       <div className={styles.mapContainer}>
-        <Map event={Data.events} />
+        <Map events={events} />
       </div>
     </div>
   </div>

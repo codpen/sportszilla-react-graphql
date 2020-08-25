@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { GoogleMap, LoadScript, InfoBox, Marker } from '@react-google-maps/api';
 import styles from './Map.module.scss';
+import { EventData } from '../Board/Event';
 import EventLogin from '../EventLogin/EventLogin';
-import { EventBS } from '../Board/eventBS';
 
 const containerStyle = {
   width: '100%',
@@ -10,7 +10,7 @@ const containerStyle = {
 };
 
 interface PropTypes {
-  event: EventBS[];
+  events: EventData[];
 }
 
 const mapOptions = {
@@ -18,12 +18,12 @@ const mapOptions = {
   styles: require('./mapStyle.json'),
 };
 
-const Map: React.FC<PropTypes> = ({ event }) => {
-  const [open, setOpen] = useState<number | null>(null);
+const Map: React.FC<PropTypes> = ({ events }) => {
+  const [open, setOpen] = useState<number | null>(0);
 
-  const markerList = event.map((ev, i) => {
+  const markerList = events.map((ev, i) => {
     const sportIcon: any = {
-      url: require(`../../Images/SportIconsColor/${ev.sportName}.svg`),
+      url: require(`../../Images/SportIconsColor/${ev.sport?.sportName}.svg`),
       scaledSize: { height: 35, width: 35 },
     };
 
@@ -33,8 +33,8 @@ const Map: React.FC<PropTypes> = ({ event }) => {
           title={ev.eventName}
           icon={sportIcon}
           key={ev.ID}
-          position={{ lat: ev.location.latitude, lng: ev.location.longitude }}
-          onClick={() => setOpen(ev.ID)}
+          position={{ lat: ev.latitude!, lng: ev.longitude! }}
+          onClick={() => setOpen(ev.ID!)}
         >
           {(open === ev.ID || open === 0) && (
             <InfoBox options={{ closeBoxURL: '' }} onCloseClick={() => setOpen(null)}>
@@ -52,7 +52,7 @@ const Map: React.FC<PropTypes> = ({ event }) => {
     <div className={styles.Map} data-testid="Map">
       <GoogleMap
         onClick={() => setOpen(null)}
-        center={{ lat: 51, lng: 0 }}
+        center={{ lat: 41.3851, lng: 2.1734 }}
         zoom={14}
         mapContainerStyle={containerStyle}
         options={mapOptions}
