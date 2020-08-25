@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
-import styles from './Autocomplete.module.scss';
+import styles from './AutoCompleteAddress.module.scss';
+import { any } from 'prop-types';
 
-const Autocomplete: React.FC = () => {
-  const [address, setAddress] = React.useState('');
-  const [coordinates, setCoordinates] = React.useState<any>({ lat: null, lng: null });
+interface PropTypes {
+  address: string | undefined;
+  setAddress: Dispatch<SetStateAction<string>> | undefined;
+  setCoordinates: Dispatch<SetStateAction<any>>;
+}
 
+const AutoCompleteAddress: React.FC<PropTypes> = ({ address, setAddress, setCoordinates }) => {
   const handleSelect = async (value: any) => {
     const results = await geocodeByAddress(value);
     const latlng = await getLatLng(results[0]);
@@ -41,4 +45,4 @@ const Autocomplete: React.FC = () => {
   );
 };
 
-export default Autocomplete;
+export default AutoCompleteAddress;

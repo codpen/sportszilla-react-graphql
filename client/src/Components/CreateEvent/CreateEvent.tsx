@@ -14,7 +14,8 @@ import styled from 'styled-components';
 import { useMutation, gql } from '@apollo/client';
 import { UserData } from '../User/UserData';
 import { ReactComponent as StartIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
-import AutoCompleteInput from './autoCompleteInput/autoCompleteInput';
+import AutoCompleteSport from './AutoCompleteSport/AutoCompleteSport';
+import AutoCompleteAddress from './AutoCompleteAddress/AutoCompleteAddress';
 
 const NEW_EVENT = gql`
   mutation NewEvent($eventData: NewSportEvent!) {
@@ -26,8 +27,7 @@ const NEW_EVENT = gql`
         time
         date
         location
-        minParticipants
-        maxParticipants
+        availableSpots
         lat
         lng
       }
@@ -63,24 +63,29 @@ interface Arguments {
 
 const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const initialED: Event = {
-    sportEventName: '',
+    eventName: '',
     sportName: '',
     date: undefined,
     time: '',
     timeStart: '16:00',
     timeEnd: '20:00',
+    lat: 0,
+    lng: 0,
     location: '',
     minParticipants: 5,
-    maxParticipants: 10,
+    availableSpots: 10,
+    indoor: false,
   };
 
   const [eventData, setEventData] = useState<Event>(initialED);
   const [timeStart, setTimeStart] = useState<number>(64);
   const [timeEnd, setTimeEnd] = useState<number>(80);
   const [minParticipants, setMinParticipants] = useState<number>(5);
-  const [maxParticipants, setMaxParticipants] = useState<number>(10);
+  const [availableSpots, setAvailableSpots] = useState<number>(10);
   const [sport, setSport] = useState<string>('');
   const [createEvent, { loading, error, data }] = useMutation<Response, Arguments>(NEW_EVENT);
+  const [address, setAddress] = React.useState('');
+  const [coordinates, setCoordinates] = React.useState<any>({ lat: null, lng: null });
 
   console.log(eventData);
 
@@ -90,6 +95,10 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
       date: date,
     }));
   };
+
+  useEffect(() => {
+    setEventData({ ...eventData, location: address, lat: coordinates.lat, lng: coordinates.lng });
+  }, [address]);
 
   useEffect(() => {
     setEventData({ ...eventData, sportName: sport });
@@ -107,7 +116,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
 
   const onChangeParticipants = ({ minValue, maxValue }: any): void => {
     setMinParticipants(minValue);
-    setMaxParticipants(maxValue);
+    setAvailableSpots(maxValue);
     setEventData((eventData) => ({
       ...eventData,
       minParticipants: minValue,
@@ -137,10 +146,10 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
         <Field className={styles.Field}>
           <Label>Name of Event</Label>
-          <Input name="sportEventName" value={eventData.sportEventName} onChange={handleChange} />
+          <Input name="eventName" value={eventData.eventName} onChange={handleChange} />
         </Field>
         <Field className={styles.Field}>
-          <AutoCompleteInput setSport={setSport} />
+          <AutoCompleteSport setSport={setSport} />
         </Field>
         <Field className={styles.Field}>
           <Label>Date</Label>
@@ -182,12 +191,16 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
         </Field>
         <Field className={styles.Field}>
           <Label>Location</Label>
-          <MediaInput start={<StartIcon />} />
+          <AutoCompleteAddress
+            address={address}
+            setAddress={setAddress}
+            setCoordinates={setCoordinates}
+          />
         </Field>
         <Field className={styles.Field}>
           <MultiThumbRange
             minValue={minParticipants}
-            maxValue={maxParticipants}
+            maxValue={availableSpots}
             onChange={onChangeParticipants}
             min={2}
             max={30}
@@ -204,7 +217,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
               <Label>Max Participants</Label>
             </div>
             <div>
-              <Input name="maxParticipants" value={maxParticipants} disabled={true} />
+              <Input name="availableSpots" value={availableSpots} disabled={true} />
             </div>
           </div>
         </Field>
@@ -221,10 +234,13 @@ export default CreateEvent;
 
 type Event = {
   ID?: number;
-  sportEventName?: string;
+  eventName?: string;
   sportName: string;
   location?: string;
+  lat?: number;
+  lng?: number;
   date?: Date;
+  indoor?: boolean;
   description?: string;
   organizer?: number;
   time?: string;
@@ -232,5 +248,5 @@ type Event = {
   timeEnd?: string;
   registeredParticipants?: number[];
   minParticipants?: number;
-  maxParticipants?: number;
+  availableSpots?: number;
 };

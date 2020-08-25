@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, Dispatch, SetStateAction } from 'react';
 import { Item, Menu, Label, Field, Dropdown, Autocomplete } from '@zendeskgarden/react-dropdowns';
 import { ReactComponent as SearchIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
-import styles from './autoCompleteInput.module.scss';
+import styles from './AutoCompleteSport.module.scss';
 import { SportData } from '../../Sport/SportData';
 import Sport from '../../Sport/Sport';
 
@@ -17,7 +17,7 @@ interface PropTypes {
   setSport: Dispatch<SetStateAction<string>> | undefined;
 }
 
-const AutoCompleteInput: React.FC<PropTypes> = ({ sportArray: sportArray, setSport }) => {
+const AutoCompleteSport: React.FC<PropTypes> = ({ sportArray: sportArray, setSport }) => {
   const [selectedItem, setSelectedItem] = useState(sportArray && sportArray[0].sportName);
   const [inputValue, setInputValue] = useState<string>('');
   const [matchingOptions, setMatchingOptions] = useState<any>(sportArray);
@@ -80,7 +80,7 @@ const AutoCompleteInput: React.FC<PropTypes> = ({ sportArray: sportArray, setSpo
   );
 };
 
-AutoCompleteInput.defaultProps = {
+AutoCompleteSport.defaultProps = {
   sportArray: [
     { ID: 0, sportName: 'football' },
     { ID: 1, sportName: 'baseball' },
@@ -89,4 +89,4 @@ AutoCompleteInput.defaultProps = {
   ],
 };
 
-export default AutoCompleteInput;
+export default AutoCompleteSport;
