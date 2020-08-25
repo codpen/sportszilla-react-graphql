@@ -9,11 +9,11 @@ import {
   PrimaryKey,
   AutoIncrement,
   Unique,
-  HasOne,
+  DataType,
   BelongsToMany,
   BelongsTo,
 } from 'sequelize-typescript';
-import { ObjectType, Field, Int } from 'type-graphql';
+import { ObjectType, Field, Float, Int } from 'type-graphql';
 import Sport from './sport.model';
 import User from './user.model';
 import Participants from './participants.model';
@@ -43,6 +43,18 @@ export default class Event extends Model<Event> {
   @Column
   @Field(() => String)
   location: string;
+
+  @Column(DataType.FLOAT)
+  @Field(() => Float)
+  latitude: number;
+
+  @Column(DataType.FLOAT)
+  @Field(() => Float)
+  longitude: number;
+
+  @Column(DataType.FLOAT)
+  @Field(() => Float)
+  accuracy: number;
 
   @Field(() => Int)
   @Column

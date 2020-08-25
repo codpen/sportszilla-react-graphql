@@ -21,6 +21,15 @@ export default class NewSportEvent {
   @Field()
   location: string;
 
+  @Field({ nullable: true })
+  latitude: number;
+
+  @Field({ nullable: true })
+  longitude: number;
+
+  @Field({ nullable: true })
+  accuracy: number;
+
   @Field()
   minParticipants: number;
 
@@ -38,12 +47,6 @@ export default class NewSportEvent {
 
   @Field(() => [Number], { nullable: true })
   participants: number[]
-
-  @Field({ nullable: true })
-  lat: string;
-
-  @Field({ nullable: true })
-  lng: string;
 
   //   @Field({ nullable: true })
   //   createdAt: string;
