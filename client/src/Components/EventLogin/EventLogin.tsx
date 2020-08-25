@@ -49,7 +49,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
             <p>{event.location}</p>
           </div>
         </div>
-        <img src={require(`../../Images/SportIcons/${event.sport?.sportName}.svg`)} alt="" />
+        <img src={require(`../../Images/SportIconsColor/${event.sport?.sportName}.svg`)} alt="" />
       </div>
 
       <div className={styles.EventLogin} data-testid="EventLogin">
@@ -77,10 +77,10 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
               {event.minParticipants} / {event.maxParticipants}
             </span>
           </h4>
-          <div>{randomList}</div>
+          <div className={styles.EventBox_center_picContainer}>{randomList}</div>
         </div>
         <div className={styles.EventBox_right}>
-          <ButtonGeneric buttonText={'join'} buttonLink={'/join'}></ButtonGeneric>
+          <ButtonGeneric buttonText={'join'} buttonLink={'/join'} />
         </div>
       </div>
     </div>

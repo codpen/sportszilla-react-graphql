@@ -14,15 +14,13 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  z-index: 100000;
   position: fixed;
 }
 
 .NavbarLeft_logo_img {
   width: 200px;
   position: relative;
-
-
 }
 
 .logoContainer {

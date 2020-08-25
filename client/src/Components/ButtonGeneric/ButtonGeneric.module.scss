@@ -3,6 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Baloo Tamma 2', sans-serif;
 
   button {
     border: none;
@@ -17,8 +18,8 @@
   padding: 1rem;
   height: 2.8rem;
   width: auto;
-  color: #58cc62;
-  background-color: #ffffff;
+  color: #fff;
+  background-color: #bbd196;
   border: none;
   letter-spacing: 0.3rem;
   text-transform: uppercase;
@@ -27,14 +28,14 @@
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  box-shadow: 0rem 0.8rem 1.5rem rgba(0, 0, 0, 0.2);
+
   border-radius: 2rem;
   cursor: pointer;
   outline: none;
 }
 
 .ButtonGeneric:hover {
-  background-color: #58cc62;
+  background-color: #bbd196;
   box-shadow: 0rem 1rem 1.25rem rgba(0, 0, 0, 0.8);
   color: #fff;
   transform: translateY(-0.4rem);
