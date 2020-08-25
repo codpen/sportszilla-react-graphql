@@ -1,4 +1,4 @@
-import { InputType, Field, InputType } from 'type-graphql';
+import { InputType, Field } from 'type-graphql';
 import User from '../models/user.model';
 import Sport from '../models/sport.model';
 

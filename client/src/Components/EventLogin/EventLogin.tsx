@@ -14,7 +14,7 @@ type Event = {
     accuracy: number;
   };
   date: string;
-  eventName: string;
+  sportEventName: string;
   organizer: number;
   filter: {
     target_gender: string;
@@ -62,7 +62,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
       <div className={styles.Head}>
         <div className={styles.EventTitle}>
           <Link style={{ textDecoration: 'none', color: '#000000' }} to={`/event/${event.ID}`}>
-            <h2 className={styles.Title}>{event.eventName}</h2>
+            <h2 className={styles.Title}>{event.sportEventName}</h2>
           </Link>
           <div>
             <img src={require('../../Images/FormIcons/pin.svg')} alt="" />
@@ -76,7 +76,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
         <div className={styles.EventBox_left}>
           <h4>
             <p>
-              <Moment format="D MMM">{randomDate}</Moment>
+              <Moment format="D MMM">{event.date}</Moment>
             </p>
             <div className={styles.EventBox_Left_Time}>
               <div>{event.timeStart}</div>-<div>{event.timeEnd}</div>

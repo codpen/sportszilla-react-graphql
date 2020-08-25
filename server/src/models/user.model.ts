@@ -13,6 +13,7 @@ import {
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
 import FavSports from './favSports.model';
+import UserFriends from './friends.model';
 
 @Table
 @ObjectType()
@@ -49,29 +50,41 @@ export default class User extends Model<User> {
   @Field(() => Date, { nullable: true })
   birthday: Date;
 
+  @Column
+  @Field(() => String)
+  location: string;
+  
+  @CreatedAt
+  @Field(() => Date)
+  creationDate: Date;
+  
+  @UpdatedAt
+  @Field(() => Date)
+  updatedOn: Date;
+  
+  @DeletedAt
+  @Field(() => Date, { nullable: true })
+  deletionDate: Date;
+  
   @BelongsToMany(() => Sport, () => FavSports)
   @Field(() => [Sport], { nullable: true })
   favSports: Sport[];
 
+  @BelongsToMany(() => User, () => UserFriends, 'userId', 'friendId')
+  @Field(() => [User], { nullable: true })
+  friends: User[];
+
   @Column
-  @Field(() => String)
-  location: string;
+  @Field(() => String, { nullable: true })
+  lat: string
 
-  @CreatedAt
-  @Field(() => Date)
-  creationDate: Date;
-
-  @UpdatedAt
-  @Field(() => Date)
-  updatedOn: Date;
-
-  @DeletedAt
-  @Field(() => Date, { nullable: true })
-  deletionDate: Date;
+  @Column
+  @Field(() => String, { nullable: true })
+  lng: string
 
   // @Column
-  // @Field(() => )
-  // favariteSports: Sport[];
+  // @Field(() => [User])
+  // friends: number[];
 
   /** query da tabala de usuarios  */
   /**

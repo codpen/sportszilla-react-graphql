@@ -23,6 +23,9 @@ export default class NewUser {
   @Field(() => [Number], { nullable: true })
   favSports: number[];
 
-  @Field()
-  location: string;
+  @Field({ nullable: true })
+  lat: string;
+
+  @Field({ nullable: true })
+  lng: string;
 }

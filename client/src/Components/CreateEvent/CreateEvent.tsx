@@ -82,6 +82,8 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const [sport, setSport] = useState<string>('');
   const [createEvent, { loading, error, data }] = useMutation<Response, Arguments>(NEW_EVENT);
 
+  console.log(eventData);
+
   const handleDate = (date: Date): void => {
     setEventData((eventData) => ({
       ...eventData,

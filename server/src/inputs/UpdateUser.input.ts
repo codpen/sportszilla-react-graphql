@@ -25,6 +25,10 @@ export default class UpdateUser {
   @Field({ nullable: true })
   location?: string;
 
+  @Field(() => [Number], { nullable: true })
+  friends: number[];
+
+
   // @Field()
   // favSport?: number;
   /**

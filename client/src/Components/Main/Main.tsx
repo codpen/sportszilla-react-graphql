@@ -12,6 +12,7 @@ import EventDetails from '../EventDetails/EventDetails';
 import Data from '../../mockData/data.json';
 import Board from '../Board/Board';
 import CreateEvent from '../CreateEvent/CreateEvent';
+import Autocomplete from '../Autocomplete/Autocomplete';
 import { UserData } from '../User/UserData';
 import { EventData } from '../Board/Event';
 
@@ -35,6 +36,9 @@ function Main(): ReactElement {
           </Route>
           <Route path="/apollo/">
             <Apollo />
+          </Route>
+          <Route path="/test/">
+            <Autocomplete />
           </Route>
           <Route exact path="/newevent/">
             <CreateEvent user={undefined} />
