@@ -7,7 +7,7 @@ export interface EventBS {
     accuracy: number;
   };
   date: string;
-  sportEventName: string;
+  eventName: string;
   organizer: number;
   filter: {
     target_gender: string;

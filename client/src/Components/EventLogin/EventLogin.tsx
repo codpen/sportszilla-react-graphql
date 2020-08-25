@@ -1,35 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { EventBS } from '../Board/eventBS';
 import Moment from 'react-moment';
 import Faker from 'faker';
 import ButtonGeneric from '../ButtonGeneric/ButtonGeneric';
 import styles from './EventLogin.module.scss';
 
-type Event = {
-  ID: number;
-  sportName: string;
-  location: {
-    latitude: number;
-    longitude: number;
-    accuracy: number;
-  };
-  date: string;
-  sportEventName: string;
-  organizer: number;
-  filter: {
-    target_gender: string;
-    target_level: string;
-  };
-  timeStart: string;
-  timeEnd: string;
-  registered_participants: number[];
-  max_participants: number;
-  min_participants: number;
+type PropTypes = {
+  event: EventBS;
 };
 
-interface PropTypes {
-  event: Event;
-}
 const EventLogin: React.FC<PropTypes> = ({ event }) => {
   const randomDate = Faker.fake('{{date.future}}');
   const randomAddress = Faker.fake(

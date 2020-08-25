@@ -10,6 +10,7 @@ const Autocomplete: React.FC = () => {
     const results = await geocodeByAddress(value);
     const latlng = await getLatLng(results[0]);
     setCoordinates(latlng);
+    console.log(latlng);
   };
 
   return (
