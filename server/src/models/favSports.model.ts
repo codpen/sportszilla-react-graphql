@@ -9,9 +9,9 @@ import Sport from './sport.model';
 export default class FavSports2 extends Model<FavSports2> {
   @ForeignKey(() => User)
   @Column
-  userId: number;
+  userID: number;
 
   @ForeignKey(() => Sport)
   @Column
-  sportId: number;
+  sportID: number;
 }

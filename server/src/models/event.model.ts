@@ -9,8 +9,9 @@ import {
   PrimaryKey,
   AutoIncrement,
   Unique,
-  BelongsTo,
+  HasOne,
   BelongsToMany,
+  BelongsTo,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
 import Sport from './sport.model';
@@ -38,10 +39,6 @@ export default class Event2 extends Model<Event2> {
   @Column
   @Field(() => Date)
   timeEnd: Date;
-
-  @Column
-  @Field(() => Date)
-  date: Date;
 
   @Column
   @Field(() => String)
@@ -88,29 +85,7 @@ export default class Event2 extends Model<Event2> {
   @Field(() => Sport)
   sport: Sport;
 
-  @ForeignKey(() => User)
-  @Column
-  @Field(() => Int)
-  userID: number;
-
-  @BelongsTo(() => User)
-  @Field(() => User)
-  eventCreator: User;
-
   @BelongsToMany(() => User, () => Participants)
-  @Field(() => [User], { nullable: true })
+  @Field(() => [User])
   participants: User[];
-
-  // @Column
-  // @Field(() => User)
-  // playersAssigned: User[];
-
-  // @Column
-  // @Field()
-  // location: {
-  //     lat: number,
-  //     lng: number,
-  //     address: string,
-  //     venue: string,
-  // };
 }

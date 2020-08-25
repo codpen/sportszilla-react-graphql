@@ -13,9 +13,6 @@ export default class NewSportEvent {
   timeEnd: Date;
 
   @Field()
-  date: Date;
-
-  @Field()
   indoor: boolean;
 
   @Field()
@@ -37,7 +34,10 @@ export default class NewSportEvent {
   sportID: number;
 
   @Field()
-  userID: number;
+  sport: number;
+
+  @Field(() => [Number], { nullable: true })
+  participants: number[]
 
   @Field({ nullable: true })
   lat: string;

@@ -1,5 +1,4 @@
 import { InputType, Field } from 'type-graphql';
-import { FilterRootFields } from 'graphql-tools';
 
 @InputType()
 export default class UpdateEvent {

@@ -3,13 +3,15 @@ import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import Event from '../models/event.model';
 import NewSportEvent from '../inputs/NewSportEvent.input';
 import UpdateEvent from '../inputs/UpdateEvent.input';
+import Sport from '../models/sport.model';
+import User from '../models/user.model';
 
 @Resolver()
 export default class EventResolver {
   @Query(() => Event)
   async getOneEvent(@Arg('ID') id: number) {
     try {
-      return Event.findOne({ where: { ID: id } });
+      return Event.findOne({ where: { ID: id }, include: [Sport, User] });
     } catch (err) {
       console.error(err);
     }
@@ -18,7 +20,7 @@ export default class EventResolver {
   @Query(() => [Event])
   async getAllEvents() {
     try {
-      return Event.findAll();
+      return Event.findAll({ include: [Sport, User] });
     } catch (error) {
       console.error(error);
     }
@@ -28,7 +30,8 @@ export default class EventResolver {
   async newEvent(@Arg('eventData') eventData: NewSportEvent) {
     try {
       const result = await Event.create(eventData);
-      return result;
+      await result.$set('participants', eventData.participants);
+      return Event.findOne({ where: { ID: result.ID }, include: [Sport, User] });
     } catch (err) {
       console.error(err);
     }

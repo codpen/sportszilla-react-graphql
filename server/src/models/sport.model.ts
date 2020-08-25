@@ -54,7 +54,7 @@ export default class Sport2 extends Model<Sport2> {
   updatedOn: Date;
 
   @HasMany(() => Event)
-  @Field(() => Event)
+  @Field(() => Event, { nullable: true })
   events: Event[]
 
   @BelongsToMany(() => User, () => FavSports)

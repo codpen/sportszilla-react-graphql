@@ -8,7 +8,6 @@ import {
   PrimaryKey,
   AutoIncrement,
   BelongsToMany,
-  HasMany,
   Unique,
 } from 'sequelize-typescript';
 import { ObjectType, Field, Int } from 'type-graphql';
@@ -68,22 +67,6 @@ export default class User2 extends Model<User2> {
   @Field(() => Date, { nullable: true })
   deletionDate: Date;
 
-  @Column
-  @Field(() => String, { nullable: true })
-  lat: string
-
-  @Column
-  @Field(() => String, { nullable: true })
-  lng: string
-
-  @HasMany(() => Event)
-  @Field(() => Event)
-  events: Event[]
-
-  @BelongsToMany(() => Event, () => Participants)
-  @Field(() => [Event], { nullable: true })
-  participates: Event[];
-
   @BelongsToMany(() => Sport, () => FavSports)
   @Field(() => [Sport], { nullable: true })
   favSports: Sport[];
@@ -94,11 +77,6 @@ export default class User2 extends Model<User2> {
   friends: User[];
   */
 
-  // @Column
-  // @Field(() => [User])
-  // friends: number[];
-
-  /** query da tabala de usuarios  */
   /**
    * create @Column @Field(() => [Sport])
    * favSports: Sportr []
