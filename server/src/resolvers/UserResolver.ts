@@ -1,15 +1,5 @@
 /* eslint-disable */
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Arg,
-  ObjectType,
-  Field,
-  FieldResolver,
-  Root,
-  ID,
-} from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, FieldResolver, Root } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import LoginResponse from '../auth/LoginResponse';
@@ -17,16 +7,13 @@ import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
-import FavSports from '../models/favSports.model';
-import UserFriends from '../models/friends.model';
-// import FavSportResolver from './FavSportsResolver';
 
 @Resolver(User)
 export default class UserResolver {
   @Query(() => [User])
   async getAllUsers() {
     try {
-      return User.findAll({ order: [['ID', 'ASC']], include: [Sport]});
+      return User.findAll({ order: [['ID', 'ASC']], include: [Sport] });
     } catch (err) {
       console.error(err);
     }
@@ -49,11 +36,10 @@ export default class UserResolver {
   }
 
   @Query(() => User)
-  async getOneUser(@Arg('userName') username: string){
+  async getOneUser(@Arg('userName') username: string) {
     try {
-      return await User.findOne({ where: { userName: username }})
-    } catch (error) {
-    }
+      return await User.findOne({ where: { userName: username } });
+    } catch (error) {}
   }
 
   @Mutation(() => LoginResponse)
@@ -63,7 +49,7 @@ export default class UserResolver {
       const pswdHash = await bcrypt.hash(passW, 10);
       userData.passW = pswdHash;
       const user = await User.create(userData);
-      userData.favSports && await user.$set('favSports', userData.favSports);
+      userData.favSports && (await user.$set('favSports', userData.favSports));
       return {
         accessToken: jwt.sign({ userId: user.id }, 'JWTSecretKey', { expiresIn: '60m' }),
         user,
@@ -89,9 +75,9 @@ export default class UserResolver {
        *   console.log('result' , result)
        *    delete userData.friends
        *  }
-      */
+       */
       await user.update(userData);
-      userData.favSports && await user.$set('favSports', userData.favSports);
+      userData.favSports && (await user.$set('favSports', userData.favSports));
       return user;
     } catch (err) {
       console.error(err);
@@ -113,18 +99,11 @@ export default class UserResolver {
   favSports(@Root() user: User) {
     return user.favSports || user.$get('favSports');
   }
+
   /*
-  @FieldResolver()
-  friends(@Root() user: User) {
-    return user.friends || user.$get('friends');
-  }
-  */
-
-
-
-  // @FieldResolver()
-  // friends(@Root() user: User) {
-  //   console.log(user);
-  //   return user.friends;
-  // }
+   *  @FieldResolver()
+   *  friends(@Root() user: User) {
+   *    return user.friends || user.$get('friends');
+   *  }
+   */
 }

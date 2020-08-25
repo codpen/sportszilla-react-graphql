@@ -55,7 +55,7 @@ export default class Sport extends Model<Sport> {
 
   @HasMany(() => Event)
   @Field(() => Event, { nullable: true })
-  events: Event[]
+  events: Event[];
 
   @BelongsToMany(() => User, () => FavSports)
   @Field(() => [User], { nullable: true })

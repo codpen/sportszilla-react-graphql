@@ -9,8 +9,9 @@ import {
   AutoIncrement,
   BelongsToMany,
   Unique,
+  DataType,
 } from 'sequelize-typescript';
-import { ObjectType, Field, Int } from 'type-graphql';
+import { ObjectType, Field, Int, Float } from 'type-graphql';
 import Sport from './sport.model';
 import Event from './event.model';
 import FavSports from './favSports.model';
@@ -55,6 +56,18 @@ export default class User extends Model<User> {
   @Field(() => String)
   location: string;
 
+  @Column(DataType.FLOAT)
+  @Field(() => Float, { nullable: true })
+  latitude: number;
+
+  @Column(DataType.FLOAT)
+  @Field(() => Float, { nullable: true })
+  longitude: number;
+
+  @Column(DataType.FLOAT)
+  @Field(() => Float, { nullable: true })
+  accuracy: number;
+
   @CreatedAt
   @Field(() => Date)
   creationDate: Date;
@@ -80,21 +93,4 @@ export default class User extends Model<User> {
   @Field(() => [User], { nullable: true })
   friends: User[];
   */
-
-  /**
-   * create @Column @Field(() => [Sport])
-   * favSports: Sportr []
-   */
-
-  /*
-  @HasMany(() => Event)
-  events: Event[];
-  */
-
-  /**
-   * fixing eslint experimentaldecoreator:
-   * In VSCode go to preferences -> settings,
-   * you will see an option to enable/disable experimentalDecorators.
-   * Check it and save the settings file. Done
-   */
 }

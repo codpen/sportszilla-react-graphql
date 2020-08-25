@@ -1,5 +1,4 @@
 import { InputType, Field } from 'type-graphql';
-// import User from '../models/user.model';
 
 @InputType()
 export default class NewSportEvent {
@@ -46,7 +45,7 @@ export default class NewSportEvent {
   sport: number;
 
   @Field(() => [Number], { nullable: true })
-  participants: number[]
+  participants: number[];
 
   //   @Field({ nullable: true })
   //   createdAt: string;

@@ -8,11 +8,11 @@ const Join: React.FC = () => (
     <h2 className={styles.welcome}>Welcome to SportsZilla!</h2>
     <div className={styles.authBoxes}>
       <section>
-        <ButtonGeneric buttonText="Log in" buttonLink="/user/login" />
+        <ButtonGeneric buttonText="Log&nbsp;in" buttonLink="/user/login" />
       </section>
 
       <section>
-        <ButtonGeneric buttonText="Sign up" buttonLink="/user/signup" />
+        <ButtonGeneric buttonText="Sign&nbsp;up" buttonLink="/user/signup" />
       </section>
     </div>
   </div>
