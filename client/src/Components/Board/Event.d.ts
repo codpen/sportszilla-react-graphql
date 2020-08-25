@@ -1,14 +1,8 @@
 import { UserData } from '../User/UserData';
 
-interface Participant {
-  ID: number;
-  firstName: string;
-}
-
 interface Sport {
   sportName;
 }
-
 export interface EventData {
   ID?: number;
   eventName?: string;
@@ -16,8 +10,9 @@ export interface EventData {
   timeStart?: Date;
   timeEnd?: Date;
   location?: string;
-  latitude?: number;
   longitude?: number;
+  latitude?: number;
+  accuracy?: number;
   indoor?: boolean;
   availableSpots?: number;
   creationDate?: Date;
