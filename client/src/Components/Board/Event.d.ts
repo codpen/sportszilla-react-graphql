@@ -14,13 +14,15 @@ export interface EventData {
   sportName?: string;
   timeStart?: Date;
   timeEnd?: Date;
-  location?: number;
+  location?: string;
+  longitude?: number;
+  latitude?: number;
+  accuracy?: number;
   indoor?: boolean;
   availableSpots?: number;
   creationDate?: Date;
   updatedOn?: Date;
   deletionDate?: Date;
-  creator?: number;
   participants?: Participant[];
   minParticipants?: number;
   maxParticipants?: number;
