@@ -18,7 +18,7 @@ import Participants from './participants.model';
 
 @Table
 @ObjectType()
-export default class User2 extends Model<User2> {
+export default class User extends Model<User> {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -70,6 +70,10 @@ export default class User2 extends Model<User2> {
   @BelongsToMany(() => Sport, () => FavSports)
   @Field(() => [Sport], { nullable: true })
   favSports: Sport[];
+
+  @BelongsToMany(() => Event, () => Participants)
+  @Field(() => [Event], { nullable: true })
+  participates: Event[];
 
   /*
   @BelongsToMany(() => User, () => UserFriends, 'userId', 'friendId')

@@ -17,7 +17,7 @@ import Event from './event.model';
 
 @Table
 @ObjectType()
-export default class Sport2 extends Model<Sport2> {
+export default class Sport extends Model<Sport> {
   @AutoIncrement
   @PrimaryKey
   @Column

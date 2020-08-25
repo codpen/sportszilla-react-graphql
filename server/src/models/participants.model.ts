@@ -5,7 +5,7 @@ import User from './user.model';
 import Event from './event.model';
 
 @Table
-export default class Participants2 extends Model<Participants2> {
+export default class Participants extends Model<Participants> {
   @ForeignKey(() => User)
   @Column
   userID: number;

@@ -20,7 +20,7 @@ import Participants from './participants.model';
 
 @Table
 @ObjectType()
-export default class Event2 extends Model<Event2> {
+export default class Event extends Model<Event> {
   @AutoIncrement
   @PrimaryKey
   @Column
