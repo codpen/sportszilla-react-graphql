@@ -29,7 +29,7 @@ export default class NewUser {
   @Field({ nullable: true })
   longitude: number;
 
-  @Field()
+  @Field({ nullable: true })
   accuracy: number;
 
   @Field(() => [Number], { nullable: true })
