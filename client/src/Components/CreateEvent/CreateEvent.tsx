@@ -11,33 +11,22 @@ import {
 import { Button } from '@zendeskgarden/react-buttons';
 import { Datepicker } from '@zendeskgarden/react-datepickers';
 import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import { UserData } from '../User/UserData';
 import { ReactComponent as StartIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
 import AutoCompleteSport from './AutoCompleteSport/AutoCompleteSport';
 import AutoCompleteAddress from './AutoCompleteAddress/AutoCompleteAddress';
 import moment from 'moment';
+import Loader from '../../Components/Loader/Loader';
 
 const NEW_EVENT = gql`
   mutation NewEvent($eventData: NewSportEvent!) {
     newEvent(eventData: $eventData) {
-      Event {
-        eventName
-        timeStart
-        timeEnd
-        Location
-        latitude
-        longitude
-        accuracy
-        minParticipants
-        maxParticipants
-        indoor
-        availableSpots
-        description
-        sportID
-        sport
-        participants
-      }
+      ID
+      eventName
+      location
+      timeStart
     }
   }
 `;
@@ -71,12 +60,10 @@ interface Arguments {
 const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const initialED: Event = {
     eventName: '',
-    sportName: '',
-    time: '',
     timeStart: `${moment().format('YYYY-MM-DD')} 16:00`,
     timeEnd: `${moment().format('YYYY-MM-DD')} 20:00`,
-    lat: 0,
-    lng: 0,
+    latitude: 0,
+    longitude: 0,
     accuracy: 30,
     location: '',
     minParticipants: 5,
@@ -97,6 +84,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const [createEvent, { loading, error, data }] = useMutation<Response, Arguments>(NEW_EVENT);
   const [address, setAddress] = React.useState('');
   const [coordinates, setCoordinates] = React.useState<any>({ lat: null, lng: null });
+  const history = useHistory();
 
   const handleDate = (dateF: Date): void => {
     setDate(dateF);
@@ -112,11 +100,16 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   };
 
   useEffect(() => {
-    setEventData({ ...eventData, location: address, lat: coordinates.lat, lng: coordinates.lng });
-  }, [address]);
+    setEventData({
+      ...eventData,
+      location: address,
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
+    });
+  }, [address, coordinates]);
 
   useEffect(() => {
-    setEventData({ ...eventData, sportName: sport });
+    // setEventData({ ...eventData, sportName: sport });
   }, [sport]);
 
   const onChangeTime = ({ minValue, maxValue }: any): void => {
@@ -155,9 +148,15 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     console.log(eventData);
-    // createEvent({ variables: { eventData } });
+    createEvent({ variables: { eventData } });
     return null;
   };
+
+  if (loading) return <Loader boxHeight={400} />;
+  if (error) return <p>Oopsie: {error.message}</p>;
+  if (data) {
+    history.push('/user/profile');
+  }
 
   return (
     <div className={styles.CreateEvent} data-testid="CreateEvent">
@@ -254,10 +253,10 @@ export default CreateEvent;
 type Event = {
   ID?: number;
   eventName?: string;
-  sportName: string;
+  sportName?: string;
   location?: string;
-  lat?: number;
-  lng?: number;
+  latitude?: number;
+  longitude?: number;
   accuracy?: number;
   date?: Date;
   indoor?: boolean;
