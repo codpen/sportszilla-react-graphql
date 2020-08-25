@@ -26,6 +26,17 @@ function Main(): ReactElement {
     query {
       getAllEvents {
         ID
+        eventName
+        sport {
+          sportName
+        }
+        timeStart
+        timeEnd
+        location
+        longitude
+        latitude
+        minParticipants
+        maxParticipants
       }
     }
   `;
@@ -47,7 +58,7 @@ function Main(): ReactElement {
         <main>
           <Switch>
             <Route path="/intro/">
-              <Intro />
+              <Intro events={data.getAllEvents} />
             </Route>
             <Route path="/board/">
               <Board events={data.getAllEvents} />

@@ -13,7 +13,6 @@ export interface EventData {
   ID?: number;
   eventName?: string;
   sportID?: number;
-  sportName?: string;
   timeStart?: Date;
   timeEnd?: Date;
   location?: string;

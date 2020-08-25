@@ -1,11 +1,8 @@
-import React, { useState, useEffect, SetStateAction, Dispatch } from 'react';
-import { useQuery, gql } from '@apollo/client';
+import React, { useState } from 'react';
 import moment from 'moment';
 import { EventData } from './Event';
-import { EventBS } from './eventBS';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
-import Data from '../../mockData/data.json';
 import SearchBar from '../SearchBar/SearchBar';
 import Loader from '../Loader/Loader';
 import { HashLink as Link } from 'react-router-hash-link';
@@ -16,30 +13,26 @@ interface PropTypes {
 }
 
 const Board: React.FC<PropTypes> = ({ events }) => {
-  interface Response {
-    getAllEvents: EventData[];
-  }
+  const [event, allEvent] = useState<EventData[]>(events);
 
-  const [event, allEvent] = useState<EventBS[]>(Data.events);
-
-  const list = event.map((event: EventBS) => {
+  const list = events.map((event: EventData) => {
     return (
-      <div key={`${event.ID} ${event.sportName}`}>
+      <div key={`${event.ID} ${event.sport?.sportName}`}>
         <EventLogin event={event} />
       </div>
     );
   });
 
   const filterBySport = (sport: any) => {
-    const filteredList = Data.events.filter((e) => {
-      return e.sportName === sport;
+    const filteredList = event.filter((e) => {
+      return e.sport?.sportName === sport;
     });
     allEvent([...filteredList]);
   };
 
   const filterByDate = (date: any) => {
-    const filteredList = Data.events.filter((e) => {
-      return moment(e.date).format('MMMM Do YYYY') === moment(date).format('MMMM Do YYYY');
+    const filteredList = event.filter((e) => {
+      return moment(e.timeStart).format('MMMM Do YYYY') === moment(date).format('MMMM Do YYYY');
     });
     console.log(filteredList);
     allEvent([...filteredList]);
@@ -72,7 +65,7 @@ const Board: React.FC<PropTypes> = ({ events }) => {
               <img src={arrowIconUp} alt="down-arrow" />
             </Link>
           </div>
-          <Map event={event} />
+          <Map events={events} />
         </div>
       </div>
     </div>
