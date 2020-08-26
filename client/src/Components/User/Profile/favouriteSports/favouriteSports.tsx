@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Dropdown, Multiselect, Field, Menu, Item, Label } from '@zendeskgarden/react-dropdowns';
 import { Tag } from '@zendeskgarden/react-tags';
-import styles from './FavouriteSports.module.scss';
+import styles from './favouriteSports.module.scss';
 
 const options = [
   'Asparagus',
