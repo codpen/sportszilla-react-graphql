@@ -84,7 +84,7 @@ function Main(): ReactElement {
               <Apollo />
             </Route>
             <Route exact path="/newevent/">
-              <CreateEvent user={undefined} />
+              <CreateEvent user={loggedInUser} />
             </Route>
             <Route exact path="/event/:ID">
               <EventDetails />
@@ -99,7 +99,7 @@ function Main(): ReactElement {
               <SignUp setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/profile/">
-              <Profile user={undefined} setUser={setLoggedInUser} />
+              <Profile user={loggedInUser} setUser={setLoggedInUser} />
             </Route>
             <Redirect from="/" to="/intro/" />
           </Switch>
