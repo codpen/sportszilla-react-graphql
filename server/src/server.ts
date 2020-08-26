@@ -1,19 +1,26 @@
 import 'reflect-metadata';
+import express from 'express';
+import dotenv from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { Sequelize } from 'sequelize-typescript';
-import express from 'express';
-import dotenv from 'dotenv';
 import path from 'path';
+import cors from 'cors';
+import authRouter from './auth/authRouter';
 import UserResolver from './resolvers/UserResolver';
 import EventResolver from './resolvers/EventResolver';
 import SportResolver from './resolvers/SportResolver';
 
 dotenv.config();
 
-const { PORT, DB_NAME, DB_PSWD, DB_PORT } = process.env;
+export const {
+  PORT, DB_NAME, DB_PSWD, DB_PORT, JWT_KEY, CLIENT_PORT,
+} = process.env;
 
 const app = express();
+app.use(cors({ origin: `http://localhost:${CLIENT_PORT}`, credentials: true }));
+app.use(express.json());
+app.use(authRouter);
 
 async function startServer() {
   const DB_URL = `postgres://${DB_NAME}:${DB_PSWD}@packy.db.elephantsql.com:${DB_PORT}/${DB_NAME}`;
@@ -33,10 +40,12 @@ async function startServer() {
   });
   const apolloServer = new ApolloServer({
     schema,
+    context: ({ req }) => ({ req }),
   });
   apolloServer.applyMiddleware({ app });
 
   const serverPath = `Server has started at: http://localhost:${PORT}/graphql`;
+
   app.listen({ port: PORT }, () => console.info(serverPath));
 }
 /**

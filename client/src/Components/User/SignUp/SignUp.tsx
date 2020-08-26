@@ -3,30 +3,17 @@ import React, {
   useState,
   FormEvent,
   ChangeEvent,
-  Dispatch,
-  SetStateAction,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useMutation, gql } from '@apollo/client';
-import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
-import { Datepicker } from '@zendeskgarden/react-datepickers';
+import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
+import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
+import { LoginRequest, LoginData, jwtToken } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
 import { UserData } from '../UserData';
-
-const NEW_USER = gql`
-  mutation NewUser($userData: NewUser!) {
-    newUser(userData: $userData) {
-      accessToken
-      user {
-        ID
-      }
-    }
-  }
-`;
 
 const SButton = styled(Button)`
   margin-top: 3vh;
@@ -40,41 +27,57 @@ const SButton = styled(Button)`
   }
 `;
 
+const FaceBookBtn = styled(Button)`
+  width: 300px;
+  height: 50px;
+  background-color: #3b5998;
+  color: #ffffff;
+  margin-top: 5vh;
+  box-shadow: 3px 3px 5px #a9a9a9;
+  &:hover {
+    border-color: #ffffff;
+    background-color: #3b5998;
+    color: #ffffff;
+    cursor: pointer;
+  }
+`
+
+const EyeIcon = styled(EndIcon)`
+  width: 35px;
+  height: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 interface ValidStatuses {
   [index: string]: VALIDATION | undefined;
   firstName: VALIDATION | undefined;
-  lastName: VALIDATION | undefined;
-  userName: VALIDATION | undefined;
   email: VALIDATION | undefined;
   passW: VALIDATION | undefined;
 }
 interface ValidMsgs {
   [index: string]: string;
   firstName: string;
-  lastName: string;
-  userName: string;
   email: string;
   passW: string;
 }
 
 interface PropTypes {
-  setUser: Dispatch<SetStateAction<UserData>>;
+  loginRequest: LoginRequest<jwtToken>;
 }
-function SignUp({ setUser }: PropTypes): ReactElement {
+function SignUp({ loginRequest }: PropTypes): ReactElement {
+  const history = useHistory();
+
   const initialUD: UserData = {
     firstName: '',
-    lastName: '',
-    userName: '',
     email: '',
     passW: '',
-    birthday: undefined,
   };
   const [userData, setUserData] = useState<UserData>(initialUD);
 
   const initialSts: ValidStatuses = {
     firstName: undefined,
-    lastName: undefined,
-    userName: undefined,
     email: undefined,
     passW: undefined,
   };
@@ -82,34 +85,16 @@ function SignUp({ setUser }: PropTypes): ReactElement {
 
   const initialMsgs: ValidMsgs = {
     firstName: '',
-    lastName: '',
-    userName: '',
     email: '',
     passW: '',
   };
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
-  const history = useHistory();
-
-  interface LoginResponse {
-    accessToken: string;
-    user: UserData;
-  }
-  interface Response {
-    login: LoginResponse;
-  }
-  interface Arguments {
-    userData: UserData;
-  }
-  const [createUser, { loading, error, data }] = useMutation<Response, Arguments>(NEW_USER);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const validateField = (fieldName: string, fieldValue: string): boolean => {
     switch (fieldName) {
       case 'firstName':
         return fieldValue.length < 40 && fieldValue.length > 2;
-      case 'lastName':
-        return fieldValue.length < 60 && fieldValue.length > 2;
-      case 'userName':
-        return fieldValue.length < 40;
       case 'email':
         const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return mailRgx.test(fieldValue);
@@ -119,13 +104,6 @@ function SignUp({ setUser }: PropTypes): ReactElement {
       default:
         return false;
     }
-  };
-
-  const handleDate = (date: Date): void => {
-    setUserData((prevUserData) => ({
-      ...prevUserData,
-      birthday: date,
-    }));
   };
 
   interface FormMethod<E> {
@@ -157,16 +135,23 @@ function SignUp({ setUser }: PropTypes): ReactElement {
   const verifyForm = (): string[] => {
     const notValids = Object.keys(validStatuses).reduce<string[]>(
       (notValids: string[], key: string) => {
-        // not compulsory values (can be undefined, not just success):
-        const correct =
-          validStatuses[key] === 'success' ||
-          (key === 'userName' && validStatuses[key] === undefined);
+        const correct = validStatuses[key] === 'success';
         !correct && notValids.push(key);
         return notValids;
       },
       []
     );
     return notValids;
+  };
+
+  const tokenResponse = (tokenObj: jwtToken) => {
+    const { jwtToken } = tokenObj;
+    localStorage.setItem('jwtToken', jwtToken);
+    setUserData(initialUD);
+    setValidStatuses(initialSts);
+    setValidMsgs(initialMsgs);
+    setIsLoading(false);
+    history.push('/user/profile');
   };
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
@@ -179,31 +164,43 @@ function SignUp({ setUser }: PropTypes): ReactElement {
       });
       return null;
     }
-
-    createUser({ variables: { userData } });
-    setUserData(initialUD);
-    setValidStatuses(initialSts);
-    setValidMsgs(initialMsgs);
+    setIsLoading(true);
+    loginRequest({
+      firstName: userData.firstName!,
+      email: userData.email!,
+      passW: userData.passW!,
+    }, 'new')
+      .then((resp) => {
+        console.log(resp);
+      });
   };
 
-  if (loading) return <Loader boxHeight={400} />;
-  if (error) return <p>Oopsie: {error.message}</p>;
-  if (data && data.login) {
-    localStorage.setItem('accessToken', data.login.accessToken);
-    setUser(data.login.user);
-    history.push('/user/profile');
+  const onFailure = (error: string) => {
+    alert(error);
   }
+
+  if (isLoading) return <Loader boxHeight={800} />;
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">
       <h2 className={styles.welcome}>Thank you for signing up with us.</h2>
+
+      <FaceBookBtn>
+        <a
+          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/join&state=1Q7Fs42g&nonce=h8n7D2pQ"
+          style={{ textDecoration: 'none', color: '#ffffff', fontSize: '18px' }}
+        >
+          Sign up with Facebook
+        </a>
+      </FaceBookBtn>
+
       <form onSubmit={handleSubmit} className={styles.signUpForm}>
-        <Field style={{ marginTop: '3vh', width: '300px' }}>
+        <Field className={styles.firstNameField}>
           <Label>First name</Label>
           <Input
             name="firstName"
             value={userData.firstName}
-            style={{ fontSize: '20px' }}
+            style={{ height: '62px', fontSize: '22px' }}
             validation={validStatuses.firstName}
             onChange={handleChange}
           />
@@ -211,35 +208,11 @@ function SignUp({ setUser }: PropTypes): ReactElement {
         </Field>
 
         <Field className={styles.Field}>
-          <Label>Last name</Label>
-          <Input
-            name="lastName"
-            value={userData.lastName}
-            style={{ fontSize: '20px' }}
-            validation={validStatuses.lastName}
-            onChange={handleChange}
-          />
-          <Message validation={validStatuses.lastName}>{validMsgs.lastName}&nbsp;</Message>
-        </Field>
-
-        <Field className={styles.Field}>
-          <Label>Username</Label>
-          <Input
-            name="userName"
-            value={userData.userName}
-            style={{ fontSize: '20px' }}
-            validation={validStatuses.userName}
-            onChange={handleChange}
-          />
-          <Message validation={validStatuses.userName}>{validMsgs.userName}&nbsp;</Message>
-        </Field>
-
-        <Field className={styles.Field}>
           <Label>Email</Label>
           <Input
             name="email"
             value={userData.email}
-            style={{ fontSize: '20px' }}
+            style={{ height: '62px', fontSize: '22px' }}
             validation={validStatuses.email}
             onChange={handleChange}
           />
@@ -248,22 +221,35 @@ function SignUp({ setUser }: PropTypes): ReactElement {
 
         <Field className={styles.Field}>
           <Label>Password</Label>
-          <Input
+          <MediaInput
             name="passW"
             value={userData.passW}
             type="password"
-            style={{ fontSize: '20px' }}
+            style={{ height: '40px', fontSize: '22px' }}
             validation={validStatuses.passW}
             onChange={handleChange}
+            end={
+              <EyeIcon
+                onMouseDown={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onTouchStart={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onMouseUp={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+                onTouchEnd={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+              />
+            }
           />
           <Message validation={validStatuses.passW}>{validMsgs.passW}&nbsp;</Message>
-        </Field>
-
-        <Field className={styles.Field}>
-          <Label>Birthday</Label>
-          <Datepicker value={userData.birthday} onChange={handleDate}>
-            <Input name="birthday" style={{ fontSize: '20px' }} />
-          </Datepicker>
         </Field>
 
         <SButton type="submit">Sign up</SButton>

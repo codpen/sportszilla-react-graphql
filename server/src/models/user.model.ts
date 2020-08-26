@@ -45,8 +45,12 @@ export default class User extends Model<User> {
   email: string;
 
   @Column
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   passW: string;
+
+  @Column
+  @Field(() => Boolean, { nullable: true })
+  fbUser: boolean;
 
   @Column
   @Field(() => Date, { nullable: true })

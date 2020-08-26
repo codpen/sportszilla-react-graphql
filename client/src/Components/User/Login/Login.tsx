@@ -3,29 +3,16 @@ import React, {
   useState,
   FormEvent,
   ChangeEvent,
-  Dispatch,
-  SetStateAction,
 } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useLazyQuery, gql } from '@apollo/client';
-import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
+import { LoginRequest, jwtToken } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
-import { UserData } from '../UserData';
+import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
 import styles from './Login.module.scss';
-
-const LOGIN = gql`
-  query Login($email: String!, $passW: String!) {
-    login(email: $email, passW: $passW) {
-      accessToken
-      user {
-        email
-      }
-    }
-  }
-`;
 
 const SButton = styled(Button)`
   font-size: 30px;
@@ -38,29 +25,40 @@ const SButton = styled(Button)`
   }
 `;
 
+const FaceBookBtn = styled(Button)`
+  width: 300px;
+  height: 50px;
+  background-color: #3b5998;
+  color: #ffffff;
+  margin-top: 5vh;
+  box-shadow: 3px 3px 5px #a9a9a9;
+  &:hover {
+    border-color: #ffffff;
+    background-color: #3b5998;
+    color: #ffffff;
+    cursor: pointer;
+  }
+`
+
+const EyeIcon = styled(EndIcon)`
+  width: 35px;
+  height: 35px;
+  &:hover {
+    cursor: pointer;
+  }
+`
+
 interface PropTypes {
-  setUser: Dispatch<SetStateAction<UserData>>;
+  loginRequest: LoginRequest<jwtToken>;
 }
-function Login({ setUser }: PropTypes): ReactElement {
+function Login({ loginRequest }: PropTypes): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [passW, setPassW] = useState<string>('');
   const [mailValid, setMailValid] = useState<VALIDATION | undefined>(undefined);
   const [passValid, setPassValid] = useState<VALIDATION | undefined>(undefined);
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
-
-  interface LoginResponse {
-    accessToken: string;
-    user: UserData;
-  }
-  interface Response {
-    login: LoginResponse;
-  }
-  interface Arguments {
-    email: string;
-    passW: string;
-  }
-  const [login, { loading, data, error }] = useLazyQuery<Response, Arguments>(LOGIN);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const history = useHistory();
 
   const validateEmail = (email: string): boolean => {
@@ -117,38 +115,50 @@ function Login({ setUser }: PropTypes): ReactElement {
     return passValid === 'success' && mailValid === 'success';
   };
 
-  const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
-    event.preventDefault();
-    if (!verifyForm()) return null;
-
-    login({ variables: { email, passW } });
-
+  const tokenResponse = (tokenObj: jwtToken) => {
+    const { jwtToken } = tokenObj;
+    localStorage.setItem('jwtToken', jwtToken);
     setPassValid(undefined);
     setPassValidMsg('');
     setPassW('');
     setMailValid(undefined);
     setMailValidMsg('');
     setEmail('');
+    setIsLoading(false);
+    history.push('/user/profile');
   };
 
-  if (loading) return <Loader boxHeight={400} />;
-  if (error) return <div className={styles.errorNotification}>Oopsie: {error.message}</div>;
-  if (data && data.login) {
-    localStorage.setItem('accessToken', data.login.accessToken);
-    setUser(data.login.user);
-    history.push('/user/profile');
-  }
+  const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
+    event.preventDefault();
+    if (!verifyForm()) return null;
+    setIsLoading(true);
+    loginRequest({ email, passW }, 'returning')
+      .then((resp) => {
+        console.log(resp);
+      });
+  };
+
+  if (isLoading) return <Loader boxHeight={800} />;
 
   return (
     <div className={styles.Login} data-testid="Login">
       <h2 className={styles.welcome}>Welcome back!</h2>
+
+      <FaceBookBtn>
+        <a
+          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/join&state=1Q7Fs42g&nonce=h8n7D2pQ"
+          style={{ textDecoration: 'none', color: '#ffffff', fontSize: '18px' }}
+        >
+          Log in with Facebook
+        </a>
+      </FaceBookBtn>
       <form onSubmit={handleSubmit} className={styles.loginForm}>
         <Field className={styles.emailField}>
           <Label>Email</Label>
           <Input
             name="email"
             value={email}
-            style={{ fontSize: '20px' }}
+            style={{ height: '62px', fontSize: '22px' }}
             validation={mailValid}
             onChange={handleChange}
           />
@@ -156,13 +166,33 @@ function Login({ setUser }: PropTypes): ReactElement {
         </Field>
         <Field className={styles.passWField}>
           <Label>Password</Label>
-          <Input
+          <MediaInput
             name="passW"
             value={passW}
             type="password"
-            style={{ fontSize: '20px' }}
+            style={{ height: '40px', fontSize: '22px' }}
             validation={passValid}
             onChange={handleChange}
+            end={
+              <EyeIcon
+                onMouseDown={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onTouchStart={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'text');
+                }}
+                onMouseUp={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+                onTouchEnd={(event) => {
+                  const mediaInput = event.currentTarget.parentNode?.firstElementChild;
+                  mediaInput?.setAttribute('type', 'password');
+                }}
+              />
+            }
           />
           <Message validation={passValid}>{passValidMsg}&nbsp;</Message>
         </Field>

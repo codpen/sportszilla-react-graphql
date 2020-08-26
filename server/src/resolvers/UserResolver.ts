@@ -1,12 +1,12 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg, FieldResolver, Root } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg, ObjectType, Field, FieldResolver, Root } from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import LoginResponse from '../auth/LoginResponse';
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
+import LoginResponse  from '../auth/LoginResponse';
 
 @Resolver(User)
 export default class UserResolver {
@@ -20,7 +20,7 @@ export default class UserResolver {
   }
 
   @Query(() => LoginResponse)
-  async login(@Arg('email') email: string, @Arg('passW') passW: string) {
+  async getOneUser(@Arg('email') email: string, @Arg('passW') passW: string) {
     try {
       const user = await User.findOne({ where: { email } });
       if (!user) throw new Error('User not found!');
@@ -33,13 +33,6 @@ export default class UserResolver {
     } catch (err) {
       console.error(err);
     }
-  }
-
-  @Query(() => User)
-  async getOneUser(@Arg('userName') username: string) {
-    try {
-      return await User.findOne({ where: { userName: username } });
-    } catch (error) {}
   }
 
   @Mutation(() => LoginResponse)
@@ -96,7 +89,8 @@ export default class UserResolver {
   }
 
   @FieldResolver()
-  favSports(@Root() user: User) {
+  async favSports(@Root() user: User) {
+    console.log(user);
     return user.favSports || user.$get('favSports');
   }
 

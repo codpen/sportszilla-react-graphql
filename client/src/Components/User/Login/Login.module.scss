@@ -2,7 +2,7 @@
   margin-top: 8vh;
   background-color: rgba(243, 227, 213, 0.9);
   width: 100vw;
-  height: 90vh;
+  height: 92vh;
 
   .welcome {
     margin: 0;
@@ -19,7 +19,9 @@
   }
 
   .emailField {
-    margin-top: 5vh;
+    border-top: 1px solid #a9a9a9;
+    margin-top: 4vh;
+    padding-top: 3vh;
     width: 300px;
   }
 
@@ -38,4 +40,9 @@
   width: 100vw;
   color: #8B0000;
   font-size: 16px;
+}
+
+.face {
+  border: 1px dotted yellow;
+  min-width: 300px;
 }

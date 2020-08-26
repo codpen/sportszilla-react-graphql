@@ -49,6 +49,7 @@
   "dependencies": {
     "@types/jsonwebtoken": "^8.5.0",
     "apollo-server-express": "^2.16.1",
+    "atob": "^2.1.2",
     "bcrypt": "^5.0.0",
     "class-validator": "^0.12.2",
     "cors": "^2.8.5",

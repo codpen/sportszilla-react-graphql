@@ -1,7 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './Join.module.scss';
+import React, { ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
+import { LoginRequest, jwtToken } from '../LoginRequest';
+import styles from './Join.module.scss';
+
+interface PropTypes {
+  loginRequest: LoginRequest<jwtToken>;
+}
+function Join({ loginRequest }: PropTypes): ReactElement {
+  const history = useHistory();
+  const hash = history.location.hash;
+  const fbToken = hash.substring(hash.indexOf('=') + 1);
+  if (hash) {
+    loginRequest({ fbToken }, 'Face' )
+    .then((resp) => {
+      console.log(resp);
+    })
+  }
 
 const Join: React.FC = () => (
   <div className={styles.Join} data-testid="Join">
@@ -16,6 +31,7 @@ const Join: React.FC = () => (
       </section>
     </div>
   </div>
-);
+  );
+};
 
 export default Join;
