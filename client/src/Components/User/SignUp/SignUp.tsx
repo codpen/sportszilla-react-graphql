@@ -12,7 +12,7 @@ import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
-import { LoginRequest, LoginData, jwtToken } from '../LoginRequest';
+import { LoginRequest, LoginData, LoginResp } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
 import { UserData } from '../UserData';
@@ -66,7 +66,7 @@ interface ValidMsgs {
 }
 
 interface PropTypes {
-  loginRequest: LoginRequest<jwtToken>;
+  loginRequest: LoginRequest<LoginResp>;
   setUser: Dispatch<SetStateAction<UserData>>;
 }
 function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
@@ -147,9 +147,10 @@ function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
     return notValids;
   };
 
-  const tokenResponse = (tokenObj: jwtToken) => {
-    const { jwtToken } = tokenObj;
+  const handleResponse = (resp: LoginResp) => {
+    const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
+    setUser(user);
     setUserData(initialUD);
     setValidStatuses(initialSts);
     setValidMsgs(initialMsgs);
@@ -173,9 +174,7 @@ function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
       email: userData.email!,
       passW: userData.passW!,
     }, 'new')
-      .then((resp) => {
-        console.log(resp);
-      });
+      .then(handleResponse);
   };
 
   const onFailure = (error: string) => {

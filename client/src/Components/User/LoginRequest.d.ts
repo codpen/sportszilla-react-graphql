@@ -1,5 +1,8 @@
-export interface jwtToken {
+import { UserData } from '../UserData';
+
+export interface LoginResp {
   jwtToken: string;
+  user: UserData;
 }
 
 export interface LoginData {

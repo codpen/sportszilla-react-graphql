@@ -11,7 +11,7 @@ import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-f
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
-import { LoginRequest, jwtToken } from '../LoginRequest';
+import { LoginRequest, LoginResp } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
 import { UserData } from '../UserData';
@@ -52,7 +52,7 @@ const EyeIcon = styled(EndIcon)`
 `
 
 interface PropTypes {
-  loginRequest: LoginRequest<jwtToken>;
+  loginRequest: LoginRequest<LoginResp>;
   setUser: Dispatch<SetStateAction<UserData>>;
 }
 function Login({ loginRequest, setUser }: PropTypes): ReactElement {
@@ -119,9 +119,10 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     return passValid === 'success' && mailValid === 'success';
   };
 
-  const tokenResponse = (tokenObj: jwtToken) => {
-    const { jwtToken } = tokenObj;
+  const handleResponse = (resp: LoginResp) => {
+    const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
+    setUser(user);
     setPassValid(undefined);
     setPassValidMsg('');
     setPassW('');
@@ -137,9 +138,7 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     if (!verifyForm()) return null;
     setIsLoading(true);
     loginRequest({ email, passW }, 'returning')
-      .then((resp) => {
-        console.log(resp);
-      });
+      .then(handleResponse);
   };
 
   if (isLoading) return <Loader boxHeight={800} />;

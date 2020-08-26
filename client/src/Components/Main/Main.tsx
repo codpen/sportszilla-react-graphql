@@ -3,7 +3,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
 import Apollo from '../ApolloClient/Apollo';
-import { LoginRequest, jwtToken } from '../User/LoginRequest';
+import { LoginRequest, LoginResp } from '../User/LoginRequest';
 import Navbar from '../Navbar/Navbar';
 import Intro from '../Intro/Intro';
 import Join from '../User/Join/Join';
@@ -42,7 +42,7 @@ function Main(): ReactElement {
     }
   `;
 
-  const loginRequest: LoginRequest<jwtToken>= (loginData, path) => {
+  const loginRequest: LoginRequest<LoginResp> = (loginData, path) => {
     const loginURL = `http://localhost:8000/auth/${path}`
     const init: RequestInit = {
       method: 'POST',
