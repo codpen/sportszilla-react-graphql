@@ -76,13 +76,13 @@ function Main(): ReactElement {
               <EventDetails />
             </Route>
             <Route exact path="/user/join/">
-              <Join />
+              <Join setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/login/">
-              <Login setUser={setLoggedInUser} />
+              <Login setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/signup/">
-              <SignUp setUser={setLoggedInUser} />
+              <SignUp setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/profile/">
               <Profile user={undefined} setUser={setLoggedInUser} />
