@@ -5,9 +5,9 @@ import { Avatar } from '@zendeskgarden/react-avatars';
 
 import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
 import styles from './Profile.module.scss';
-
 import { UserData } from '../UserData';
 import TableEvent from './TableEvent/TableEvent';
+import FavouriteSports from './FavouriteSports/FavouriteSports';
 
 const friendList = [
   {
@@ -71,6 +71,7 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
             {aUser?.firstName} {aUser?.lastName}
           </h2>
           <p>{aUser?.location}</p>
+          <FavouriteSports />
         </div>
       </div>
       <div className={styles.btnCnt}>

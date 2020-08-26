@@ -1,5 +1,5 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
+import React from './node_modules/react';
+import { render, screen } from './node_modules/@testing-library/react';
 import '../../../CreateEvent/AutoCompleteSport/node_modules/@testing-library/jest-dom/extend-expect';
 import favouriteSports from './FavouriteSports';
 
