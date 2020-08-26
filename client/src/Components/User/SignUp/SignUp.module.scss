@@ -16,9 +16,17 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+  }
 
-    .Field {
-      width: 300px;
-    }
+  .firstNameField {
+    border-top: 1px solid #a9a9a9;
+    margin-top: 4vh;
+    padding-top: 3vh;
+    width: 300px;
+  }
+
+  .Field {
+    margin-top: 1vh;
+    width: 300px;
   }
 }

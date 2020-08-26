@@ -2,13 +2,12 @@ import React, { useState, Dispatch, SetStateAction } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { PALETTE } from '@zendeskgarden/react-theming';
 import { Avatar } from '@zendeskgarden/react-avatars';
-import favouriteSports from './favouriteSports/favouriteSports';
 
 import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
 import styles from './Profile.module.scss';
-
 import { UserData } from '../UserData';
 import TableEvent from './TableEvent/TableEvent';
+import FavouriteSports from './FavouriteSports/FavouriteSports';
 
 const friendList = [
   {
@@ -62,14 +61,17 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
     <div className={styles.Profile} data-testid="Profile">
       <div className={styles.spacer}></div>
       <div className={styles.avatarCnt}>
-        <Avatar backgroundColor={PALETTE.grey[600]} style={{ height: '80px', width: '100px' }}>
-          <Avatar.Text>{user?.firstName && user?.firstName[0]}</Avatar.Text>
+        <Avatar backgroundColor={PALETTE.grey[600]} style={{ height: '75px', width: '100px' }}>
+          <Avatar.Text style={{ fontSize: '30px' }}>
+            {user?.firstName && user?.firstName[0]}
+          </Avatar.Text>
         </Avatar>
         <div>
           <h2>
             {aUser?.firstName} {aUser?.lastName}
           </h2>
           <p>{aUser?.location}</p>
+          <FavouriteSports />
         </div>
       </div>
       <div className={styles.btnCnt}>
@@ -80,9 +82,7 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
         <TableEvent tableName={'Upcoming Events'} events={undefined} />
       </div>
       <div className={styles.friendCtn}>
-        <div>
-          <input placeholder="Search friends" />
-        </div>
+        <input placeholder="Search friends" />
         <ul>{listFriends}</ul>
       </div>
     </div>

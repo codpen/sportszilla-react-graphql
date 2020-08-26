@@ -7,6 +7,7 @@ export interface UserData {
   email?: string;
   passW?: string;
   birthday?: Date | undefined;
+  location?: string;
   creationDate?: Date;
   updatedOn?: Date;
   deletionDate?: Date | undefined;

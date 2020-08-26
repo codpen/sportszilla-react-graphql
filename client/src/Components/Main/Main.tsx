@@ -3,7 +3,7 @@ import { Switch, Redirect, Route } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
 import Apollo from '../ApolloClient/Apollo';
-import './Main.scss';
+import { LoginRequest, LoginResp } from '../User/LoginRequest';
 import Navbar from '../Navbar/Navbar';
 import Intro from '../Intro/Intro';
 import Join from '../User/Join/Join';
@@ -16,6 +16,7 @@ import Board from '../Board/Board';
 import CreateEvent from '../CreateEvent/CreateEvent';
 import { UserData } from '../User/UserData';
 import { EventData } from '../Board/Event';
+import './Main.scss';
 
 function Main(): ReactElement {
   interface Response {
@@ -40,6 +41,22 @@ function Main(): ReactElement {
       }
     }
   `;
+
+  const loginRequest: LoginRequest<LoginResp> = (loginData, path) => {
+    const loginURL = `http://localhost:8000/auth/${path}`;
+    const init: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      body: JSON.stringify(loginData),
+    };
+    return fetch(loginURL, init)
+      .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
+      .then((result) => result.json())
+      .catch(console.error);
+  };
 
   const { loading, data, error } = useQuery<Response>(EVENTS);
 
@@ -73,13 +90,13 @@ function Main(): ReactElement {
               <EventDetails />
             </Route>
             <Route exact path="/user/join/">
-              <Join />
+              <Join setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/login/">
-              <Login setUser={setLoggedInUser} />
+              <Login setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/signup/">
-              <SignUp setUser={setLoggedInUser} />
+              <SignUp setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/profile/">
               <Profile user={undefined} setUser={setLoggedInUser} />

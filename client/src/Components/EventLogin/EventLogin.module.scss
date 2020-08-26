@@ -1,10 +1,12 @@
 @import '../../Style/colors';
 .Container {
   background-color: white;
-  color: rgba(0, 0, 0, 0.7);
-  margin: 1rem;
-
-  border-radius: 3px;
+  color: #56556e;
+  margin: 1.5rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
   font-size: 0.8rem;
   max-width: 500px;
 }
@@ -23,6 +25,7 @@
     .Title {
       margin: 0;
       text-align: left;
+      color: #56556e;
     }
     .Title:hover {
       text-decoration: underline;
@@ -41,6 +44,7 @@
       }
       p {
         text-align: left;
+        margin: 0.2rem;
       }
     }
   }
@@ -73,15 +77,18 @@ h2 {
   color: #f4f6ff;
 }
 .EventBox_left {
-  margin: 0.6rem;
-  border-radius: 0.2rem;
-  width: 4rem;
-  box-shadow: 0.2rem 0.2rem 0.8rem rgba(0, 0, 0, 0.7);
+  margin: 0.3rem;
+  border-radius: 1.2rem;
+  width: 5rem;
+  box-shadow: 0.2rem 0.2rem 0.8rem rgba(0, 0, 0, 0.041);
+  background-color: #ffd571;
+  padding: 0;
 
   p {
     color: rgb(231, 9, 9);
     font-size: 1rem;
-    margin-bottom: 0;
+    margin: 0;
+    margin-top: 0.3rem;
   }
   h4 {
     margin-top: 0.2rem;
@@ -96,12 +103,29 @@ h2 {
   h4 {
     margin: 0;
     margin-bottom: 0.8rem;
+    span {
+      font-size: 0.7rem;
+    }
+  }
+  .EventBox_center_picContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
+
 .EventBox_center_pic {
   width: 30px;
   height: 30px;
   border-radius: 100%;
-  margin-top: 0rem;
-  border: solid white 0.1rem;
+  margin: 0rem;
+  border: solid white 0.15rem;
+
+  &:nth-of-type(1) {
+    transform: translateX(50%);
+    z-index: 1;
+  }
+  &:nth-of-type(2) {
+    transform: translateX(25%);
+  }
 }

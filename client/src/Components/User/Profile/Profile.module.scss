@@ -4,16 +4,22 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 15px;
-  padding-right: 30px;
   overflow: hidden;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 10px;
   background-color: rgba(243, 227, 213, 0.9);
 
   .spacer {
-    height: 11%;
+    height: 10vh;
   }
 
   .avatarCnt {
+    color: rgb(77, 51, 51);
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 0px;
     div {
       color: black;
       width: 100%;
@@ -31,14 +37,6 @@
     }
   }
 
-  .avatarCnt {
-    color: rgb(77, 51, 51);
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    margin-bottom: 20px;
-  }
-
   .btnCnt {
     display: flex;
     flex-direction: row;
@@ -49,30 +47,29 @@
   }
 
   .friendCtn {
-    flex: 1;
     overflow: scroll;
-    border-radius: 5px;
-    width: 82%;
+    border-radius: 20px;
+    width: 90%;
     height: 20%;
+    border-color: none;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: white;
+    background-color: rgba(#fff8c6, 0.8);
     color: black;
     font-size: 20px;
-    margin-left: 15px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.11), 0 2px 2px rgba(0, 0, 0, 0.11),
       0 4px 4px rgba(0, 0, 0, 0.11), 0 8px 8px rgba(0, 0, 0, 0.11), 0 16px 16px rgba(0, 0, 0, 0.11),
       0 32px 32px rgba(0, 0, 0, 0.11);
-    div {
+
+    input {
+      background-color: rgba(#fff8c6, 0.8);
+      padding-left: 20px;
       width: 100%;
-      input {
-        width: 100%;
-        height: 30px;
-        ::placeholder {
-          font-size: 40px;
-          line-height: 3;
-        }
+      height: 30px;
+      border-color: rgba(0, 0, 0, 0);
+      ::placeholder {
+        font-size: 40px;
       }
     }
 
