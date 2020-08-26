@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 import styles from './TableEvent.module.scss';
-
+import ButtonGeneric from '../../../ButtonGeneric/ButtonGeneric';
 import Sport from '../../../Sport/Sport';
 import mockData from '../../../../mockData/data.json';
 
@@ -44,8 +44,15 @@ const TableEvent: React.FC<PropTypes> = ({ tableName, events }: PropTypes): Reac
     <div className={styles.TableEvent} data-testid="TableEvent">
       <table className={styles.table}>
         <tr>
-          <th colSpan={3} className={styles.headTable}>
-            {tableName}
+          <th colSpan={4} className={styles.headTable}>
+            <div className={styles.head}>
+              {tableName}{' '}
+              {tableName === 'Created Events' ? (
+                <ButtonGeneric buttonText="ADD" buttonLink="/newevent/" />
+              ) : (
+                ''
+              )}
+            </div>
           </th>
         </tr>
         {/* <tr>

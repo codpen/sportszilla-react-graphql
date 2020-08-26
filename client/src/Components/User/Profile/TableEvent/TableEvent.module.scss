@@ -14,10 +14,22 @@
 
     .headTable {
       width: 100%;
-      font-size: 30px;
+      font-size: 25px;
       padding-left: 1px;
-      text-align: rigth;
-      margin-bottom: 50px;
+
+      .head {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .btnCnt {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
     }
 
     tr {
