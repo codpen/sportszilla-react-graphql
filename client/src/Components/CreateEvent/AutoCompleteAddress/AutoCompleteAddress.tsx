@@ -24,11 +24,12 @@ const AutoCompleteAddress: React.FC<PropTypes> = ({ address, setAddress, setCoor
           {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
             <div>
               <input {...getInputProps({ placeholder: 'Type Address' })} />
-              <div>
+              <div className={styles.suggestion}>
                 {loading ? <div>...loading</div> : null}
                 {suggestions.map((suggestion) => {
                   const style = {
-                    backgroundColor: suggestion.active ? '#41b6e6' : '#fff',
+                    backgroundColor: suggestion.active ? '#d8dcde' : '#fff',
+                    minHeight: suggestion.active ? 0 : 20,
                   };
                   return (
                     <div {...getSuggestionItemProps(suggestion, { style })}>
