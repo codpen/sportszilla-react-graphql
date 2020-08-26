@@ -1,12 +1,21 @@
 /* eslint-disable */
-import { Resolver, Query, Mutation, Arg, ObjectType, Field, FieldResolver, Root } from 'type-graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Arg,
+  ObjectType,
+  Field,
+  FieldResolver,
+  Root,
+} from 'type-graphql';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/user.model';
 import NewUser from '../inputs/NewUser.input';
 import UpdateUser from '../inputs/UpdateUser.input';
 import Sport from '../models/sport.model';
-import LoginResponse  from '../auth/LoginResponse';
+import LoginResponse from '../auth/LoginResponse';
 
 @Resolver(User)
 export default class UserResolver {

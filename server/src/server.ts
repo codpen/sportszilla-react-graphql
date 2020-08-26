@@ -13,9 +13,7 @@ import SportResolver from './resolvers/SportResolver';
 
 dotenv.config();
 
-export const {
-  PORT, DB_NAME, DB_PSWD, DB_PORT, JWT_KEY, CLIENT_PORT,
-} = process.env;
+export const { PORT, DB_NAME, DB_PSWD, DB_PORT, JWT_KEY, CLIENT_PORT } = process.env;
 
 const app = express();
 app.use(cors({ origin: `http://localhost:${CLIENT_PORT}`, credentials: true }));
