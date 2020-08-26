@@ -19,9 +19,9 @@ const options = [
   'Yam',
   'Zucchini',
 ];
-import styles from './favouriteSports.module.scss';
+import styles from './FavouriteSports.module.scss';
 
-const favouriteSports: React.FC = () => {
+const FavouriteSports: React.FC = () => {
   const [selectedItems, setSelectedItems] = useState([
     options[0],
     options[1],
@@ -59,4 +59,4 @@ const favouriteSports: React.FC = () => {
   );
 };
 
-export default favouriteSports;
+export default FavouriteSports;

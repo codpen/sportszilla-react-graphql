@@ -2,7 +2,6 @@ import React, { useState, Dispatch, SetStateAction } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { PALETTE } from '@zendeskgarden/react-theming';
 import { Avatar } from '@zendeskgarden/react-avatars';
-import favouriteSports from './favouriteSports/favouriteSports';
 
 import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
 import styles from './Profile.module.scss';
