@@ -22,8 +22,7 @@ function Join({ loginRequest, setUser }: PropTypes): ReactElement {
   };
 
   if (hash) {
-    loginRequest({ fbToken }, 'Face' )
-    .then(handleResponse);
+    loginRequest({ fbToken }, 'Face').then(handleResponse);
   }
 
   return (
@@ -39,7 +38,7 @@ function Join({ loginRequest, setUser }: PropTypes): ReactElement {
         </section>
       </div>
     </div>
-  )
-};
+  );
+}
 
 export default Join;

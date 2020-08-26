@@ -4,7 +4,7 @@ import React, {
   FormEvent,
   ChangeEvent,
   Dispatch,
-  SetStateAction
+  SetStateAction,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
@@ -42,7 +42,7 @@ const FaceBookBtn = styled(Button)`
     color: #ffffff;
     cursor: pointer;
   }
-`
+`;
 
 const EyeIcon = styled(EndIcon)`
   width: 35px;
@@ -50,7 +50,7 @@ const EyeIcon = styled(EndIcon)`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
 interface ValidStatuses {
   [index: string]: VALIDATION | undefined;
@@ -169,17 +169,19 @@ function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
       return null;
     }
     setIsLoading(true);
-    loginRequest({
-      firstName: userData.firstName!,
-      email: userData.email!,
-      passW: userData.passW!,
-    }, 'new')
-      .then(handleResponse);
+    loginRequest(
+      {
+        firstName: userData.firstName!,
+        email: userData.email!,
+        passW: userData.passW!,
+      },
+      'new'
+    ).then(handleResponse);
   };
 
   const onFailure = (error: string) => {
     alert(error);
-  }
+  };
 
   if (isLoading) return <Loader boxHeight={800} />;
 

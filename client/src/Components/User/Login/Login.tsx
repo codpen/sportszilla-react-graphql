@@ -4,7 +4,7 @@ import React, {
   FormEvent,
   ChangeEvent,
   Dispatch,
-  SetStateAction
+  SetStateAction,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
@@ -41,7 +41,7 @@ const FaceBookBtn = styled(Button)`
     color: #ffffff;
     cursor: pointer;
   }
-`
+`;
 
 const EyeIcon = styled(EndIcon)`
   width: 35px;
@@ -49,7 +49,7 @@ const EyeIcon = styled(EndIcon)`
   &:hover {
     cursor: pointer;
   }
-`
+`;
 
 interface PropTypes {
   loginRequest: LoginRequest<LoginResp>;
@@ -137,8 +137,7 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     event.preventDefault();
     if (!verifyForm()) return null;
     setIsLoading(true);
-    loginRequest({ email, passW }, 'returning')
-      .then(handleResponse);
+    loginRequest({ email, passW }, 'returning').then(handleResponse);
   };
 
   if (isLoading) return <Loader boxHeight={800} />;

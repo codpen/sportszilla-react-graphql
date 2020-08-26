@@ -43,7 +43,7 @@ function Main(): ReactElement {
   `;
 
   const loginRequest: LoginRequest<LoginResp> = (loginData, path) => {
-    const loginURL = `http://localhost:8000/auth/${path}`
+    const loginURL = `http://localhost:8000/auth/${path}`;
     const init: RequestInit = {
       method: 'POST',
       headers: {
@@ -51,7 +51,7 @@ function Main(): ReactElement {
       },
       mode: 'cors',
       body: JSON.stringify(loginData),
-    }
+    };
     return fetch(loginURL, init)
       .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
       .then((result) => result.json())
