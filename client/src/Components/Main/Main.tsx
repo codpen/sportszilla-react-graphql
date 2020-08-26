@@ -99,7 +99,7 @@ function Main(): ReactElement {
               <SignUp setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/profile/">
-              <Profile user={undefined} setUser={setLoggedInUser} />
+              <Profile user={loggedInUser} setUser={setLoggedInUser} />
             </Route>
             <Redirect from="/" to="/intro/" />
           </Switch>

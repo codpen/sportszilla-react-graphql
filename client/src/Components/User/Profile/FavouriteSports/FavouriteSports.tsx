@@ -59,7 +59,6 @@ const FavouriteSports: React.FC = () => {
           <Multiselect
             style={{ width: '100%', backgroundColor: 'transparent', border: 'none' }}
             renderItem={({ value, removeValue }: any) => {
-              console.log(value);
               return (
                 <Tag style={{ color: 'white', height: '40px', backgroundColor: 'transparent' }}>
                   <Sport sport={{ id: 1, name: value }} />

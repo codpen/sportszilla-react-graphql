@@ -32,6 +32,9 @@ interface PropTypes {
 const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
   const [aUser, setAUser] = useState(user);
 
+  console.log(user);
+  console.log(localStorage.getItem('jwtToken'));
+
   const handleClick = (user: any) => {
     console.log(user);
     setAUser({
