@@ -11,12 +11,14 @@ interface PropTypes {
 //set the previous state of the main component to false
 
 export default function AddToHomeScreen ({ buttonClick }: PropTypes): JSX.Element {
-	console.log('hi');
 	return (
   <div className="addToHomeScreen">
       <button className= 'addToScreen__Button' onClick = {buttonClick} data-testid="addToHomeScreen">
         <strong>Install app</strong>
       </button>
+			<button className= 'dontAdd__Button' onClick = {buttonClick} data-testid="addToHomeScreen">
+				<strong>Don't install</strong>
+			</button>
   </div>
 );
 }

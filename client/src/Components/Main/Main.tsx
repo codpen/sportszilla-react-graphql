@@ -23,18 +23,16 @@ function Main(): ReactElement {
   let defPrompt: any;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    defPrompt = e;
+    defPrompt = e;//set state to true
     console.log('prompt it')
   }); 
 
   const addToHomeHandler = () => {
-    console.log('installEvent' , defPrompt)
-    console.log('installEvent', defPrompt.installEvent)
-
     defPrompt.prompt();
     defPrompt.userChoice.then((choiceResult: any)=> {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt');
+        //set state to false
       }
     });
   };
