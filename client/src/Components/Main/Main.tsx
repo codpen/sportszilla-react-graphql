@@ -1,11 +1,11 @@
-import React, { useState, useEffect, ReactElement, lazy, Suspense } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import { useQuery, useLazyQuery, gql } from '@apollo/client';
 import Apollo from '../ApolloClient/Apollo';
-import './Main.scss';
-// import Navbar from '../Navbar/Navbar';
-// import Intro from '../Intro/Intro';
+import { LoginRequest, LoginResp } from '../User/LoginRequest';
+import Navbar from '../Navbar/Navbar';
+import Intro from '../Intro/Intro';
 import Join from '../User/Join/Join';
 import Login from '../User/Login/Login';
 import SignUp from '../User/SignUp/SignUp';
@@ -16,10 +16,28 @@ import Board from '../Board/Board';
 import CreateEvent from '../CreateEvent/CreateEvent';
 import { UserData } from '../User/UserData';
 import { EventData } from '../Board/Event';
-const Navbar = lazy(() => import('../Navbar/Navbar'));
-const Intro = lazy(() => import('../Intro/Intro'))
+import './Main.scss';
+import AddToHomeScreen from '../AddToHomeScreen/addToHome'
 
 function Main(): ReactElement {
+  let defPrompt: any;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    defPrompt = e;
+    console.log('prompt it')
+  }); 
+
+  const addToHomeHandler = () => {
+    console.log('installEvent' , defPrompt)
+    console.log('installEvent', defPrompt.installEvent)
+
+    defPrompt.prompt();
+    defPrompt.userChoice.then((choiceResult: any)=> {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      }
+    });
+  };
   interface Response {
     getAllEvents: EventData[];
   }
@@ -43,6 +61,22 @@ function Main(): ReactElement {
     }
   `;
 
+  const loginRequest: LoginRequest<LoginResp> = (loginData, path) => {
+    const loginURL = `http://localhost:8000/auth/${path}`;
+    const init: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      mode: 'cors',
+      body: JSON.stringify(loginData),
+    };
+    return fetch(loginURL, init)
+      .then((result) => (result.status >= 400 ? Promise.reject(result) : result))
+      .then((result) => result.json())
+      .catch(console.error);
+  };
+
   const { loading, data, error } = useQuery<Response>(EVENTS);
 
   const [users, setUsers] = useState<UserData[]>([]);
@@ -54,7 +88,7 @@ function Main(): ReactElement {
     console.log(data.getAllEvents);
     return (
       <div className="Main">
-        <Suspense fallback={<div>Loading...</div>}>
+        <AddToHomeScreen buttonClick = {addToHomeHandler} />
         <header>
           <Navbar />
         </header>
@@ -90,7 +124,6 @@ function Main(): ReactElement {
             <Redirect from="/" to="/intro/" />
           </Switch>
         </main>
-        </Suspense>
       </div>
     );
   }
