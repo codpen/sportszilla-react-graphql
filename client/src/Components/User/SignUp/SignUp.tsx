@@ -12,7 +12,7 @@ import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
-import { LoginRequest, LoginData, LoginResp } from '../LoginRequest';
+import { LoginRequest, LoginResp } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
 import { UserData } from '../UserData';
