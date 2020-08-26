@@ -1,13 +1,15 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, Dispatch, SetStateAction } from 'react';
 import { useHistory } from 'react-router-dom';
+import { UserData } from '../UserData';
 import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
 import { LoginRequest, jwtToken } from '../LoginRequest';
 import styles from './Join.module.scss';
 
 interface PropTypes {
   loginRequest: LoginRequest<jwtToken>;
+  setUser: Dispatch<SetStateAction<UserData>>;
 }
-function Join({ loginRequest }: PropTypes): ReactElement {
+function Join({ loginRequest, setUser }: PropTypes): ReactElement {
   const history = useHistory();
   const hash = history.location.hash;
   const fbToken = hash.substring(hash.indexOf('=') + 1);
@@ -18,20 +20,20 @@ function Join({ loginRequest }: PropTypes): ReactElement {
     })
   }
 
-const Join: React.FC = () => (
-  <div className={styles.Join} data-testid="Join">
-    <h2 className={styles.welcome}>Welcome to SportsZilla!</h2>
-    <div className={styles.authBoxes}>
-      <section>
-        <ButtonGeneric buttonText="Log&nbsp;in" buttonLink="/user/login" />
-      </section>
+  return (
+    <div className={styles.Join} data-testid="Join">
+      <h2 className={styles.welcome}>Welcome to SportsZilla!</h2>
+      <div className={styles.authBoxes}>
+        <section>
+          <ButtonGeneric buttonText="Log&nbsp;in" buttonLink="/user/login" />
+        </section>
 
-      <section>
-        <ButtonGeneric buttonText="Sign&nbsp;up" buttonLink="/user/signup" />
-      </section>
+        <section>
+          <ButtonGeneric buttonText="Sign&nbsp;up" buttonLink="/user/signup" />
+        </section>
+      </div>
     </div>
-  </div>
-  );
+  )
 };
 
 export default Join;

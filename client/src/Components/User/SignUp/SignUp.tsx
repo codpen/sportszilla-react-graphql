@@ -3,6 +3,8 @@ import React, {
   useState,
   FormEvent,
   ChangeEvent,
+  Dispatch,
+  SetStateAction
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
@@ -65,8 +67,9 @@ interface ValidMsgs {
 
 interface PropTypes {
   loginRequest: LoginRequest<jwtToken>;
+  setUser: Dispatch<SetStateAction<UserData>>;
 }
-function SignUp({ loginRequest }: PropTypes): ReactElement {
+function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
   const history = useHistory();
 
   const initialUD: UserData = {

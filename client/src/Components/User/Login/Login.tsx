@@ -3,6 +3,8 @@ import React, {
   useState,
   FormEvent,
   ChangeEvent,
+  Dispatch,
+  SetStateAction
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
@@ -12,6 +14,7 @@ import styled from 'styled-components';
 import { LoginRequest, jwtToken } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
+import { UserData } from '../UserData';
 import styles from './Login.module.scss';
 
 const SButton = styled(Button)`
@@ -50,8 +53,9 @@ const EyeIcon = styled(EndIcon)`
 
 interface PropTypes {
   loginRequest: LoginRequest<jwtToken>;
+  setUser: Dispatch<SetStateAction<UserData>>;
 }
-function Login({ loginRequest }: PropTypes): ReactElement {
+function Login({ loginRequest, setUser }: PropTypes): ReactElement {
   const [email, setEmail] = useState<string>('');
   const [passW, setPassW] = useState<string>('');
   const [mailValid, setMailValid] = useState<VALIDATION | undefined>(undefined);
