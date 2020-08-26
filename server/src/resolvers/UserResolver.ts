@@ -28,8 +28,19 @@ export default class UserResolver {
     }
   }
 
+  @Query(() => User)
+  async getOneUser(@Arg('ID') ID: number) {
+    try {
+      const user = await User.findOne({ where: { ID } });
+      if (!user) throw new Error('User not found!');
+      return user;
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   @Query(() => LoginResponse)
-  async getOneUser(@Arg('email') email: string, @Arg('passW') passW: string) {
+  async loginUser(@Arg('email') email: string, @Arg('passW') passW: string) {
     try {
       const user = await User.findOne({ where: { email } });
       if (!user) throw new Error('User not found!');
