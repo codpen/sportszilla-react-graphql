@@ -41,7 +41,7 @@ async function auth(req: Request, res: Response) {
     if (req.params.userType === 'new') {
       const { passW } = req.body;
       const passWRgx = /^.*(?=.{8,})(?=.*[a-zA-Z])(?=.*\d)(?=.*[!#$%&? "]).*$/;
-      if (passWRgx.test(passW)) {
+      if (!passWRgx.test(passW)) {
         errStatus = 401;
         throw new Error('Invalid password!');
       }

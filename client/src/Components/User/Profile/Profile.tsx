@@ -71,12 +71,9 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
             {aUser?.firstName} {aUser?.lastName}
           </h2>
           <p>{aUser?.location}</p>
-          <FavouriteSports />
         </div>
       </div>
-      <div className={styles.btnCnt}>
-        <ButtonGeneric buttonText="Create Event" buttonLink="/newevent/" />
-      </div>
+      <FavouriteSports />
       <div className={styles.eventCtn}>
         <TableEvent tableName={'Created Events'} events={undefined} />
         <TableEvent tableName={'Upcoming Events'} events={undefined} />
