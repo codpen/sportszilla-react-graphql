@@ -13,9 +13,11 @@ interface PropTypes {
 }
 
 const Board: React.FC<PropTypes> = ({ events }) => {
-  const [event, allEvent] = useState<EventData[]>(events);
+  const eventList = [...events];
 
-  const list = events.map((event: EventData) => {
+  const [allEvents, setAllEvents] = useState<any>(eventList);
+
+  const list = allEvents.map((event: EventData) => {
     return (
       <div key={`${event.ID} ${event.sport?.sportName}`}>
         <EventLogin event={event} />
@@ -24,18 +26,19 @@ const Board: React.FC<PropTypes> = ({ events }) => {
   });
 
   const filterBySport = (sport: any) => {
-    const filteredList = event.filter((e) => {
-      return e.sport?.sportName === sport;
-    });
-    allEvent([...filteredList]);
+    setAllEvents(
+      events.filter((e) => {
+        return e.sport?.sportName === sport;
+      })
+    );
   };
 
   const filterByDate = (date: any) => {
-    const filteredList = event.filter((e) => {
-      return moment(e.timeStart).format('MMMM Do YYYY') === moment(date).format('MMMM Do YYYY');
-    });
-    console.log(filteredList);
-    allEvent([...filteredList]);
+    setAllEvents(
+      events.filter((e) => {
+        return moment(e.timeStart).format('MMMM Do YYYY') === moment(date).format('MMMM Do YYYY');
+      })
+    );
   };
 
   const arrowIcon = require('../../Images/FormIcons/down-arrow.svg');
@@ -65,7 +68,7 @@ const Board: React.FC<PropTypes> = ({ events }) => {
               <img src={arrowIconUp} alt="down-arrow" />
             </Link>
           </div>
-          <Map events={events} />
+          <Map events={allEvents} />
         </div>
       </div>
     </div>
