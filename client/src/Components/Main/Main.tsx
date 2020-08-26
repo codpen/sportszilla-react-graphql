@@ -1,7 +1,7 @@
 import React, { useState, ReactElement } from 'react';
 import { Switch, Redirect, Route } from 'react-router-dom';
 import Apollo from '../ApolloClient/Apollo';
-import { LoginRequest, jwtToken } from './main';
+import { LoginRequest, jwtToken } from '../User/LoginRequest';
 import Navbar from '../Navbar/Navbar';
 import Intro from '../Intro/Intro';
 import Join from '../User/Join/Join';
@@ -20,8 +20,8 @@ function Main(): ReactElement {
   const [events, setEvents] = useState<object[]>([Data.events]);
   const [sport, setSport] = useState<object[]>([Data.sports]);
 
-  const loginRequest: LoginRequest<jwtToken>= (loginData) => {
-    const loginURL = `http://localhost:8000/auth/${loginData.path}`
+  const loginRequest: LoginRequest<jwtToken>= (loginData, path) => {
+    const loginURL = `http://localhost:8000/auth/${path}`
     const init: RequestInit = {
       method: 'POST',
       headers: {
@@ -53,7 +53,7 @@ function Main(): ReactElement {
             <Apollo />
           </Route>
           <Route exact path="/user/join/">
-            <Join />
+            <Join loginRequest={loginRequest} />
           </Route>
           <Route exact path="/user/login/">
             <Login loginRequest={loginRequest} />

@@ -10,7 +10,7 @@ import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
-import { LoginRequest, LoginData, jwtToken } from '../../Main/main';
+import { LoginRequest, LoginData, jwtToken } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import styles from './SignUp.module.scss';
 import { UserData } from '../UserData';
@@ -67,7 +67,7 @@ interface PropTypes {
   loginRequest: LoginRequest<jwtToken>;
 }
 function SignUp({ loginRequest }: PropTypes): ReactElement {
-  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const history = useHistory();
 
   const initialUD: UserData = {
     firstName: '',
@@ -89,7 +89,6 @@ function SignUp({ loginRequest }: PropTypes): ReactElement {
     passW: '',
   };
   const [validMsgs, setValidMsgs] = useState<ValidMsgs>(initialMsgs);
-  const history = useHistory();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const validateField = (fieldName: string, fieldValue: string): boolean => {
@@ -170,9 +169,10 @@ function SignUp({ loginRequest }: PropTypes): ReactElement {
       firstName: userData.firstName!,
       email: userData.email!,
       passW: userData.passW!,
-      path: 'new'
-    })
-      .then(tokenResponse);
+    }, 'new')
+      .then((resp) => {
+        console.log(resp);
+      });
   };
 
   const onFailure = (error: string) => {
@@ -187,7 +187,7 @@ function SignUp({ loginRequest }: PropTypes): ReactElement {
 
       <FaceBookBtn>
         <a
-          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/login&state=1Q7Fs42g&nonce=h8n7D2pQ"
+          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/join&state=1Q7Fs42g&nonce=h8n7D2pQ"
           style={{ textDecoration: 'none', color: '#ffffff', fontSize: '18px' }}
         >
           Sign up with Facebook

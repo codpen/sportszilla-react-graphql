@@ -4,12 +4,12 @@ import React, {
   FormEvent,
   ChangeEvent,
 } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
 import { Button } from '@zendeskgarden/react-buttons';
 import { VALIDATION } from '@zendeskgarden/react-forms/dist/typings/utils/validation';
 import styled from 'styled-components';
-import { LoginRequest, LoginData, jwtToken } from '../../Main/main';
+import { LoginRequest, jwtToken } from '../LoginRequest';
 import Loader from '../../Loader/Loader';
 import { ReactComponent as EndIcon } from '../../../Images/eye.svg';
 import styles from './Login.module.scss';
@@ -59,10 +59,7 @@ function Login({ loginRequest }: PropTypes): ReactElement {
   const [mailValidMsg, setMailValidMsg] = useState<string>('');
   const [passValidMsg, setPassValidMsg] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAuth, setIsAuth] = useState<boolean>(false);
-
   const history = useHistory();
-  const { id_token } = useParams();
 
   const validateEmail = (email: string): boolean => {
     const mailRgx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -135,20 +132,21 @@ function Login({ loginRequest }: PropTypes): ReactElement {
     event.preventDefault();
     if (!verifyForm()) return null;
     setIsLoading(true);
-    loginRequest({ email, passW, path: 'returning' })
-      .then((tokenResponse));
+    loginRequest({ email, passW }, 'returning')
+      .then((resp) => {
+        console.log(resp);
+      });
   };
 
   if (isLoading) return <Loader boxHeight={800} />;
 
-  console.log(history);
   return (
     <div className={styles.Login} data-testid="Login">
       <h2 className={styles.welcome}>Welcome back!</h2>
 
       <FaceBookBtn>
         <a
-          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/login&state=1Q7Fs42g&nonce=h8n7D2pQ"
+          href="https://dev-116064.okta.com/oauth2/v1/authorize?idp=0oari0hclvkisFhkK4x6&client_id=0oarhu9dyvVsoDNOI4x6&response_type=id_token&response_mode=fragment&scope=openid%20email%20profile&redirect_uri=http://localhost:3000/user/join&state=1Q7Fs42g&nonce=h8n7D2pQ"
           style={{ textDecoration: 'none', color: '#ffffff', fontSize: '18px' }}
         >
           Log in with Facebook
