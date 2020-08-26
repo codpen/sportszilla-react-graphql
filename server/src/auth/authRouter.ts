@@ -31,7 +31,7 @@ async function faceAuth(req: Request, res: Response) {
       const newUser = await User.create(newUserData);
       sendJWT(newUser, res, true);
     }
-    sendJWT(user, res, false);
+    sendJWT(user!, res, false);
   } catch (err) {
     console.error(err);
     res.status(500);
