@@ -1,9 +1,9 @@
 import 'reflect-metadata';
+import express from 'express';
+import dotenv from 'dotenv';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 import { Sequelize } from 'sequelize-typescript';
-import express from 'express';
-import dotenv from 'dotenv';
 import path from 'path';
 import cors from 'cors';
 import authRouter from './auth/authRouter';

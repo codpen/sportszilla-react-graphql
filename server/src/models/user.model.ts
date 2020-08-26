@@ -16,7 +16,7 @@ import FavSports from './favSports.model';
 
 @Table
 @ObjectType()
-export default class UserWrong extends Model<UserWrong> {
+export default class User extends Model<User> {
   @AutoIncrement
   @PrimaryKey
   @Column
@@ -42,8 +42,12 @@ export default class UserWrong extends Model<UserWrong> {
   email: string;
 
   @Column
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   passW: string;
+
+  @Column
+  @Field(() => Boolean, { nullable: true })
+  fbUser: boolean;
 
   @Column
   @Field(() => Date, { nullable: true })
