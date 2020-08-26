@@ -62,8 +62,10 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
     <div className={styles.Profile} data-testid="Profile">
       <div className={styles.spacer}></div>
       <div className={styles.avatarCnt}>
-        <Avatar backgroundColor={PALETTE.grey[600]} style={{ height: '80px', width: '100px' }}>
-          <Avatar.Text>{user?.firstName && user?.firstName[0]}</Avatar.Text>
+        <Avatar backgroundColor={PALETTE.grey[600]} style={{ height: '75px', width: '100px' }}>
+          <Avatar.Text style={{ fontSize: '30px' }}>
+            {user?.firstName && user?.firstName[0]}
+          </Avatar.Text>
         </Avatar>
         <div>
           <h2>
@@ -80,9 +82,7 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
         <TableEvent tableName={'Upcoming Events'} events={undefined} />
       </div>
       <div className={styles.friendCtn}>
-        <div>
-          <input placeholder="Search friends" />
-        </div>
+        <input placeholder="Search friends" />
         <ul>{listFriends}</ul>
       </div>
     </div>
