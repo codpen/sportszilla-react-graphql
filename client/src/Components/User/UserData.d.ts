@@ -13,7 +13,7 @@ export interface UserData {
   deletionDate?: Date | undefined;
   location?: number | string;
   friends?: number[];
-  favouriteSports?: number[];
+  favSports?: number[];
   createdEvents?: number[];
   joinedEvents?: number[];
   __typeName?: string;

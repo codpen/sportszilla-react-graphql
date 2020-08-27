@@ -4,26 +4,39 @@ import { Tag } from '@zendeskgarden/react-tags';
 import Sport from '../../../Sport/Sport';
 
 import styles from './FavouriteSports.module.scss';
+import { string } from 'prop-types';
+import { useQuery, useLazyQuery, gql } from '@apollo/client';
 
-const options = [
-  'football',
-  'badminton',
-  'basketball',
-  'baseball',
-  'Jerusalem artichoke',
-  'Kale',
-  'Lettuce',
-  'Onion',
-  'Mushroom',
-  'Potato',
-  'Radish',
-  'Spinach',
-  'Tomato',
-  'Yam',
-  'Zucchini',
-];
+const EVENTS = gql`
+  query {
+    getAllEvents {
+      ID
+      eventName
+      sport {
+        sportName
+      }
+      sportID
+      timeStart
+      timeEnd
+      location
+      longitude
+      latitude
+      minParticipants
+      maxParticipants
+      participants {
+        ID
+      }
+    }
+  }
+`;
 
-const FavouriteSports: React.FC = () => {
+const options = ['football', 'badminton', 'basketball', 'baseball', 'tennis', 'golf', 'baseball'];
+
+interface PropTypes {
+  sports?: number[] | undefined;
+}
+
+const FavouriteSports: React.FC<PropTypes> = ({ sports }) => {
   const [selectedItems, setSelectedItems] = useState([
     options[0],
     options[1],
@@ -32,10 +45,8 @@ const FavouriteSports: React.FC = () => {
   ]);
   const [inputValue, setInputValue] = useState('');
 
-  console.log(selectedItems);
-
   const renderOptions = () => {
-    return selectedItems.map((option) => (
+    return options.map((option) => (
       <Item key={option} value={option}>
         <span>{option}</span>
       </Item>

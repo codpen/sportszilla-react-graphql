@@ -19,6 +19,7 @@ import AutoCompleteSport from './AutoCompleteSport/AutoCompleteSport';
 import AutoCompleteAddress from './AutoCompleteAddress/AutoCompleteAddress';
 import moment from 'moment';
 import Loader from '../../Components/Loader/Loader';
+import { EventData, Sport } from '../Board/Event';
 
 const NEW_EVENT = gql`
   mutation NewEvent($eventData: NewSportEvent!) {
@@ -27,6 +28,19 @@ const NEW_EVENT = gql`
       eventName
       location
       timeStart
+      sportID
+      sport {
+        sportName
+      }
+      timeStart
+      timeEnd
+      participants {
+        ID
+      }
+      latitude
+      longitude
+      maxParticipants
+      minParticipants
     }
   }
 `;
@@ -50,14 +64,14 @@ interface FormMethod<E> {
 }
 
 interface PropTypes {
-  user: UserData | undefined;
+  events: EventData[];
 }
 
 interface Arguments {
   eventData: Event;
 }
 
-const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
+const CreateEvent: React.FC<PropTypes> = ({ events }: PropTypes) => {
   const initialED: Event = {
     eventName: '',
     timeStart: `${moment().format('YYYY-MM-DD')} 16:00`,
@@ -72,7 +86,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
     indoor: false,
     sportID: 1,
     sport: 1,
-    participants: [],
+    participants: [(JSON.parse(localStorage.getItem('userInformation') || '{}') || { ID: 0 }).ID],
   };
   const [date, setDate] = useState<undefined | Date>(undefined);
   const [eventData, setEventData] = useState<Event>(initialED);
@@ -80,7 +94,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   const [timeEnd, setTimeEnd] = useState<number>(80);
   const [minParticipants, setMinParticipants] = useState<number>(5);
   const [availableSpots, setAvailableSpots] = useState<number>(10);
-  const [sport, setSport] = useState<string>('');
+  const [sport, setSport] = useState<Sport | undefined>({ ID: 0, sportName: 'basketball' });
   const [createEvent, { loading, error, data }] = useMutation<Response, Arguments>(NEW_EVENT);
   const [address, setAddress] = React.useState('');
   const [coordinates, setCoordinates] = React.useState<any>({ lat: null, lng: null });
@@ -109,7 +123,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   }, [address, coordinates]);
 
   useEffect(() => {
-    // setEventData({ ...eventData, sportName: sport });
+    setEventData({ ...eventData, sport: sport?.ID });
   }, [sport]);
 
   const onChangeTime = ({ minValue, maxValue }: any): void => {
@@ -147,6 +161,12 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
 
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
+    if (eventData.location && !(eventData.location?.length > 1)) {
+      console.log(eventData);
+      console.log({ ...eventData, sport });
+
+      return null;
+    }
     console.log(eventData);
     createEvent({ variables: { eventData } });
     return null;
@@ -155,6 +175,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
   if (data) {
+    console.log(data);
     history.push('/user/profile');
   }
 

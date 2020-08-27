@@ -1,39 +1,66 @@
-import React, { useState, Dispatch, SetStateAction } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import React, { useState, useEffect, Dispatch, SetStateAction, useRef } from 'react';
 import { PALETTE } from '@zendeskgarden/react-theming';
 import { Avatar } from '@zendeskgarden/react-avatars';
+import { useQuery, useLazyQuery, gql } from '@apollo/client';
 
-import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
 import styles from './Profile.module.scss';
 import { UserData } from '../UserData';
+import { EventData } from '../../Board/Event';
 import TableEvent from './TableEvent/TableEvent';
 import FavouriteSports from './FavouriteSports/FavouriteSports';
+import Loader from '../../Loader/Loader';
 
-const friendList = [
-  {
-    ID: 2,
-    firstName: 'Philip',
-    lastName: 'Johnson',
-    location: '277 Bedford Ave, Brooklyn, NY 11211',
-  },
-  {
-    ID: 5,
-    firstName: 'John',
-    lastName: 'Furniture',
-    location: '277 Bedford Ave, Brooklyn, NY 11211',
-  },
-];
+const USER = gql`
+  query getOneUser($ID: Float!) {
+    getOneUser(ID: $ID) {
+      ID
+      firstName
+      lastName
+      userName
+      birthday
+      favSports {
+        ID
+        sportName
+      }
+      participates {
+        ID
+        eventName
+        timeStart
+        location
+        maxParticipants
+        participants {
+          ID
+        }
+        sport {
+          ID
+          sportName
+        }
+      }
+    }
+  }
+`;
 
 interface PropTypes {
   user: UserData | undefined;
   setUser: Dispatch<SetStateAction<UserData>>;
+  events: EventData[];
 }
 
-const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
-  const [aUser, setAUser] = useState(user);
+interface Response {
+  getOneUser: UserData;
+}
 
-  console.log(user);
-  console.log(localStorage.getItem('jwtToken'));
+const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
+  console.log(events);
+  const userObject = JSON.parse(localStorage.getItem('userInformation') || '{}');
+  const { loading, data, error } = useQuery<Response>(USER, { variables: { ID: userObject.ID } });
+  const [aUser, setAUser] = useState(userObject);
+
+  useEffect(() => {
+    if (data && data.getOneUser) {
+      localStorage.setItem('userAllInformation', JSON.stringify(data.getOneUser));
+    }
+  }, [loading]);
 
   const handleClick = (user: any) => {
     console.log(user);
@@ -46,7 +73,6 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
 
   const listFriends =
     aUser &&
-    aUser.friends &&
     friendList.map((user: UserData) => {
       return (
         <li>
@@ -76,10 +102,26 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
           <p>{aUser?.location}</p>
         </div>
       </div>
-      <FavouriteSports />
+      <FavouriteSports sports={user && user.favSports} />
       <div className={styles.eventCtn}>
-        <TableEvent tableName={'Created Events'} events={undefined} />
-        <TableEvent tableName={'Upcoming Events'} events={undefined} />
+        <TableEvent
+          tableName={'Created Events'}
+          events={
+            events[0].participants &&
+            events.filter((event) => {
+              return event.participants?.[0].ID === userObject.ID;
+            })
+          }
+        />
+        <TableEvent
+          tableName={'Joined Events'}
+          events={
+            events[0].participants &&
+            events.filter((event) => {
+              return event.participants?.filter((user) => user.ID === userObject.ID);
+            })
+          }
+        />
       </div>
       <div className={styles.friendCtn}>
         <input placeholder="Search friends" />
@@ -88,7 +130,6 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser }) => {
     </div>
   );
 };
-
 Profile.defaultProps = {
   user: {
     ID: 1,
@@ -103,3 +144,36 @@ Profile.defaultProps = {
 };
 
 export default Profile;
+
+const friendList = [
+  {
+    ID: 2,
+    firstName: 'Philip',
+    lastName: 'Johnson',
+    location: '277 Bedford Ave, Barcelona',
+  },
+  {
+    ID: 5,
+    firstName: 'John',
+    lastName: 'Furniture',
+    location: '3452  Whispering Pines Circle',
+  },
+  {
+    ID: 5,
+    firstName: 'Patty',
+    lastName: 'Boe',
+    location: '3064  Joyce Street Santa Cruz de Tenerife',
+  },
+  {
+    ID: 5,
+    firstName: 'Olive',
+    lastName: 'Yew',
+    location: 'Maestro Puig Valera 41 Bande Ourense',
+  },
+  {
+    ID: 5,
+    firstName: 'Aida',
+    lastName: 'Bugg',
+    location: 'Bouciña 54 Tapia De Casariego',
+  },
+];

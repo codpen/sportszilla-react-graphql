@@ -3,18 +3,11 @@ import { Item, Menu, Label, Field, Dropdown, Autocomplete } from '@zendeskgarden
 import { ReactComponent as SearchIcon } from '@zendeskgarden/svg-icons/src/16/search-stroke.svg';
 import styles from './AutoCompleteSport.module.scss';
 import { SportData } from '../../Sport/SportData';
-import Sport from '../../Sport/Sport';
-
-const options = [
-  { ID: 0, sportName: 'football' },
-  { ID: 1, sportName: 'baseball' },
-  { ID: 2, sportName: 'bowling' },
-  { ID: 3, sportName: 'badminton' },
-];
+import { Sport } from '../../Board/Event';
 
 interface PropTypes {
   sportArray?: SportData[];
-  setSport: Dispatch<SetStateAction<string>> | undefined;
+  setSport: Dispatch<SetStateAction<Sport | undefined>> | undefined;
 }
 
 const AutoCompleteSport: React.FC<PropTypes> = ({ sportArray: sportArray, setSport }) => {
@@ -25,21 +18,20 @@ const AutoCompleteSport: React.FC<PropTypes> = ({ sportArray: sportArray, setSpo
   useEffect(
     () =>
       setMatchingOptions(
-        options.filter((sport: SportData) => {
-          if (sport.sportName) return sport.sportName.includes(inputValue);
-        })
+        sportArray &&
+          sportArray.filter((sport: SportData) => {
+            if (sport.sportName) return sport.sportName.includes(inputValue);
+          })
       ),
     [inputValue]
   );
 
   useEffect(() => {
-    if (typeof selectedItem === 'string') setSport!(selectedItem);
+    if (typeof selectedItem === 'string') {
+      setSport!(sportArray?.find((sport) => sport.sportName === selectedItem));
+    }
+    console.log(selectedItem);
   }, [selectedItem]);
-
-  const sport = {
-    id: 1,
-    name: 'football',
-  };
 
   return (
     <div className={styles.autoCompleteInput} data-testid="autoCompleteInput">
@@ -82,10 +74,12 @@ const AutoCompleteSport: React.FC<PropTypes> = ({ sportArray: sportArray, setSpo
 
 AutoCompleteSport.defaultProps = {
   sportArray: [
-    { ID: 0, sportName: 'football' },
-    { ID: 1, sportName: 'baseball' },
-    { ID: 2, sportName: 'bowling' },
-    { ID: 3, sportName: 'badminton' },
+    { ID: 0, sportName: 'basketball' },
+    { ID: 2, sportName: 'badminton' },
+    { ID: 4, sportName: 'football' },
+    { ID: 5, sportName: 'tennis' },
+    { ID: 6, sportName: 'golf' },
+    { ID: 7, sportName: 'baseball' },
   ],
 };
 

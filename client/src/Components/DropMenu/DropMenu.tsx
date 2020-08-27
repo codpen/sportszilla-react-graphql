@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './DropMenu.module.scss';
 
 const DropMenu: React.FC = () => {
+  const userObject = JSON.parse(localStorage.getItem('userInformation') || '{}');
   const [open, setOpen] = useState<boolean>(false);
   let menu: HTMLElement;
 
@@ -17,6 +18,8 @@ const DropMenu: React.FC = () => {
     }
     setOpen(!open);
   };
+
+  const handleLogout = () => localStorage.clear();
 
   return (
     <div>
@@ -36,21 +39,46 @@ const DropMenu: React.FC = () => {
           <li>
             <a href="/">Home</a>
           </li>
-          <li>
-            <a href="/user/login">Login</a>
-          </li>
-          <li>
-            <a href="/user/signup">Sign Up</a>
-          </li>
+          {userObject.hasOwnProperty('email') ? (
+            ''
+          ) : (
+            <li>
+              <a href="/user/login">Login</a>
+            </li>
+          )}
+          {userObject.hasOwnProperty('email') ? (
+            ''
+          ) : (
+            <li>
+              <a href="/user/signup">Sign Up</a>
+            </li>
+          )}
           <li>
             <a href="/board">Events</a>
           </li>
-          <li>
-            <a href="/newevent/">Create Event</a>
-          </li>
-          <li>
-            <a href="/user/profile">Profile</a>
-          </li>
+          {userObject.hasOwnProperty('email') ? (
+            <li>
+              <a href="/newevent/">Create Event</a>
+            </li>
+          ) : (
+            ''
+          )}
+          {userObject.hasOwnProperty('email') ? (
+            <li>
+              <a href="/user/profile">Profile</a>
+            </li>
+          ) : (
+            ''
+          )}
+          {userObject.hasOwnProperty('email') ? (
+            <li>
+              <a onClick={handleLogout} href="/">
+                Log out
+              </a>
+            </li>
+          ) : (
+            ''
+          )}
         </ul>
       </div>
     </div>
