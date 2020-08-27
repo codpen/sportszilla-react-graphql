@@ -21,22 +21,22 @@ import AddToHomeScreen from '../AddToHomeScreen/addToHome'
 
 function Main(): ReactElement {
 
-  const [promptState, promptSetState] = useState('');
-  
+  const [promptState, promptSetState] = useState<boolean>(false);
+
   let defPrompt: any;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
-    defPrompt = e;//set state to true
+    defPrompt = e;
+    promptSetState(true)
     console.log( 'defPrompt',defPrompt)
   }); 
 
-  console.log( 'ONCLICK ',defPrompt)
   const addToHomeHandler = () => {
     defPrompt.prompt();
     defPrompt.userChoice.then((choiceResult: any)=> {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the A2HS prompt');
-        //set state to false
+        promptSetState(false)
       }
     });
   };
@@ -90,7 +90,7 @@ function Main(): ReactElement {
     console.log(data.getAllEvents);
     return (
       <div className="Main">
-        <AddToHomeScreen buttonClick = {addToHomeHandler} />
+        {promptState ? <AddToHomeScreen toggleOut={promptSetState} buttonClick={addToHomeHandler} /> : null}
         <header>
           <Navbar />
         </header>
