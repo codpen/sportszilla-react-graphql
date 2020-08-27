@@ -118,7 +118,7 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
           events={
             events[0].participants &&
             events.filter((event) => {
-              return event.participants?.filter((user) => user.ID === userObject.ID);
+              return event.participants?.filter((user) => user.ID === userObject.ID).length === 1;
             })
           }
         />
