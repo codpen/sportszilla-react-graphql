@@ -163,9 +163,6 @@ const CreateEvent: React.FC<PropTypes> = ({ events }: PropTypes) => {
   const handleSubmit: FormMethod<FormEvent<HTMLFormElement>> = (event) => {
     event.preventDefault();
     if (eventData.location && !(eventData.location?.length > 1)) {
-      console.log(eventData);
-      console.log({ ...eventData, sport });
-
       return null;
     }
     console.log(eventData);
