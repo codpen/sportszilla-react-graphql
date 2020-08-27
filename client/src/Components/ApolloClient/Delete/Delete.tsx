@@ -62,7 +62,7 @@ const Delete: React.FC<PropTypes> = ({ users, loadUsers }) => {
     loadUsers();
   };
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
   const options = users.map((user) => (

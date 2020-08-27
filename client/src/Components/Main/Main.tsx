@@ -66,7 +66,7 @@ function Main(): ReactElement {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loggedInUser, setLoggedInUser] = useState<UserData>({ email: '' });
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <div>Oopsie: {error.message}</div>;
   if (data && data.getAllEvents) {
     console.log(data.getAllEvents);

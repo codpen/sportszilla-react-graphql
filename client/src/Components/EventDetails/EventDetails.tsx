@@ -50,7 +50,7 @@ const EventDetails: React.FC = () => {
     variables: { ID: Number(ID) },
   });
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <p>Oopsie: {error.message}</p>;
   if (!data) return <p>User not found</p>;
 

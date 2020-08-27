@@ -2,12 +2,8 @@ import React from 'react';
 import { Dots } from '@zendeskgarden/react-loaders';
 import styles from './Loader.module.scss';
 
-interface PropTypes {
-  boxHeight: number;
-}
-
-const Loader: React.FC<PropTypes> = ({ boxHeight }) => (
-  <div style={{ height: `${boxHeight}px` }} className={styles.Loader}>
+const Loader: React.FC = () => (
+  <div style={{ height: '100vh' }} className={styles.Loader}>
     <Dots />
   </div>
 );

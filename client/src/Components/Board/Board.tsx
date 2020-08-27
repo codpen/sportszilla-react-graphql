@@ -4,7 +4,6 @@ import { EventData } from './Event';
 import styles from './Board.module.scss';
 import EventLogin from '../EventLogin/EventLogin';
 import SearchBar from '../SearchBar/SearchBar';
-import Loader from '../Loader/Loader';
 import { HashLink as Link } from 'react-router-hash-link';
 import Map from '../Map/Map';
 
