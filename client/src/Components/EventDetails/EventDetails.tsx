@@ -58,6 +58,8 @@ const EventDetails: React.FC = () => {
   if (data && data.getOneEvent) {
     const spEvent = data.getOneEvent;
     const creator = spEvent.participants && spEvent.participants[0];
+    const sportName = spEvent.sport && spEvent.sport.sportName;
+    console.log(spEvent);
     return (
       <section className={styles.EventDetails} data-testid="EventDetails">
         <article className={styles.infoCard}>
@@ -96,46 +98,41 @@ const EventDetails: React.FC = () => {
         </div>
 
         <div className={styles.sportType}>
-
+          <img
+            src={require(`../../Images/SportIcons/${sportName}.svg`)}
+            className={styles.sportIcon}
+            alt={sportName}
+          />
+          <span className={styles.sportName}>
+            {sportName} <span className={styles.inOut}>[{spEvent.indoor ? 'indoor' : 'outdoor'}]</span>
+          </span>
         </div>
 
 
-        <div>
+        <div className={styles.participants}>
           <h2 className={styles.partTitle}>Participants</h2>
-          <div className={styles.fields}>
-            <Label>Minimum participants</Label>
-            <p>{spEvent.minParticipants}</p>
+          <div className={styles.partiBox}>
+            <p className={styles.spotsTitle}>Spots:</p>
+            <div className={styles.spotsBox}>
+              <div>
+                <span className={styles.spots}>Left: </span>
+                <span className={styles.avNumb}>{spEvent.availableSpots}</span>
+              </div>
+              <div>
+                <span className={styles.spots}>Min: </span>
+                <span className={styles.minMaxNumb}>{spEvent.minParticipants}</span>
+              </div>
+              <div>
+                <span className={styles.spots}>Max: </span>
+                <span className={styles.minMaxNumb}>{spEvent.maxParticipants}</span>
+              </div>
+            </div>
+            <div className={styles.fields}>
+              <Label>Participants</Label>
+              <p>{String(spEvent.participants)}</p>
+            </div>
           </div>
-          <div className={styles.fields}>
-            <Label>Maximum participants</Label>
-            <p>{spEvent.maxParticipants}</p>
-          </div>
-          <div className={styles.fields}>
-            <Label>Participants</Label>
-            <p>{String(spEvent.participants)}</p>
-          </div>
         </div>
-
-
-
-        <div className={styles.fields}>
-          <Label>Indoor</Label>
-          <p>{spEvent.indoor?.toString()}</p>
-        </div>
-
-        <div className={styles.fields}>
-          <Label>Available Spots</Label>
-          <p>{spEvent.availableSpots}</p>
-        </div>
-
-
-
-        <div className={styles.fields}>
-          <Label>Sport</Label>
-          <p>{spEvent.sport?.sportName}</p>
-        </div>
-
-
 
         <div className={styles.fields}>
           <Label>Description</Label>
