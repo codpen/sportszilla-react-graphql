@@ -59,6 +59,13 @@ const EventDetails: React.FC = () => {
     const creator = spEvent.participants && spEvent.participants[0];
     const sportName = spEvent.sport && spEvent.sport.sportName;
     console.log(spEvent);
+    console.log(spEvent.participants?.length);
+    const arr = new Array(40).fill(true);
+    const divs = arr.map((elm) => (
+      <Avatar backgroundColor={PALETTE.grey[600]} size="small">
+        <Avatar.Text>{creator?.firstName[0]}</Avatar.Text>
+      </Avatar>
+    ));
     return (
       <section className={styles.EventDetails} data-testid="EventDetails">
         <article className={styles.infoCard}>
@@ -107,7 +114,6 @@ const EventDetails: React.FC = () => {
           </span>
         </div>
 
-
         <div className={styles.participants}>
           <h2 className={styles.partTitle}>Participants</h2>
           <div className={styles.partiBox}>
@@ -126,8 +132,9 @@ const EventDetails: React.FC = () => {
                 <span className={styles.minMaxNumb}>{spEvent.maxParticipants}</span>
               </div>
             </div>
-            <div>
               <p>{String(spEvent.participants)}</p>
+            <div className={styles.mates}>
+              {divs}
             </div>
           </div>
         </div>
