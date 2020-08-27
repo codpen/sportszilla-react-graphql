@@ -80,6 +80,14 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
     />,
   ];
 
+  const imageList = (list: any) => {
+    const imgArr = [];
+    for (let i = 0; i < event.participants!.length; i++) {
+      imgArr.push(list[i]);
+    }
+    return imgArr;
+  };
+
   if (loading) return <Loader boxHeight={400} />;
   if (error) return <p>Oopsie: {error.message}</p>;
   if (data) {
@@ -123,10 +131,10 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
           <h4>
             <span>
               Participants: {''}
-              {event.minParticipants} / {event.maxParticipants}
+              {event.participants?.length} / {event.maxParticipants}
             </span>
           </h4>
-          <div className={styles.EventBox_center_picContainer}>{randomList}</div>
+          <div className={styles.EventBox_center_picContainer}>{imageList(randomList)}</div>
         </div>
         <div className={styles.EventBox_right}>
           <button
@@ -134,7 +142,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
               handleJoin(event);
             }}
           >
-            CLick Here
+            <ButtonGeneric buttonText="Join" buttonLink={userID ? '' : '/intro/'}></ButtonGeneric>
           </button>
         </div>
       </div>
