@@ -17,8 +17,29 @@ import CreateEvent from '../CreateEvent/CreateEvent';
 import { UserData } from '../User/UserData';
 import { EventData } from '../Board/Event';
 import './Main.scss';
+import AddToHomeScreen from '../AddToHomeScreen/addToHome'
 
 function Main(): ReactElement {
+
+  // const [promptState, promptSetState] = useState<boolean>(true);
+
+  // let defPrompt: any;
+  // window.addEventListener('beforeinstallprompt', (e) => {
+  //   e.preventDefault();
+  //   defPrompt = e;
+  //   // promptSetState(true)
+  //   console.log( 'defPrompt',defPrompt)
+  // }); 
+
+  // const addToHomeHandler = () => {
+  //   defPrompt.prompt();
+  //   defPrompt.userChoice.then((choiceResult: any)=> {
+  //     if (choiceResult.outcome === 'accepted') {
+  //       console.log('User accepted the A2HS prompt');
+  //     }
+  //     promptSetState(false)
+  //   });
+  // };
   interface Response {
     getAllEvents: EventData[];
   }
@@ -38,6 +59,9 @@ function Main(): ReactElement {
         latitude
         minParticipants
         maxParticipants
+        participants {
+          ID
+        }
       }
     }
   `;
@@ -63,12 +87,13 @@ function Main(): ReactElement {
   const [users, setUsers] = useState<UserData[]>([]);
   const [loggedInUser, setLoggedInUser] = useState<UserData>({ email: '' });
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <div>Oopsie: {error.message}</div>;
   if (data && data.getAllEvents) {
     console.log(data.getAllEvents);
     return (
       <div className="Main">
+        {/* {promptState ? <AddToHomeScreen toggle={promptSetState} buttonClick={addToHomeHandler} /> : null} */}
         <header>
           <Navbar />
         </header>

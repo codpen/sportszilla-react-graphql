@@ -40,8 +40,9 @@ const SButton = styled(Button)`
   color: #90755f;
   width: 50%;
   &:hover {
-    border-color: #ffffff;
-    color: #ffffff;
+    background: transparent;
+    border-color: #eea551;
+    color: #eea551;
   }
 `;
 
@@ -152,7 +153,7 @@ const CreateEvent: React.FC<PropTypes> = ({ user }: PropTypes) => {
     return null;
   };
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <p>Oopsie: {error.message}</p>;
   if (data) {
     history.push('/user/profile');

@@ -7,7 +7,7 @@ import ButtonGeneric from '../../ButtonGeneric/ButtonGeneric';
 import styles from './Profile.module.scss';
 import { UserData } from '../UserData';
 import TableEvent from './TableEvent/TableEvent';
-import FavouriteSports from './FavouriteSports/FavouriteSports';
+import FavouriteSports from './favouriteSports/FavouriteSports';
 
 const friendList = [
   {

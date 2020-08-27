@@ -48,7 +48,7 @@ const Read: React.FC<PropTypes> = ({ users }) => {
   const [getOneUser, { loading, data, error }] = useLazyQuery<Response, Arguments>(GET_ONE_USER);
   const [selectedID, setSelectedID] = useState<number>(0);
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
   const options = users.map((user) => (

@@ -8,7 +8,7 @@ import { JWT_KEY } from '../server';
 const router = express.Router();
 
 export function sendJWT(user: User, res: Response, newUser: boolean): void {
-  const jwtToken = jwt.sign({ userId: user.id, email: user.email }, JWT_KEY!, { expiresIn: '60m' });
+  const jwtToken = jwt.sign({ userId: user.ID, email: user.email }, JWT_KEY!, { expiresIn: '60m' });
   res.status(newUser ? 201 : 200);
   res.send({ jwtToken, user });
 }

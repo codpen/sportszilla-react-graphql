@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Dropdown, Multiselect, Field, Menu, Item, Label } from '@zendeskgarden/react-dropdowns';
 import { Tag } from '@zendeskgarden/react-tags';
-import Sport from '../../../Sport/Sport';
-
 import styles from './FavouriteSports.module.scss';
+import Sport from '../../../Sport/Sport';
 
 const options = [
   'football',
