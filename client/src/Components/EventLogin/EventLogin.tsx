@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import Loader from '../Loader/Loader';
 import Faker from 'faker';
@@ -32,6 +32,8 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
 
   const [updateEvent, { loading, error, data }] = useMutation<Response, Arguments>(UPDATE__EVENT);
   useEffect(() => {}, [updateEvent]);
+
+  const history = useHistory();
 
   function handleJoin(ev: EventData) {
     if (userID) {
