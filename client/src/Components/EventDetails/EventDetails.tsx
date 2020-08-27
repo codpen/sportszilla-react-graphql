@@ -60,9 +60,12 @@ const EventDetails: React.FC = () => {
     const sportName = spEvent.sport && spEvent.sport.sportName;
     console.log(spEvent);
     console.log(spEvent.participants?.length);
-    const arr = new Array(40).fill(true);
-    const divs = arr.map((elm) => (
-      <Avatar backgroundColor={PALETTE.grey[600]} size="small">
+    const avatars = spEvent.participants?.map((elm) => (
+      <Avatar
+        backgroundColor={PALETTE.yellow[400]}
+        size="small"
+        style={{ marginRight: '3px', marginBottom: '3px' }}
+      >
         <Avatar.Text>{creator?.firstName[0]}</Avatar.Text>
       </Avatar>
     ));
@@ -70,7 +73,7 @@ const EventDetails: React.FC = () => {
       <section className={styles.EventDetails} data-testid="EventDetails">
         <article className={styles.infoCard}>
           <div className={styles.creator}>
-            <Avatar backgroundColor={PALETTE.grey[600]} size="extrasmall">
+            <Avatar backgroundColor={PALETTE.crimson[400]} size="large">
               <Avatar.Text>{creator?.firstName[0]}</Avatar.Text>
             </Avatar>
             <span style={{ marginLeft: '2vw' }}>{creator?.firstName}</span>
@@ -134,7 +137,7 @@ const EventDetails: React.FC = () => {
             </div>
               <p>{String(spEvent.participants)}</p>
             <div className={styles.mates}>
-              {divs}
+              {avatars}
             </div>
           </div>
         </div>
