@@ -1,9 +1,14 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
-import { Field, Label, Input, Message } from '@zendeskgarden/react-forms';
+import moment from 'moment';
+import { Label } from '@zendeskgarden/react-forms';
+import { Avatar } from '@zendeskgarden/react-avatars';
+import { PALETTE } from '@zendeskgarden/react-theming';
 import { EventData } from '../Board/Event';
 import Loader from '../Loader/Loader';
+import calendarIcon from '../../Images/FormIcons/event_calendar.svg';
+import pin from '../../Images/FormIcons/pin.svg';
 import styles from './EventDetails.module.scss';
 
 const GET_ONE_EVENT = gql`
@@ -51,76 +56,92 @@ const EventDetails: React.FC = () => {
   if (!data) return <p>User not found</p>;
 
   if (data && data.getOneEvent) {
-    const event = data.getOneEvent;
-    const creator = event.participants && event.participants[0];
+    const spEvent = data.getOneEvent;
+    const creator = spEvent.participants && spEvent.participants[0];
     return (
-      <form className={styles.EventDetails} data-testid="EventDetails">
-        <Field>
-          <Label>Event title</Label>
-          <h3 style={{ fontSize: '16px', margin: 0 }}>{event.eventName}</h3>
-        </Field>
+      <section className={styles.EventDetails} data-testid="EventDetails">
+        <article className={styles.infoCard}>
+          <div className={styles.creator}>
+            <Avatar backgroundColor={PALETTE.grey[600]} size="extrasmall">
+              <Avatar.Text>{creator?.firstName[0]}</Avatar.Text>
+            </Avatar>
+            <span style={{ marginLeft: '2vw' }}>{creator?.firstName}</span>
+          </div>
+          <div className={styles.eventDate}>
+            <div className={styles.calendar}>
+              <span style={{ fontSize: '20px', color: '#e70909' }}>
+                {moment(spEvent.timeStart).format('MMM Do')}
+              </span>
+              <img style={{width: '30px', height: '30px'}} src={calendarIcon} alt="calendar icon" />
+            </div>
+            <div className={styles.fromTo}>
+              <div>
+                <span>{moment(spEvent.timeStart).format('LT')}</span>
+              </div>
+              <span>&nbsp;—&nbsp;</span>
+              <div>
+                <span>{moment(spEvent.timeEnd).format('LT')}</span>
+              </div>
+            </div>
+          </div>
+        </article>
 
-        <Field className={styles.fields}>
-          <Label className={styles.labels}>Creator</Label>
-          <p>{creator?.firstName}</p>
-        </Field>
+        <div className={styles.ribbon}>
+          <span className={styles.text}>{spEvent.eventName}</span>
+        </div>
 
-        <Field className={styles.fields}>
-          <Label>Time start</Label>
-          <p>{event.timeStart}</p>
-        </Field>
+        <div className={styles.location}>
+          <img style={{width: '20px', height: '20px'}} src={pin} alt="pin icon" />
+          <span style={{ marginLeft: '1vw' }}>{spEvent.location}</span>
+        </div>
 
-        <Field className={styles.fields}>
-          <Label>Time end</Label>
-          <p>{event.timeEnd}</p>
-        </Field>
+        <div className={styles.sportType}>
 
-        <Field className={styles.fields}>
-          <Message>Correct this</Message>
-          <Label>Date</Label>
-          <p>{event.timeStart}</p>
-        </Field>
+        </div>
 
-        <Field className={styles.fields}>
-          <Label>Location</Label>
-          <p>{event.location}</p>
-        </Field>
 
-        <Field className={styles.fields}>
-          <Label>Minimum participants</Label>
-          <p>{event.minParticipants}</p>
-        </Field>
+        <div>
+          <h2 className={styles.partTitle}>Participants</h2>
+          <div className={styles.fields}>
+            <Label>Minimum participants</Label>
+            <p>{spEvent.minParticipants}</p>
+          </div>
+          <div className={styles.fields}>
+            <Label>Maximum participants</Label>
+            <p>{spEvent.maxParticipants}</p>
+          </div>
+          <div className={styles.fields}>
+            <Label>Participants</Label>
+            <p>{String(spEvent.participants)}</p>
+          </div>
+        </div>
 
-        <Field className={styles.fields}>
-          <Label>Maximum participants</Label>
-          <p>{event.maxParticipants}</p>
-        </Field>
 
-        <Field className={styles.fields}>
+
+        <div className={styles.fields}>
           <Label>Indoor</Label>
-          <p>{event.indoor?.toString()}</p>
-        </Field>
+          <p>{spEvent.indoor?.toString()}</p>
+        </div>
 
-        <Field className={styles.fields}>
+        <div className={styles.fields}>
           <Label>Available Spots</Label>
-          <p>{event.availableSpots}</p>
-        </Field>
+          <p>{spEvent.availableSpots}</p>
+        </div>
 
-        <Field className={styles.fields}>
-          <Label>Description</Label>
-          <p>{event.description}</p>
-        </Field>
 
-        <Field className={styles.fields}>
+
+        <div className={styles.fields}>
           <Label>Sport</Label>
-          <p>{event.sport?.sportName}</p>
-        </Field>
+          <p>{spEvent.sport?.sportName}</p>
+        </div>
 
-        <Field className={styles.fields}>
-          <Label>Participants</Label>
-          <p>{String(event.participants)}</p>
-        </Field>
-      </form>
+
+
+        <div className={styles.fields}>
+          <Label>Description</Label>
+          <p>{spEvent.description}</p>
+        </div>
+      </section>
     );
   }
 
