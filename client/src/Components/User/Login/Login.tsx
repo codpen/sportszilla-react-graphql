@@ -123,6 +123,7 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
     setUser(user);
+    localStorage.setItem('userInformation', JSON.stringify(user));
     setPassValid(undefined);
     setPassValidMsg('');
     setPassW('');

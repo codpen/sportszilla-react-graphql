@@ -38,6 +38,9 @@ function Main(): ReactElement {
         latitude
         minParticipants
         maxParticipants
+        participants {
+          ID
+        }
       }
     }
   `;

@@ -4,6 +4,7 @@ interface Sport {
   sportName;
 }
 export interface EventData {
+  [index: string]: number | string | Date | undefined | number[] | UserData[];
   ID?: number;
   eventName?: string;
   sportID?: number;
@@ -23,4 +24,5 @@ export interface EventData {
   maxParticipants?: number;
   description?: string;
   sport?: Sport;
+  participants?: any;
 }
