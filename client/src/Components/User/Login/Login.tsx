@@ -23,8 +23,9 @@ const SButton = styled(Button)`
   color: #90755f;
   width: 50%;
   &:hover {
-    border-color: #ffffff;
-    color: #ffffff;
+    background: transparent;
+    border-color: #eea551;
+    color: #eea551;
   }
 `;
 
@@ -123,6 +124,7 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
     setUser(user);
+    localStorage.setItem('userInformation', JSON.stringify(user));
     setPassValid(undefined);
     setPassValidMsg('');
     setPassW('');
@@ -140,7 +142,7 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     loginRequest({ email, passW }, 'returning').then(handleResponse);
   };
 
-  if (isLoading) return <Loader boxHeight={800} />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.Login} data-testid="Login">

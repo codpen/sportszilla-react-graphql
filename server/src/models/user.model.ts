@@ -31,7 +31,7 @@ export default class User extends Model<User> {
   firstName: string;
 
   @Column
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   lastName: string;
 
   @Unique(true)
@@ -57,7 +57,7 @@ export default class User extends Model<User> {
   birthday: Date;
 
   @Column
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   location: string;
 
   @Column(DataType.FLOAT)

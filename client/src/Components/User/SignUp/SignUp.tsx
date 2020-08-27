@@ -24,8 +24,9 @@ const SButton = styled(Button)`
   color: #90755f;
   width: 50%;
   &:hover {
-    border-color: #ffffff;
-    color: #ffffff;
+    background: transparent;
+    border-color: #eea551;
+    color: #eea551;
   }
 `;
 
@@ -183,7 +184,7 @@ function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
     alert(error);
   };
 
-  if (isLoading) return <Loader boxHeight={800} />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">

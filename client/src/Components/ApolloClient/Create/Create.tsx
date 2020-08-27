@@ -83,7 +83,7 @@ const Create: React.FC = () => {
     createUser();
   };
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <p>Oopsie: {error.message}</p>;
 
   return (
