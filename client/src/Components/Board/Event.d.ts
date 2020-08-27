@@ -1,15 +1,16 @@
 import { UserData } from '../User/UserData';
 
 interface Sport {
-  sportName;
+  sportName?: string;
+  ID?: number;
 }
 export interface EventData {
   [index: string]: number | string | Date | undefined | number[] | UserData[];
   ID?: number;
   eventName?: string;
   sportID?: number;
-  timeStart?: Date;
-  timeEnd?: Date;
+  timeStart?: Date | string;
+  timeEnd?: Date | string;
   location?: string;
   longitude?: number;
   latitude?: number;
@@ -24,5 +25,4 @@ export interface EventData {
   maxParticipants?: number;
   description?: string;
   sport?: Sport;
-  participants?: any;
 }

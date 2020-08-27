@@ -5,6 +5,7 @@ import React, {
   ChangeEvent,
   Dispatch,
   SetStateAction,
+  useRef,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Field, Label, Input, MediaInput, Message } from '@zendeskgarden/react-forms';
@@ -123,6 +124,9 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
   const handleResponse = (resp: LoginResp) => {
     const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
+    console.log('user after login', user);
+    localStorage.setItem('userInformation', JSON.stringify(user));
+
     setUser(user);
     localStorage.setItem('userInformation', JSON.stringify(user));
     setPassValid(undefined);

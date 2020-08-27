@@ -52,6 +52,7 @@ function Main(): ReactElement {
         sport {
           sportName
         }
+        sportID
         timeStart
         timeEnd
         location
@@ -90,7 +91,7 @@ function Main(): ReactElement {
   if (loading) return <Loader />;
   if (error) return <div>Oopsie: {error.message}</div>;
   if (data && data.getAllEvents) {
-    console.log(data.getAllEvents);
+    //console.log(data.getAllEvents);
     return (
       <div className="Main">
         {/* {promptState ? <AddToHomeScreen toggle={promptSetState} buttonClick={addToHomeHandler} /> : null} */}
@@ -109,7 +110,7 @@ function Main(): ReactElement {
               <Apollo />
             </Route>
             <Route exact path="/newevent/">
-              <CreateEvent user={loggedInUser} />
+              <CreateEvent events={data.getAllEvents} />
             </Route>
             <Route exact path="/event/:ID">
               <EventDetails />
@@ -124,7 +125,7 @@ function Main(): ReactElement {
               <SignUp setUser={setLoggedInUser} loginRequest={loginRequest} />
             </Route>
             <Route exact path="/user/profile/">
-              <Profile user={loggedInUser} setUser={setLoggedInUser} />
+              <Profile user={loggedInUser} setUser={setLoggedInUser} events={data.getAllEvents} />
             </Route>
             <Redirect from="/" to="/intro/" />
           </Switch>

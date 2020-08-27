@@ -3,6 +3,8 @@ import styles from './TableEvent.module.scss';
 import ButtonGeneric from '../../../ButtonGeneric/ButtonGeneric';
 import Sport from '../../../Sport/Sport';
 import mockData from '../../../../mockData/data.json';
+import { EventData } from '../../../Board/Event';
+import moment from 'moment';
 
 type SportObj = {
   id: number;
@@ -17,7 +19,7 @@ type SportObj = {
 
 interface PropTypes {
   tableName: string | undefined;
-  events: SportObj[] | undefined;
+  events: EventData[] | undefined;
 }
 
 const TableEvent: React.FC<PropTypes> = ({ tableName, events }: PropTypes): ReactElement => {
@@ -27,14 +29,14 @@ const TableEvent: React.FC<PropTypes> = ({ tableName, events }: PropTypes): Reac
       return (
         <tr>
           <td>
-            <Sport sport={{ id: event.id, name: event.sportName }} />
-          </td>
-          <td>{event.location}</td>
-          <td>
-            {event.date} {event.timeStart}
+            <Sport sport={{ id: event.ID || 0, name: event.sport?.sportName || '' }} />
           </td>
           <td>
-            {event.registeredParticipants.length}/{event.maxParticipants}
+            {event.eventName} {event.location}
+          </td>
+          <td>{moment(event.timeStart).format('DD.MM HH:mm')}</td>
+          <td>
+            {1 && event.participants && event.participants.length}/{event.maxParticipants}
           </td>
         </tr>
       );
@@ -55,12 +57,6 @@ const TableEvent: React.FC<PropTypes> = ({ tableName, events }: PropTypes): Reac
             </div>
           </th>
         </tr>
-        {/* <tr>
-          <th className={styles.sport}>Sport</th>
-          <th className={styles.address}>Address</th>
-          <th className={styles.date}>Date</th>
-          <th className={styles.people}>People</th>
-        </tr> */}
         {list}
       </table>
     </div>
@@ -71,24 +67,24 @@ TableEvent.defaultProps = {
   tableName: 'Upcoming events',
   events: [
     {
-      id: 10,
-      sportName: 'basketball',
-      date: '1.1.2021',
-      timeStart: '10:40 am',
+      ID: 10,
+      sport: {
+        sportName: 'basketball',
+      },
       maxParticipants: 10,
       minParticipants: 3,
       location: '277 Bedford Ave, Brooklyn, NY 11211',
-      registeredParticipants: [3, 5, 6],
+      participants: [3, 5, 6],
     },
     {
-      id: 11,
-      sportName: 'football',
-      date: '1.1.2021',
-      timeStart: '10:40 am',
+      ID: 11,
+      sport: {
+        sportName: 'football',
+      },
       maxParticipants: 8,
       minParticipants: 3,
       location: '277 Bedford Ave, Brooklyn, NY 11211',
-      registeredParticipants: [3, 5, 6, 7],
+      participants: [3, 5, 6],
     },
   ],
 };
