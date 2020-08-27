@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation, gql } from '@apollo/client';
 import Loader from '../Loader/Loader';
@@ -31,6 +31,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
   console.log(userID);
 
   const [updateEvent, { loading, error, data }] = useMutation<Response, Arguments>(UPDATE__EVENT);
+  useEffect(() => {}, [updateEvent]);
 
   function handleJoin(ev: EventData) {
     if (userID) {
@@ -57,6 +58,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
       };
       updateEvent({ variables: { eventData: newObj, ID: ev.ID } });
     }
+    return;
   }
 
   const randomList = [
@@ -138,11 +140,15 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
         </div>
         <div className={styles.EventBox_right}>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.preventDefault();
               handleJoin(event);
             }}
           >
-            <ButtonGeneric buttonText="Join" buttonLink={userID ? '' : '/intro/'}></ButtonGeneric>
+            <ButtonGeneric
+              buttonText="Join"
+              buttonLink={userID ? '#' : '/user/signup/'}
+            ></ButtonGeneric>
           </button>
         </div>
       </div>
