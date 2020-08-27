@@ -58,9 +58,7 @@ const EventDetails: React.FC = () => {
     const spEvent = data.getOneEvent;
     const creator = spEvent.participants && spEvent.participants[0];
     const sportName = spEvent.sport && spEvent.sport.sportName;
-    console.log(spEvent);
-    console.log(spEvent.participants?.length);
-    const avatars = spEvent.participants?.map((elm) => (
+    const avatars = spEvent.participants?.map(() => (
       <Avatar
         backgroundColor={PALETTE.yellow[400]}
         size="small"
