@@ -40,8 +40,9 @@ const SButton = styled(Button)`
   color: #90755f;
   width: 50%;
   &:hover {
-    border-color: #ffffff;
-    color: #ffffff;
+    background: transparent;
+    border-color: #eea551;
+    color: #eea551;
   }
 `;
 
