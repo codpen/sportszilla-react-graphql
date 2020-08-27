@@ -57,6 +57,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
         participants: updatedParticipants,
       };
       updateEvent({ variables: { eventData: newObj, ID: ev.ID } });
+      history.go(0);
     }
     return;
   }
