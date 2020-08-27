@@ -90,7 +90,7 @@ const EventLogin: React.FC<PropTypes> = ({ event }) => {
     return imgArr;
   };
 
-  if (loading) return <Loader boxHeight={400} />;
+  if (loading) return <Loader />;
   if (error) return <p>Oopsie: {error.message}</p>;
   if (data) {
     console.log(data);

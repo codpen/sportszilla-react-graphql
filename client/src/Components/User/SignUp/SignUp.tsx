@@ -184,7 +184,7 @@ function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
     alert(error);
   };
 
-  if (isLoading) return <Loader boxHeight={800} />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.SignUp} data-testid="SignUp">

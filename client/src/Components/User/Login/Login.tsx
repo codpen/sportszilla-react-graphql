@@ -142,7 +142,7 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     loginRequest({ email, passW }, 'returning').then(handleResponse);
   };
 
-  if (isLoading) return <Loader boxHeight={800} />;
+  if (isLoading) return <Loader />;
 
   return (
     <div className={styles.Login} data-testid="Login">
