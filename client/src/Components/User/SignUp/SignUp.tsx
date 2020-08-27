@@ -152,6 +152,7 @@ function SignUp({ loginRequest, setUser }: PropTypes): ReactElement {
     const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
     setUser(user);
+    localStorage.setItem('userInformation', JSON.stringify(user));
     setUserData(initialUD);
     setValidStatuses(initialSts);
     setValidMsgs(initialMsgs);

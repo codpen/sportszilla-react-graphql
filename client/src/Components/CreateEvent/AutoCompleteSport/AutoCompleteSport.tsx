@@ -74,12 +74,14 @@ const AutoCompleteSport: React.FC<PropTypes> = ({ sportArray: sportArray, setSpo
 
 AutoCompleteSport.defaultProps = {
   sportArray: [
-    { ID: 0, sportName: 'basketball' },
-    { ID: 2, sportName: 'badminton' },
-    { ID: 4, sportName: 'football' },
-    { ID: 5, sportName: 'tennis' },
-    { ID: 6, sportName: 'golf' },
-    { ID: 7, sportName: 'baseball' },
+    { ID: 1, sportName: 'golf' },
+    { ID: 2, sportName: 'tennis' },
+    { ID: 3, sportName: 'basketball' },
+    { ID: 4, sportName: 'footbal' },
+    { ID: 5, sportName: 'badmington' },
+    { ID: 6, sportName: 'volleyball' },
+    { ID: 7, sportName: 'handball' },
+    { ID: 8, sportName: 'skateboard' },
   ],
 };
 

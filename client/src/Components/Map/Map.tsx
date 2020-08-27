@@ -36,8 +36,8 @@ const Map: React.FC<PropTypes> = ({ events }) => {
           position={{ lat: ev.latitude!, lng: ev.longitude! }}
           onClick={() => setOpen(ev.ID!)}
         >
-          {(open === ev.ID || open === 0) && (
-            <InfoBox options={{ closeBoxURL: '' }} onCloseClick={() => setOpen(null)}>
+          {open === ev.ID && (
+            <InfoBox options={{ closeBoxURL: '' }} onCloseClick={() => setOpen(0)}>
               <div className={styles.Popup}>
                 <EventLogin event={ev} />
               </div>

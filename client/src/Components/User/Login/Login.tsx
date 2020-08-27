@@ -125,7 +125,6 @@ function Login({ loginRequest, setUser }: PropTypes): ReactElement {
     const { jwtToken, user } = resp;
     localStorage.setItem('jwtToken', jwtToken);
     console.log('user after login', user);
-    localStorage.setItem('userInformation', JSON.stringify(user));
 
     setUser(user);
     localStorage.setItem('userInformation', JSON.stringify(user));

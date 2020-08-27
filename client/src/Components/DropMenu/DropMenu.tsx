@@ -4,8 +4,27 @@ import styles from './DropMenu.module.scss';
 const DropMenu: React.FC = () => {
   const userObject = JSON.parse(localStorage.getItem('userInformation') || '{}');
   const [open, setOpen] = useState<boolean>(false);
+  const [prompt, setPrompt] = useState<boolean>(true);
   let menu: HTMLElement;
-
+  /*
+  const [promptState, promptSetState] = useState<boolean>(true);
+  let defPrompt: any;
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    defPrompt = e;
+    // promptSetState(true)
+    console.log('defPrompt', defPrompt);
+  });
+  const addToHomeHandler = () => {
+    defPrompt.prompt();
+    defPrompt.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('User accepted the A2HS prompt');
+      }
+      promptSetState(false);
+    });
+  };
+*/
   useEffect(() => {
     menu = document.getElementById('drawerMenu') as HTMLElement;
   }, [open]);
@@ -39,6 +58,7 @@ const DropMenu: React.FC = () => {
           <li>
             <a href="/">Home</a>
           </li>
+
           {userObject.hasOwnProperty('email') ? (
             ''
           ) : (
@@ -70,6 +90,9 @@ const DropMenu: React.FC = () => {
           ) : (
             ''
           )}
+          <li>
+            <a>Install App</a>
+          </li>
           {userObject.hasOwnProperty('email') ? (
             <li>
               <a onClick={handleLogout} href="/">

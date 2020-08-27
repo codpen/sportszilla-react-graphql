@@ -5,7 +5,7 @@ interface Sport {
   ID?: number;
 }
 export interface EventData {
-  [index: string]: number | string | Date | undefined | number[] | UserData[];
+  [index: string]: number | string | Date | undefined | number[] | UserData[] | Sport;
   ID?: number;
   eventName?: string;
   sportID?: number;
