@@ -94,7 +94,7 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
       <div className={styles.avatarCnt}>
         <Avatar backgroundColor={PALETTE.grey[600]} style={{ height: '75px', width: '100px' }}>
           <Avatar.Text style={{ fontSize: '30px' }}>
-            {user?.firstName && user?.firstName[0]}
+            {aUser?.firstName && aUser?.firstName[0]}
           </Avatar.Text>
         </Avatar>
         <div>
@@ -122,9 +122,15 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
         <TableEvent
           tableName={'Joined Events'}
           events={
-            events[0].participants &&
+            events &&
             events.filter((event) => {
-              return event.participants?.filter((user) => user.ID === userObject.ID);
+              if (
+                event.participants &&
+                event.participants.length > 0 &&
+                event.participants[0].ID === userObject.ID
+              )
+                return false;
+              return event.participants?.filter((user) => user.ID === userObject.ID).length === 1;
             })
           }
         />

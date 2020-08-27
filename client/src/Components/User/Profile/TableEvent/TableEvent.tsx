@@ -23,6 +23,7 @@ interface PropTypes {
 }
 
 const TableEvent: React.FC<PropTypes> = ({ tableName, events }: PropTypes): ReactElement => {
+  console.log(events);
   const list =
     events &&
     events.map((event) => {
