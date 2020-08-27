@@ -20,13 +20,17 @@ import './Main.scss';
 import AddToHomeScreen from '../AddToHomeScreen/addToHome'
 
 function Main(): ReactElement {
+
+  const [promptState, promptSetState] = useState('');
+  
   let defPrompt: any;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     defPrompt = e;//set state to true
-    console.log('prompt it')
+    console.log( 'defPrompt',defPrompt)
   }); 
 
+  console.log( 'ONCLICK ',defPrompt)
   const addToHomeHandler = () => {
     defPrompt.prompt();
     defPrompt.userChoice.then((choiceResult: any)=> {

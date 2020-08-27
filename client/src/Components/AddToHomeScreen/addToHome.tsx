@@ -7,8 +7,7 @@ interface PropTypes {
   buttonClick: () => void;
 }
 
-//another button opt 'no'
-//set the previous state of the main component to false
+//on click set the previous state of the main component to false
 
 export default function AddToHomeScreen ({ buttonClick }: PropTypes): JSX.Element {
 	return (
