@@ -133,7 +133,6 @@ const EventDetails: React.FC = () => {
                 <span className={styles.minMaxNumb}>{spEvent.maxParticipants}</span>
               </div>
             </div>
-              <p>{String(spEvent.participants)}</p>
             <div className={styles.mates}>
               {avatars}
             </div>
