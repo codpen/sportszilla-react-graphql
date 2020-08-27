@@ -59,6 +59,8 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
   useEffect(() => {
     if (data && data.getOneUser) {
       localStorage.setItem('userAllInformation', JSON.stringify(data.getOneUser));
+      const userAllInformation = JSON.parse(localStorage.getItem('userAllInformation') || '{}');
+      setAUser(userAllInformation);
     }
   }, [loading]);
 
@@ -107,9 +109,13 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
         <TableEvent
           tableName={'Created Events'}
           events={
-            events[0].participants &&
+            events &&
             events.filter((event) => {
-              return event.participants?.[0].ID === userObject.ID;
+              return (
+                event.participants &&
+                event.participants.length > 0 &&
+                event.participants[0].ID === userObject.ID
+              );
             })
           }
         />
@@ -118,7 +124,7 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
           events={
             events[0].participants &&
             events.filter((event) => {
-              return event.participants?.filter((user) => user.ID === userObject.ID).length === 1;
+              return event.participants?.filter((user) => user.ID === userObject.ID);
             })
           }
         />

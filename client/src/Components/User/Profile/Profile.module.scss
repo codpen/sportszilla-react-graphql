@@ -1,10 +1,10 @@
 .Profile {
-  height: 100%;
   width: 100%;
+  flex: 1;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  overflow: scroll;
   padding-left: 20px;
   padding-right: 20px;
   padding-bottom: 10px;
@@ -50,7 +50,7 @@
     overflow: scroll;
     border-radius: 20px;
     width: 90%;
-    height: 20%;
+    height: 30%;
     border-color: none;
     display: flex;
     flex-direction: column;
