@@ -2,7 +2,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery, gql } from '@apollo/client';
 import moment from 'moment';
-import { Label } from '@zendeskgarden/react-forms';
 import { Avatar } from '@zendeskgarden/react-avatars';
 import { PALETTE } from '@zendeskgarden/react-theming';
 import { EventData } from '../Board/Event';
@@ -127,16 +126,14 @@ const EventDetails: React.FC = () => {
                 <span className={styles.minMaxNumb}>{spEvent.maxParticipants}</span>
               </div>
             </div>
-            <div className={styles.fields}>
-              <Label>Participants</Label>
+            <div>
               <p>{String(spEvent.participants)}</p>
             </div>
           </div>
         </div>
 
-        <div className={styles.fields}>
-          <Label>Description</Label>
-          <p>{spEvent.description}</p>
+        <div className={styles.descBox}>
+          <p className={styles.description}>˝{spEvent.description}˝</p>
         </div>
       </section>
     );

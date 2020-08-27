@@ -5,25 +5,16 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
-
-  .fields {
-    margin-top: 2vh;
-  }
-
-  .label {
-    font-size: 16px;
-  }
+  height: 92vh;
 
   .infoCard {
+    margin-top: 1vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
     align-items: center;
     align-self: flex-end;
-    margin-top: 1vh;
-    padding: 2%;
   }
 
   .creator {
@@ -179,6 +170,13 @@
       }
 
     }
+  }
 
+  .descBox {
+    width: 80%;
+    text-align: left;
+    color: #ba6c12;
+    font-style: italic;
+    height: 100%;
   }
 }
