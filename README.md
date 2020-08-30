@@ -1,10 +1,12 @@
+![GitHub](https://img.shields.io/github/license/noiffion/sportszilla?style=plastic)
+![GitHub contributors](https://img.shields.io/github/contributors/noiffion/SportsZilla?logo=github&style=plastic)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/m/noiffion/SportsZilla?logo=github&style=plastic)
+![GitHub top language](https://img.shields.io/github/languages/top/noiffion/sportszilla)
+![GitHub language count](https://img.shields.io/github/languages/count/noiffion/sportszilla)
+
 # SportsZilla
 
-Finding sport events with your mates
-
-## What is SportsZilla
-
-It's a web application where anybody can find sportfriends and amateur's sport events close to his/her area. User has possibility to create own event in every listed sport. User for the event can set up particular options, time, minimum and maximum persons, place and basic filters. The events can be found without login inside app in order get idea about events going around. Events can be filter by sport and date.
+It's a web application where anybody can find a new sport buddy and sport events close to his/her area. The User has the possibility to create own event in every listed sport. Events are customizable, meaning you can create an event that best fits your needs. The app allows users to visualize events without the need of login. Events can be filtered by sport and date.
 
 ## Getting started
 
@@ -54,12 +56,13 @@ It's a web application where anybody can find sportfriends and amateur's sport e
 
 ## The Future
 
-- Add friends feature
+- Add friends feature(upcoming soon)
 - Send messages to other users
 - Enable discussion inside event details
 - Possibility create groups and teams
 - Notification to others users
 - Enable set users favourite sports
+- allow event payment thru the app.
 
 # Creators
 
