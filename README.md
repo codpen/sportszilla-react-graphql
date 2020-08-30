@@ -42,12 +42,12 @@ And that's it!! Happy coding
 
 # Used Tech Stack
 
-*TypeScript
-*Sequelize
-*Postgres
-*GraphQL
-*JWT
-*React
+- TypeScript
+- Sequelize
+- Postgres
+- GraphQL
+- JWT
+- React
 
 # Observations
 
