@@ -18,7 +18,7 @@ It's a web application where anybody can find sportfriends and amateur's sport e
 
 3. In a second terminal navigate to the client folder and run `npm install` in your terminal to install dependencies. Then simply run `npm start` to get the react frontend running. You should see the app open up in your browser at http://localhost:3000 - the default react port.
 
-4. The app is running :-)z
+4. The app is running :-)
 
 And that's it!! Happy coding
 
