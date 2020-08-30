@@ -30,7 +30,7 @@ And that's it!! Happy coding
 
 ## Create profile
 
-![Create profile](/__screenshots/create_profile)
+![Create profile](/__screenshots/create_profile.jpg)
 
 ## Navigation events
 
