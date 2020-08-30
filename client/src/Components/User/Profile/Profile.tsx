@@ -112,9 +112,10 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
             events &&
             events.filter((event) => {
               return (
-                event.participants &&
-                event.participants.length > 0 &&
-                event.participants[0].ID === userObject.ID
+                true ===
+                (event.participants &&
+                  event.participants.length > 0 &&
+                  event.participants[0].ID === userObject.ID)
               );
             })
           }
@@ -124,12 +125,6 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
           events={
             events &&
             events.filter((event) => {
-              if (
-                event.participants &&
-                event.participants.length > 0 &&
-                event.participants[0].ID === userObject.ID
-              )
-                return false;
               return event.participants?.filter((user) => user.ID === userObject.ID).length === 1;
             })
           }
@@ -137,7 +132,6 @@ const Profile: React.FC<PropTypes> = ({ user: user, setUser, events }) => {
       </div>
       <div className={styles.friendCtn}>
         <input placeholder="Search friends" />
-        <ul>{listFriends}</ul>
       </div>
     </div>
   );
