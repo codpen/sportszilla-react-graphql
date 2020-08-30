@@ -67,9 +67,7 @@ And that's it!! Happy coding
 - Notification to others users
 - Enable set users favourite sports
 
-# Collaborators
-
-Checkout [https://github.com/noiffion/SportsZilla](https://github.com/noiffion/SportsZilla) where testing scripts were added. Contributors include:
+# Creators
 
 1. [Ricardo D Alvarez](https://github.com/rikiDalvarez)
 2. [David Kerekes](https://github.com/noiffion/)
