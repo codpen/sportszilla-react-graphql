@@ -40,7 +40,7 @@ And that's it!! Happy coding
 
 ![Info Event](/__screenshots/info_event.jpg)
 
-## Used Tech Stack
+# Used Tech Stack
 
 - TypeScript
 - Sequelize
