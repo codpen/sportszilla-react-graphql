@@ -2,13 +2,9 @@
 
 Finding sport events with your mates
 
-Helping to setup, find outdoor or indoor sports events with folks
-
-planned stack: TypeScript, Sequelize Postgres, GraphQL, JWT, React, React query
-
 # What is SportsZilla
 
-It's a web application where anybody can find sportfriends and amateur's sport events close to persons area. User has possibility to create own event in every listed sport. User for the event can set up particular option, time, minimum and maximum persons, place and basic filters. The events can be found without login inside app in order get idea about events going around. Events can be filter by sport and date.
+It's a web application where anybody can find sportfriends and amateur's sport events close to his/her area. User has possibility to create own event in every listed sport. User for the event can set up particular options, time, minimum and maximum persons, place and basic filters. The events can be found without login inside app in order get idea about events going around. Events can be filter by sport and date.
 
 # Getting started
 
@@ -19,8 +15,6 @@ It's a web application where anybody can find sportfriends and amateur's sport e
 3. In a second terminal navigate to the client folder and run `npm install` in your terminal to install dependencies. Then simply run `npm start` to get the react frontend running. You should see the app open up in your browser at http://localhost:3000 - the default react port.
 
 4. The app is running :-)
-
-And that's it!! Happy coding
 
 # The App itself
 
