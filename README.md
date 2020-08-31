@@ -3,8 +3,9 @@
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/noiffion/SportsZilla?logo=github&style=plastic)
 ![GitHub top language](https://img.shields.io/github/languages/top/noiffion/sportszilla)
 ![GitHub language count](https://img.shields.io/github/languages/count/noiffion/sportszilla)
-
+<p align="center">
 <img src="client/public/logo_sportszilla.png" />
+</p>
 
 It's a web application where anybody can find a new sport buddy and sport events close to his/her area. The User has the possibility to create own event in every listed sport. Events are customizable, meaning you can create an event that best fits your needs. The app allows users to visualize events without the need of login. Events can be filtered by sport and date.
 
