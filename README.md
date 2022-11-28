@@ -67,7 +67,7 @@ It's a web application where anybody can find a new sport buddy and sport events
 
 # Creators
 
-1. [Ricardo D Alvarez](https://github.com/rikiDalvarez) ⚽️
-2. [Daniel Ren](https://github.com/codpen/) 🏀
+1. [Ricardo D Alvarez](https://github.com/rikiDalvarez) 🏀
+2. [Daniel Ren](https://github.com/codpen/) ⚽️
 3. [Adrian Margos](https://github.com/adrimargbxl) 🏄‍♂️
 4. [Martin Rodl](https://github.com/martinrodl)  🎾
